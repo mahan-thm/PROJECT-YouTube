@@ -55,17 +55,18 @@
 2. video speed
 3. recommendation system (likes, search history, view, channels)
 4. trending videos (hot)
-5. report user for admin
-6. internet server 
-7. open file explorer to select uploading file 
-8. creat channels
-9. email to forgot pass
-10. ads
-11. you tube premium
-12. share post
-13. android app 
-14. SMS verification
-15. share post
+5. Send feedback
+6. report user for admin
+7. internet server 
+8. open file explorer to select uploading file 
+9. creat channels
+10. email to forgot pass
+11. ads
+12. you tube premium
+13. share post
+14. android app 
+15. SMS verification
+16. share post
 
 
 
