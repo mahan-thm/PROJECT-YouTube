@@ -11,7 +11,8 @@ public class Dbm {
         return false;
     }
 
-    public static boolean checkPassword(String passwordInput) {
+
+    public static boolean authorize(String usernameInput,String passwordInput) {
         //TODO
         return false;
     }

@@ -45,6 +45,10 @@ public class ClientHandler implements Runnable {
             switch (clientRequest){
                 case "/login":
                     login();
+                    break;
+                case "/signUp":
+                    signUp();
+                    break;
             }
         }
     }
@@ -56,13 +60,27 @@ public class ClientHandler implements Runnable {
 
         if (Dbm.checkUsername(username_input))
         {
-            if (Dbm.checkPassword(password_input)){
+            if (Dbm.authorize(username_input,password_input)){
                 //todo send account information
-
-
             }
         }
 
+    }
+
+    private void signUp() {
+        while(true){
+
+            String username_input = ""; //todo
+            String password_input = "";
+            String name_input = "";
+            String email_input = "";
+            if (!Dbm.checkUsername(username_input)){
+                //todo send impossible
+            }
+            else {
+                //todo save in data base
+            }
+        }
     }
 
 
