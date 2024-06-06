@@ -1,4 +1,4 @@
-package Client.controllers;
+package client.controllers;
 
 public class LoginController {
 }
