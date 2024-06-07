@@ -16,7 +16,7 @@ public class ClientHandler implements Runnable {
 
 
     String userName;
-
+    //tst2
 
     public ClientHandler(Socket socket) {
         try {
