@@ -11,13 +11,13 @@ public class LoginController {
 
 
 
-
-
-
-    public void request_login(){
+    //TODO in case of press login button we should run request_login
+    public void request_login(String username_input,String password_input){
         JSONObject request = new JSONObject();
+        request.put("requestType","/login");
+        request.put("username",username_input);
+        request.put("password",password_input);
 
-        //todo create request
 
         try {
             writer.write(request.toString());
@@ -26,4 +26,5 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
 }
