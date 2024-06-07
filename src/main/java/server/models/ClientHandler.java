@@ -1,5 +1,8 @@
 package server.models;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import server.database.Dbm;
 
 import java.io.*;
@@ -33,28 +36,39 @@ public class ClientHandler implements Runnable {
     @Override
 
     public void run() {
+        requestGet();
 
+    }
+
+    private void requestGet() {
         while (socket.isConnected()){
-            String clientRequest = "";
+            JSONParser parser = new JSONParser();
+            JSONObject request = new JSONObject();
             try {
-                clientRequest = bufferedReader.readLine();
+                String clientRequest = bufferedReader.readLine();
+                request = (JSONObject) parser.parse(clientRequest);
+
             }catch (IOException e){
                 e.printStackTrace();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
 
-            switch (clientRequest){
+
+            String requestType = (String) request.get("requestType");
+            switch (requestType){
                 case "/login":
-                    login();
+                    login(request);
                     break;
                 case "/signUp":
-                    signUp();
+                    signUp(request);
                     break;
             }
         }
     }
 
 
-    private void login(){
+    private void login(JSONObject request){
         String username_input = ""; //todo
         String password_input = "";
 
@@ -67,7 +81,7 @@ public class ClientHandler implements Runnable {
 
     }
 
-    private void signUp() {
+    private void signUp(JSONObject request) {
         while(true){
 
             String username_input = ""; //todo
