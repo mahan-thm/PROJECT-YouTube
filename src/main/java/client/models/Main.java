@@ -7,9 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.Objects;
 
 public class Main extends Application {
+
+
+    Socket socket ;
+
     public static void main(String[] args) {
         launch(args);
 
