@@ -16,4 +16,8 @@ public class Dbm {
         //TODO
         return false;
     }
+
+    public static void signUp(){
+        //todo
+    }
 }
