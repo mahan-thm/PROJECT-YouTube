@@ -6,3 +6,9 @@
     -fx-background-radius: 30;
     -fx-background-color: white;
 }
+#youtubeIconSvg_ImageView{
+    -fx-shape: url('google-icon.svg');
+}
+.button{
+    -fx-shape: url('youtube-icon.svg');
+}
