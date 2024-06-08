@@ -8,18 +8,16 @@ import server.database.Dbm;
 import java.io.*;
 import java.net.Socket;
 
-
+import static client.models.Main.write;
 
 
 public class ClientHandler implements Runnable {
 
     private Socket socket;
     private BufferedReader reader;
-    private BufferedWriter writer;
+    private static BufferedWriter writer;
 
 
-    String userName;
-    //tst2
 
     public ClientHandler(Socket socket) {
         try {
@@ -32,15 +30,23 @@ public class ClientHandler implements Runnable {
             closeClientHandler(socket, reader, writer);
         }
     }
+    public static void write(JSONObject response){
 
+
+        try {
+            writer.write(response.toString());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
     @Override
 
     public void run() {
-        requestGet();
+        requestHandler();
 
     }
 
-    private void requestGet() {
+    private void requestHandler() {
         while (socket.isConnected()){
             JSONParser parser = new JSONParser();
             JSONObject request = new JSONObject();
@@ -57,12 +63,11 @@ public class ClientHandler implements Runnable {
 
             String requestType = (String) request.get("requestType");
             switch (requestType){
-                case "/login":
-                    login(request);
-                    break;
-                case "/signUp":
-                    signUp(request);
-                    break;
+                case "/login"      -> login(request);
+                case "/signUp"     -> signUp(request);
+                case "/video"      -> video(request);
+                case "/videoFile"  -> videoFile(request);
+
             }
         }
     }
@@ -77,13 +82,16 @@ public class ClientHandler implements Runnable {
             if (Dbm.checkUsername(username_input) && Dbm.authorize(username_input,password_input))
             {
 
-                request.put("responseType","/login_accepted");
-                request.put("username",username_input);
-                request.put("password",password_input);
+                response.put("responseType","/login_accepted");
+                response.put("username",username_input);
+                response.put("password",password_input);
+
             }
             else{
-                request.put("responseType","/login_rejected");
+                response.put("responseType","/login_rejected");
             }
+
+            write(response);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -91,19 +99,52 @@ public class ClientHandler implements Runnable {
     }
 
     private void signUp(JSONObject request) {
-        while(true){
 
-            String username_input = (String) request.get("username_input");
-            String password_input = (String) request.get("password_input");
-            String name_input = (String) request.get("name_input");
-            String email_input = (String) request.get("email_input");
-            if (!Dbm.checkUsername(username_input)){
-                //todo send impossible
-            }
-            else {
-                //todo save in data base
-            }
+        JSONObject response = new JSONObject();
+
+        String username_input = (String) request.get("username_input");
+        String password_input = (String) request.get("password_input");
+        String name_input = (String) request.get("name_input");
+        String email_input = (String) request.get("email_input");
+        String number_input = (String) request.get("number_input");
+
+        if (!Dbm.checkUsername(username_input)){
+            response.put("responseType","/signUp_rejected");
         }
+        else
+        {
+            response.put("responseType","/signUp_accepted");
+            Dbm.signUp(username_input,password_input,name_input,email_input,number_input);
+        }
+        write(response);
+    }
+
+    private void video(JSONObject request){
+        JSONObject response = new JSONObject();
+
+        int id = (int) request.get("video_id");
+        String title = Dbm.getVideo_Title(id);
+        String title_body = Dbm.getVideo_TitleBody(id);
+        String duration = Dbm.getVideo_duration(id);
+        String creation_time = Dbm.getVideo_creationTime(id);
+        String total_view = Dbm.getVideo_totalView(id);
+        String total_likes = Dbm.getVideo_totalLikes(id);
+
+
+
+        response.put("title",title);
+        response.put("title_body",title_body);
+        response.put("duration",duration);
+        response.put("creation_time",creation_time);
+        response.put("total_view",total_view);
+        response.put("total_likes",total_likes);
+
+        write(response);
+
+    }
+
+    private void videoFile(JSONObject request){
+        //todo
     }
 
 

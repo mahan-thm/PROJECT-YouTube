@@ -1,5 +1,9 @@
 package server.database;
 
+import org.json.simple.JSONObject;
+
+import static client.models.Main.write;
+
 public class Dbm {
 
 
@@ -17,7 +21,31 @@ public class Dbm {
         return false;
     }
 
-    public static void signUp(){
-        //todo
+    public static void signUp(String username, String password, String name, String email, String number){
+        //TODO
+    }
+
+    public static String getVideo_Title(int id) {
+        return "";
+    }
+
+    public static String getVideo_TitleBody(int id) {
+        return "";
+    }
+
+    public static String getVideo_creationTime(int id) {
+        return "";
+    }
+
+    public static String getVideo_duration(int id) {
+        return "";
+    }
+
+    public static String getVideo_totalView(int id) {
+        return "";
+    }
+
+    public static String getVideo_totalLikes(int id) {
+        return "";
     }
 }

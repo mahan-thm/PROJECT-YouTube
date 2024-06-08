@@ -75,8 +75,6 @@ public class Main extends Application {
         return response;
     }
     public static void write(JSONObject request){
-
-
         try {
             writer.write(request.toString());
         }catch (IOException e){
