@@ -12,19 +12,8 @@ public class LoginController {
 
 
 
-    //TODO in case of press login button we should run request_login
-    public void request_login(String username_input,String password_input){
-        JSONObject request = new JSONObject();
-        request.put("requestType","/login");
-        request.put("username",username_input);
-        request.put("password",password_input);
+    //TODO in case of press login button we should run request.login();
 
-        try {
-            writer.write(request.toString());
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
     private void getResponse(){
         JSONObject response = new JSONObject();
         response = read();

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -73,7 +74,20 @@ public class Main extends Application {
         response.put("respondType","/error");
         return response;
     }
+    public static void write(JSONObject request){
+
+
+        try {
+            writer.write(request.toString());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+                                                                                              //todo
+
 }
+
+
 
 
 
