@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.Socket;
@@ -56,7 +59,20 @@ public class Main extends Application {
         }
     }
 
-
+    public static JSONObject read(){
+        JSONParser parser = new JSONParser();
+        JSONObject response = new JSONObject();
+        try {
+            response = (JSONObject) parser.parse(reader.readLine());
+            return response;
+        }catch (IOException e){
+            e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        response.put("respondType","/error");
+        return response;
+    }
 }
 
 
