@@ -58,3 +58,6 @@
     -fx-background-color: #cccccc;
     -fx-background-radius: 0 20 20 0;
 }
+.postThumbnail_imageView{
+    -fx-border-radius: 10;
+}
