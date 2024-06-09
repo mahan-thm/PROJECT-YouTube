@@ -71,8 +71,16 @@ public class Request {
 
         write(request);
     }
-    //-------------------------------------------------------------------------------------------------------
+    public void commentList(String video_id){
+        JSONObject request = new JSONObject();
+        request.put("requestType","/commentList");
+        request.put("video_id",video_id);
 
+
+        write(request);
+    }
+
+    //-------------------------------------------------------------------------------------------------------
     // item request------------------------------------------------------------------------------------------
     static void video(String video_id){
         JSONObject request = new JSONObject();
@@ -88,10 +96,10 @@ public class Request {
 
         write(request);
     }
-    public void comments(String video_id){
+    public void comment(String comment_id){
         JSONObject request = new JSONObject();
-        request.put("requestType","/comments");
-        request.put("video_id",video_id);
+        request.put("requestType","/comment");
+        request.put("comment_id",comment_id);
 
 
         write(request);
@@ -107,28 +115,70 @@ public class Request {
     //------------------------------------------------------------------------------------------------------
 
     // submit requests -------------------------------------------------------------------------------------
-    public void createChannel(String channelName,JSONArray tags){
+    public void createChannel(String channelName,String channelUsername ,JSONArray tags){
 
         JSONObject request = new JSONObject();
         request.put("requestType","/createChannel");
         request.put("channelName",channelName);
+        request.put("channelUsername",channelUsername);
+        request.put("channelDescription",channelUsername);
         request.put("tags",tags);
 
 
         write(request);
     }
-    public void createVideo(String channel_id,String videoName,String videoCaption,JSONArray tags){
+    public void deleteChannel(int channel_id){
 
         JSONObject request = new JSONObject();
-        request.put("requestType","/createVideo");
+        request.put("requestType","/deleteChannel");
+        request.put("channel_id",channel_id);
+
+
+        write(request);
+    }
+    public void addVideo(String channel_id, String videoName, String videoCaption, JSONArray tags){
+
+        JSONObject request = new JSONObject();
+        request.put("requestType","/addVideo");
         request.put("channel_id",channel_id);
         request.put("videoName",videoName);
-        request.put("videoCaption",videoCaption);
+        request.put("videoDescription",videoCaption);
         request.put("tags",tags);
 
 
         write(request);
     }
+    public void removeVideo(int video_id){
+
+        JSONObject request = new JSONObject();
+        request.put("requestType","/removeVideo");
+        request.put("video_id",video_id);
+
+
+
+        write(request);
+    }
+    static void addComment(String video_id,String text ,String repliedTo_id){
+        JSONObject request = new JSONObject();
+        request.put("requestType","/addComment");
+
+        request.put("video_id",video_id);
+        request.put("text",text);
+        request.put("repliedTo_id",repliedTo_id);
+
+        write(request);
+    }
+    static void removeComment(String comment_id,String repliedTo_id){
+        JSONObject request = new JSONObject();
+        request.put("requestType","/removeComment");
+        request.put("comment_id",comment_id);
+        request.put("repliedTo_id",repliedTo_id);
+
+        write(request);
+    }
+    //------------------------------------------------------------------------------------------------------
+
+    // tiny action request----------------------------------------------------------------------------------
     public void subscribeChannel(String channel_id, String videoName, String videoCaption, JSONArray tags){
 
         JSONObject request = new JSONObject();
@@ -148,9 +198,6 @@ public class Request {
 
         write(request);
     }
-    //------------------------------------------------------------------------------------------------------
-
-    // tiny action request----------------------------------------------------------------------------------
     static void add_WatchedVideo(String video_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/watchVideo");
@@ -211,40 +258,17 @@ public class Request {
 
         write(request);
     }
-    static void add_comment(String comment_id,String repliedTo_id){
+    static void edit_commentLike(String comment_id,String editType){
         JSONObject request = new JSONObject();
-        request.put("requestType","/add_comment");
-        request.put("comment_id",comment_id);
-        request.put("repliedTo_id",repliedTo_id);
 
-        write(request);
-    }
-    static void remove_comment(String comment_id,String repliedTo_id){
-        JSONObject request = new JSONObject();
-        request.put("requestType","/remove_comment");
+        request.put("requestType","/edit_commentLike");
+        request.put("editType","/edit_commentLike"); //edit type: /addLike /removeLike /addDislike /removeDislike
         request.put("comment_id",comment_id);
-        request.put("repliedTo_id",repliedTo_id);
-
-        write(request);
-    }
-    static void add_commentLike(String comment_id,String repliedTo_id){
-        JSONObject request = new JSONObject();
-        request.put("requestType","/add_commentLike");
-        request.put("comment_id",comment_id);
-        request.put("repliedTo_id",repliedTo_id);
 
 
         write(request);
     }
-    static void remove_commentLike(String comment_id,String repliedTo_id){
-        JSONObject request = new JSONObject();
-        request.put("requestType","/remove_commentLike");
-        request.put("comment_id",comment_id);
-        request.put("repliedTo_id",repliedTo_id);
 
-
-        write(request);
-    }
     //-----------------------------------------------------------------------------------------------------
 
 }
