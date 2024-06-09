@@ -1,10 +1,11 @@
 package server.models;
+import org.json.JSONArray;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import server.database.Dbm;
+
 import com.google.gson.Gson;
 
 import java.io.*;
@@ -140,9 +141,13 @@ public class ClientHandler implements Runnable {
 
         int videoCount = (int) request.get("count");
         JSONArray tags = (JSONArray) request.get("tags");
+        JSONArray videoIdList = new JSONArray();
         // todo recommendation
-        List<Integer> videoIdList = Dbm.getRandomVideoId();
-        Gson gson = new Gson();
+        List<Integer> idList = Dbm.getRandomVideoId();
+
+        for (Integer id : idList) {
+            videoIdList.put(id);
+        }
 
 
 

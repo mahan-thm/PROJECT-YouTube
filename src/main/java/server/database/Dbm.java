@@ -2,6 +2,8 @@ package server.database;
 
 import org.json.simple.JSONObject;
 
+import java.util.List;
+
 import static client.models.Main.write;
 
 public class Dbm {
@@ -47,6 +49,14 @@ public class Dbm {
 
     public static String getVideo_totalLikes(int id) {
         return "";
+    }
+
+    public static List<Integer> getRandomVideoId() {
+        return List.of();
+    }
+
+    public static int get_user_id() {
+        return 0;
     }
 
     //test 6
