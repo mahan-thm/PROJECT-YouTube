@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane minHeight="260.0" minWidth="260.0" prefHeight="260.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="260.0" minWidth="260.0" prefHeight="260.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.PostInHomeController">
    <children>
       <ImageView fx:id="imageThumbnail_imageView" fitHeight="150.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true" />
       <VBox layoutY="150.0" minHeight="110.0" minWidth="260.0" prefHeight="110.0" prefWidth="260.0" spacing="5.0">
