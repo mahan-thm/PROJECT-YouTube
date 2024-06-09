@@ -67,6 +67,7 @@
 14. android app 
 15. SMS verification
 16. share post
+17. miniPlayer
 
 
 
