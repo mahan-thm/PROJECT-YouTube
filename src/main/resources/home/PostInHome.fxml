@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="home.Post"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane minHeight="260.0" minWidth="260.0" prefHeight="260.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="imageThumbnail_imageView" fitHeight="150.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox layoutY="150.0" minHeight="110.0" minWidth="260.0" prefHeight="110.0" prefWidth="260.0" spacing="5.0">
+         <children>
+            <Label text="Label">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label text="chanell name" textFill="#5b5b5b" />
+            <Label text="view • time upload" textFill="#5b5b5b" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
