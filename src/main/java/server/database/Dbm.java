@@ -141,5 +141,14 @@ public class Dbm {
     public static void removeFromPlaylist(int videoId, int watchedVideosId) {
     }
 
+    public static void likeComment(int commentId, int userId) {
+    }
+
+    public static void editCommentLike(int commentId, int userId, String liked) {
+    }
+
+    public static void removeCommentLike() {
+    }
+
     //test 6
 }

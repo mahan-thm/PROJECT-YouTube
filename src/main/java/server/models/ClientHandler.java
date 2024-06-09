@@ -90,17 +90,10 @@ public class ClientHandler implements Runnable {
                 case "/remove_likedVideo"      -> remove_likedVideo(request);
                 case "/add_dislikedVideo"      -> add_dislikedVideo(request);
                 case "/remove_dislikedVideo"   -> remove_dislikedVideo(request);
-                case "/add_commentLike"        -> add_commentLike(request);
-                case "/remove_commentLike"     -> remove_commentLike(request);
+                case "/edit_commentLike"       -> edit_commentLike(request);
 
             }
         }
-    }
-
-    private void add_commentLike(JSONObject request) {
-    }
-
-    private void remove_commentLike(JSONObject request) {
     }
 
 
@@ -423,6 +416,7 @@ public class ClientHandler implements Runnable {
         response.put("responseType","/add_WatchedVideo_accepted");
 
     }
+
     private void remove_WatchedVideo(JSONObject request) {
         JSONObject response = new JSONObject();
 
@@ -499,6 +493,22 @@ public class ClientHandler implements Runnable {
         Dbm.removeFromPlaylist(video_id,dislikedVideo_id);
 
         response.put("responseType","/remove_dislikedVideo_accepted");
+    }
+    private void edit_commentLike(JSONObject request) {
+
+        JSONObject response = new JSONObject();
+
+        int comment_id = (int) request.get("comment_id");
+        String editType = (String) request.get("editType");
+
+        switch(editType){
+            case "addLike"    -> Dbm.editCommentLike(comment_id,user_id,"liked");
+            case "removeLike" -> Dbm.removeCommentLike();
+            case "addDislike" -> Dbm.editCommentLike(comment_id,user_id,"Disliked");
+
+        }
+
+        response.put("responseType","/edit_commentLike_accepted");
     }
 
     public void closeClientHandler(Socket socket,BufferedReader bufferedReader,BufferedWriter bufferedWriter){

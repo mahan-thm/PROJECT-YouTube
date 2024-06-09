@@ -258,22 +258,17 @@ public class Request {
 
         write(request);
     }
-    static void add_commentLike(String comment_id){
+    static void edit_commentLike(String comment_id,String editType){
         JSONObject request = new JSONObject();
-        request.put("requestType","/add_commentLike");
+
+        request.put("requestType","/edit_commentLike");
+        request.put("editType","/edit_commentLike"); //edit type: /addLike /removeLike /addDislike /removeDislike
         request.put("comment_id",comment_id);
 
 
         write(request);
     }
-    static void remove_commentLike(String comment_id){
-        JSONObject request = new JSONObject();
-        request.put("requestType","/remove_commentLike");
-        request.put("comment_id",comment_id);
 
-
-        write(request);
-    }
     //-----------------------------------------------------------------------------------------------------
 
 }
