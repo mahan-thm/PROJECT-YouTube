@@ -1,12 +1,16 @@
 package server.models;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import server.database.Dbm;
+import com.google.gson.Gson;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import static client.models.Main.write;
 
@@ -17,7 +21,7 @@ public class ClientHandler implements Runnable {
     private BufferedReader reader;
     private static BufferedWriter writer;
 
-
+    private int user_id;
 
     public ClientHandler(Socket socket) {
         try {
@@ -64,7 +68,9 @@ public class ClientHandler implements Runnable {
             String requestType = (String) request.get("requestType");
             switch (requestType){
                 case "/login"      -> login(request);
+                case "/logout"      -> logout(request);
                 case "/signUp"     -> signUp(request);
+                case "/videoList"      -> videoList(request);
                 case "/video"      -> video(request);
                 case "/videoFile"  -> videoFile(request);
 
@@ -82,9 +88,12 @@ public class ClientHandler implements Runnable {
             if (Dbm.checkUsername(username_input) && Dbm.authorize(username_input,password_input))
             {
 
+                user_id = Dbm.get_user_id();
+
                 response.put("responseType","/login_accepted");
                 response.put("username",username_input);
                 response.put("password",password_input);
+
 
             }
             else{
@@ -96,6 +105,13 @@ public class ClientHandler implements Runnable {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void logout(JSONObject request) {
+        JSONObject response = new JSONObject();
+        response.put("responseType","/logout_accepted");
+        user_id = -1;
+        write(response);
     }
 
     private void signUp(JSONObject request) {
@@ -118,6 +134,20 @@ public class ClientHandler implements Runnable {
         }
         write(response);
     }
+    private void videoList(JSONObject request) {
+
+        JSONObject response = new JSONObject();
+
+        int videoCount = (int) request.get("count");
+        JSONArray tags = (JSONArray) request.get("tags");
+        // todo recommendation
+        List<Integer> videoIdList = Dbm.getRandomVideoId();
+        Gson gson = new Gson();
+
+
+
+        write(response);
+    }
 
     private void video(JSONObject request){
         JSONObject response = new JSONObject();
@@ -129,7 +159,6 @@ public class ClientHandler implements Runnable {
         String creation_time = Dbm.getVideo_creationTime(id);
         String total_view = Dbm.getVideo_totalView(id);
         String total_likes = Dbm.getVideo_totalLikes(id);
-
 
 
         response.put("title",title);
@@ -146,7 +175,6 @@ public class ClientHandler implements Runnable {
     private void videoFile(JSONObject request){
         //todo
     }
-
 
     public void closeClientHandler(Socket socket,BufferedReader bufferedReader,BufferedWriter bufferedWriter){
 
