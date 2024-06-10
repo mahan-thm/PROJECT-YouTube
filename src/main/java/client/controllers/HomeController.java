@@ -22,6 +22,7 @@ public class HomeController implements Initializable {
     @FXML
     private ScrollPane post_scrollPane;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -54,6 +55,12 @@ public class HomeController implements Initializable {
         }
 
     }
+
+
+    public void toolBar_action(){
+
+    }
+
 
 
 
