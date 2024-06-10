@@ -7,6 +7,7 @@ import java.util.List;
 public class Dbm {
 
 
+    public static Object getCommentSender_id;
 
     public static boolean checkUsername(String username_input){
         //TODO
@@ -148,6 +149,61 @@ public class Dbm {
     }
 
     public static void removeCommentLike() {
+    }
+
+    public static void addUser(String usernameInput, String passwordInput, String nameInput, String emailInput, String numberInput) {
+    }
+
+    public static String getVideo_description(int id) {
+        return null;
+    }
+
+    public static String getVideo_link(int videoId) {
+        return null;
+    }
+
+    public static String getUsername(Object getCommentSenderId) {
+        return null;
+    }
+
+    public static String getChannelDescription(int channelId) {
+        return null;
+    }
+
+    public static void addChannel(String channelName, String channelUsername, String channelDescription) {
+    }
+
+    public static List<Integer> getChannelVideoList(int channelId) {
+        return null;
+    }
+
+    public static List<Integer> getVideoCommentList(Integer videoId) {
+        return null;
+    }
+
+    public static void removeChannel(int channelId) {
+    }
+
+    public static String getVideoPath(int videoId) {
+        return null;
+    }
+
+    public static void addUserSubscribedChannels(int channelId, int userId) {
+    }
+
+    public static void addChannelTotalSubscribers(int channelId) {
+    }
+
+    public static void removeUserSubscribedChannels(int channelId, int userId) {
+    }
+
+    public static void reduceChannelTotalSubscribers(int channelId) {
+    }
+
+    public static void addSavedVideo(int userId, String playlistType, int videoId) {
+    }
+
+    public static void removeSavedVideo(int userId, String playlistType, int videoId) {
     }
 
     //test 6
