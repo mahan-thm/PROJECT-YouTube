@@ -21,7 +21,10 @@ public class HomeController implements Initializable {
     private VBox postInHome_vBox;
     @FXML
     private ScrollPane post_scrollPane;
-
+    @FXML
+    private Pane toolBar_pane;
+    @FXML
+    private VBox toolBar_vBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,8 +46,8 @@ public class HomeController implements Initializable {
 
                     pane.prefWidthProperty().bind(post_scrollPane.widthProperty());
                     pane.prefHeightProperty().bind(post_scrollPane.widthProperty());
-                    ((ImageView)((VBox)pane.getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(pane.widthProperty());
-                    ((ImageView)((VBox)pane.getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(pane.widthProperty());
+                    ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(pane.widthProperty());
+                    ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(pane.widthProperty());
 
                     hBox.getChildren().add(pane);
                 } catch (IOException e) {
@@ -57,11 +60,12 @@ public class HomeController implements Initializable {
     }
 
 
-    public void toolBar_action(){
+    public void toolBar_action() {
+        Boolean toolbarShow = toolBar_pane.isVisible();
 
+        toolBar_pane.setVisible(!toolbarShow);
+        toolBar_vBox.setVisible(toolbarShow);
     }
-
-
 
 
 }

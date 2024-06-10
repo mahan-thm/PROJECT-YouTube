@@ -18,6 +18,22 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.HomeController">
+   <center>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="910.0" pannable="true" HBox.hgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="postInHome_vBox" prefHeight="490.0" prefWidth="906.0" />
+               </content>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding></ScrollPane>
+         </children>
+      </HBox>
+   </center>
    <top>
       <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="960.0">
          <columnConstraints>
@@ -31,7 +47,6 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="194.0">
                <children>
-                  <Button fx:id="toolBarHome_button" layoutX="16.0" layoutY="17.0" maxHeight="15.0" maxWidth="20.0" minHeight="15.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="20.0" />
                   <Group layoutX="55.0" layoutY="10.0">
                      <children>
                         <Button fx:id="youTubeIconHome1_button" layoutX="2.0" layoutY="5.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="30.0" />
@@ -39,6 +54,11 @@
                         <Button fx:id="youTubeIconHome2_button" layoutX="14.0" layoutY="11.0" maxHeight="8.0" maxWidth="8.0" minHeight="8.0" minWidth="8.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="8.0" />
                      </children>
                   </Group>
+                  <Button alignment="CENTER" layoutX="6.0" layoutY="5.0" mnemonicParsing="false" onAction="#toolBar_action" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <Button fx:id="toolBarHome_button" maxHeight="15.0" maxWidth="20.0" minHeight="15.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="20.0" />
+                     </graphic>
+                  </Button>
                </children></AnchorPane>
             <TextField fx:id="Search_textField" prefHeight="40.0" prefWidth="558.0" promptText="Search" GridPane.columnIndex="1">
                <font>
@@ -71,54 +91,69 @@
    <left>
       <AnchorPane prefHeight="490.0" prefWidth="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane maxHeight="490.0" maxWidth="50.0" prefHeight="490.0" prefWidth="480.0">
+            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="490.0" prefWidth="480.0" visible="false">
                <children>
-                  <ScrollPane prefHeight="490.0" prefWidth="200.0">
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="490.0" prefWidth="200.0">
                      <content>
-                        <VBox prefHeight="221.0" prefWidth="200.0" spacing="40.0">
+                        <VBox prefHeight="220.0" prefWidth="200.0" spacing="40.0">
                            <children>
-                              <Button fx:id="homeInTollBar_button" maxHeight="20.0" maxWidth="170.0" minHeight="20.0" minWidth="170.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="170.0">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   Home">
                                  <graphic>
-                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Button fx:id="homeTollBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="shortsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
-                              <Button fx:id="subscriptionsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
-                              <Button fx:id="youToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   Shotrs">
+                                 <graphic>
+                                    <Button fx:id="shortsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   Subscribtions">
+                                 <graphic>
+                                    <Button fx:id="subscriptionsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   You">
+                                 <graphic>
+                                    <Button fx:id="youToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
                            </children>
                            <padding>
-                              <Insets left="15.0" top="22.0" />
+                              <Insets left="9.5" top="17.5" />
                            </padding>
                         </VBox>
                      </content>
                   </ScrollPane>
                </children>
             </Pane>
-            <VBox layoutX="16.0" layoutY="23.0" spacing="40.0" visible="false">
+            <VBox fx:id="toolBar_vBox" spacing="40.0">
                <children>
-                  <Button fx:id="homeTollBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
-                  <Button fx:id="shortsToolBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
-                  <Button fx:id="subscriptionsToolBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
-                  <Button fx:id="youToolBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <Button fx:id="homeTollBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                     </graphic>
+                  </Button>
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <Button fx:id="shortsToolBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                     </graphic>
+                  </Button>
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <Button fx:id="subscriptionsToolBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                     </graphic>
+                  </Button>
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <Button fx:id="youToolBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                     </graphic>
+                  </Button>
                </children>
+               <padding>
+                  <Insets left="8.0" top="18.0" />
+               </padding>
             </VBox>
          </children>
       </AnchorPane>
    </left>
-   <center>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-         <children>
-            <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="910.0" pannable="true" HBox.hgrow="ALWAYS">
-               <content>
-                  <VBox fx:id="postInHome_vBox" prefHeight="490.0" prefWidth="906.0" />
-               </content>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets left="5.0" top="5.0" />
-               </padding></ScrollPane>
-         </children>
-      </HBox>
-   </center>
 </BorderPane>
