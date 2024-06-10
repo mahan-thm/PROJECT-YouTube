@@ -84,14 +84,14 @@ public class ClientHandler implements Runnable {
                 case "/removeComment"      -> removeComment(request);
                 case "/subscribeChannel"       -> subscribeChannel(request);
                 case "/unsubscribeChannel"     -> unsubscribeChannel(request);
-                case "/add_WatchedVideo"       -> add_WatchedVideo(request);
-                case "/remove_WatchedVideo"    -> remove_WatchedVideo(request);
-                case "/add_WatchLaterVideo"    -> add_WatchLaterVideo(request);
-                case "/remove_WatchLaterVideo" -> remove_WatchLaterVideo(request);
-                case "/add_likedVideo"         -> add_likedVideo(request);
-                case "/remove_likedVideo"      -> remove_likedVideo(request);
-                case "/add_dislikedVideo"      -> add_dislikedVideo(request);
-                case "/remove_dislikedVideo"   -> remove_dislikedVideo(request);
+//                case "/add_WatchedVideo"       -> add_WatchedVideo(request);
+//                case "/remove_WatchedVideo"    -> remove_WatchedVideo(request);
+//                case "/add_WatchLaterVideo"    -> add_WatchLaterVideo(request);
+//                case "/remove_WatchLaterVideo" -> remove_WatchLaterVideo(request);
+//                case "/add_likedVideo"         -> add_likedVideo(request);
+//                case "/remove_likedVideo"      -> remove_likedVideo(request);
+//                case "/add_dislikedVideo"      -> add_dislikedVideo(request);
+//                case "/remove_dislikedVideo"   -> remove_dislikedVideo(request);
                 case "/edit_commentLike"       -> edit_commentLike(request);
                 //todo profile picture
 
@@ -109,7 +109,7 @@ public class ClientHandler implements Runnable {
             if (Dbm.checkUsername(username_input) && Dbm.authorize(username_input,password_input))
             {
 
-                user_id = Dbm.get_user_id();
+                user_id = Dbm.get_user_id(username_input);
 
                 response.put("responseType","/login_accepted");
                 response.put("username",username_input);
@@ -151,7 +151,7 @@ public class ClientHandler implements Runnable {
         else
         {
             response.put("responseType","/signUp_accepted");
-            Dbm.addUser(username_input,password_input,name_input,email_input,number_input);
+            Dbm.addUser(username_input,password_input,name_input,email_input,number_input,false,"");
         }
         write(response);
     }

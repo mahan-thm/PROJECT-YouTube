@@ -3,50 +3,151 @@ package server.database;
 import org.json.JSONArray;
 
 import java.util.List;
+import java.sql.*;
 
 public class Dbm {
+    private static final String url = "jdbc:mysql://localhost:3306/youtube_db";
+    private static final String username = "root";
+    private static final String password = "qazmlp2990";
+    private static Connection con;
+    private static Statement stat;
+    private final String videoPath="" ;
+    private final String profileImagePath="" ;
+    private final String channelImagePath="" ;
+
+
+
+
+    private static void open(){
+        try {
+            con = DriverManager.getConnection(url, username, password);
+            stat =  con.createStatement();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    private static void close(){
+        try {
+
+            stat.close();
+            con.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 
 
     public static Object getCommentSender_id;
 
-    public static boolean checkUsername(String username_input){
-        //TODO
-
-
+    public static boolean checkUsername(String usernameInput){
+        open();
+        String query = "SELECT * FROM users" +
+                "WHERE username =  '" + usernameInput+ "'";
+        try{
+            ResultSet rs = stat.executeQuery(query);
+            return rs.next();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
         return false;
     }
 
 
     public static boolean authorize(String usernameInput,String passwordInput) {
-        //TODO
+        open();
+        String query = "SELECT * FROM users" +
+                "WHERE username =  '" + usernameInput+ "'" +"AND pass = '" + passwordInput+ "'";
+        try{
+            ResultSet rs = stat.executeQuery(query);
+            return rs.next();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
         return false;
     }
 
-    public static void signUp(String username, String password, String name, String email, String number){
-        //TODO
-    }
+
 
     public static String getVideo_Title(int id) {
+        open();
+        String query = "SELECT title  FROM videos" +
+                "WHERE id =  " +id ;
+        try{
+            ResultSet rs = stat.executeQuery(query);
+            return rs.getString("title");
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
         return "";
     }
 
-    public static String getVideo_TitleBody(int id) {
-        return "";
-    }
 
     public static String getVideo_creationTime(int id) {
+        open();
+        String query = "SELECT *  FROM videos" +
+                "WHERE id =  " +id ;
+        try{
+            ResultSet rs = stat.executeQuery(query);
+            return rs.getString("creationDate");
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
         return "";
     }
 
     public static String getVideo_duration(int id) {
+        open();
+        String query = "SELECT *  FROM videos" +
+                "WHERE id =  " +id ;
+        try{
+            ResultSet rs = stat.executeQuery(query);
+            return rs.getString("duration");
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
         return "";
     }
 
     public static String getVideo_totalView(int id) {
+        open();
+        String query = "SELECT *  FROM videos" +
+                "WHERE id =  " +id ;
+        try{
+            ResultSet rs = stat.executeQuery(query);
+            return rs.getString("total_view");
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
         return "";
     }
 
     public static String getVideo_totalLikes(int id) {
+        open();
+        String query = "SELECT *  FROM videos" +
+                "WHERE id =  " +id ;
+        try{
+            ResultSet rs = stat.executeQuery(query);
+            return rs.getString("total_likes");
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
         return "";
     }
 
@@ -54,11 +155,33 @@ public class Dbm {
         return List.of();
     }
 
-    public static int get_user_id() {
+    public static int get_user_id(String username) {
+        open();
+        String query = "SELECT *  FROM users" +
+                "WHERE username =  '" + username +"'";
+        try{
+            ResultSet rs = stat.executeQuery(query);
+            return rs.getInt("id");
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
         return 0;
     }
 
     public static String getVideo_totalDislikes(int id) {
+        open();
+        String query = "SELECT *  FROM videos" +
+                "WHERE id =  " +id ;
+        try{
+            ResultSet rs = stat.executeQuery(query);
+            return rs.getString("total_dislikes");
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
         return "";
     }
 
@@ -98,30 +221,20 @@ public class Dbm {
         return 0;
     }
 
-    public static String getChannelDiscreption(int channelId) {
-        return "";
-    }
 
-    public static void createChannel(String channelName, String channelUsername, String channelDescription, JSONArray tags) {
-    }
+
 
     public static boolean checkChannelUsername(String channelUsername) {
         return false;
     }
 
-    public static void deleteChannel(int channelId) {
-    }
+
 
     public static void addVideo(int channelId, String videoName, String videoDescription, JSONArray tags) {
     }
 
-    public static void subscribeChannel(int channelId, int userId) {
-        
-        //TODO کارش این متد سنگینه حواست باشه 
-    }
 
-    public static void unsubscribeChannel(int channelId, int userId) {
-    }
+
 
     public static void removeVideo(int videoId) {
     }
@@ -132,18 +245,6 @@ public class Dbm {
     public static void removeComment(int commentId) {
     }
 
-    public static int getUserWatchedVideosId(int userId) {
-        return userId;
-    }
-
-    public static void addToPlaylist(int videoId, int playlistId) {
-    }
-
-    public static void removeFromPlaylist(int videoId, int watchedVideosId) {
-    }
-
-    public static void likeComment(int commentId, int userId) {
-    }
 
     public static void editCommentLike(int commentId, int userId, String liked) {
     }
@@ -151,7 +252,19 @@ public class Dbm {
     public static void removeCommentLike() {
     }
 
-    public static void addUser(String usernameInput, String passwordInput, String nameInput, String emailInput, String numberInput) {
+    public static void addUser(String username, String password, String name,String email,
+                               String number,boolean is_premium,String creationDate ) {
+        open();
+        String query = "INSERT INTO users ( username , number ,pass , email , is_premium ,creationDate) VALUES ("+
+                username+","+ number + "," +password + "," +email+"," + false +","+ creationDate +")";
+        try{
+            ResultSet rs = stat.executeQuery(query);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        close();
+
     }
 
     public static String getVideo_description(int id) {
