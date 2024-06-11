@@ -147,6 +147,8 @@ public class ClientHandler implements Runnable {
 
         if (!Dbm.checkUsername(username_input)){
             response.put("responseType","/signUp_rejected");
+            response.put("username",username_input);
+            response.put("password",password_input);
         }
         else
         {

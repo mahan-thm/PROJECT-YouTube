@@ -17,7 +17,7 @@ import org.json.simple.parser.JSONParser;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
-import client.models.Request;
+
 
 import static client.models.Main.*;
 
@@ -35,10 +35,9 @@ public class LoginController {
     public void login_action(ActionEvent actionEvent) throws IOException {
         String username = loginUsername_textField.getText();
         String password = loginPass_passwordField.getText();
-        loginStatus_label.setText("Username or Password is Wrong"); //uses to show the login error
-        Request.login(username,password);
-        getResponse();
-
+        loginStatus_label.setVisible(false);
+        request.login(username,password);
+        getResponse(actionEvent);
 
     }
 
@@ -52,39 +51,41 @@ public class LoginController {
         stage.show();
 
     }
-    public void goToHome() {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
-        stage.setScene(scene);
-        stage.show();
+
+    public void goToHome(ActionEvent actionEvent) {
+        try {
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 
 
-
-
-
-    private void getResponse(){
+    private void getResponse(ActionEvent actionEvent){
         JSONObject response = read();
         if(response.get("responseType").equals("/login_accepted")){
-            loginAccepted(response);
+            loginAccepted(response,actionEvent);
         }
         else loginRejected();
 
     }
 
-    private void loginAccepted(JSONObject response) {
+    private void loginAccepted(JSONObject response,ActionEvent actionEvent) {
 
-
-        userAccount = new UserAccount((String) response.get("username"),(String) response.get("password"));
-        goToHome();
-
-
+        userAccount = new UserAccount((String) response.get("username"), (String) response.get("password"));
+        goToHome(actionEvent);
     }
 
     private void loginRejected() {
+        loginStatus_label.setText("Username or Password is Wrong");
         loginStatus_label.setVisible(true);
     }
 

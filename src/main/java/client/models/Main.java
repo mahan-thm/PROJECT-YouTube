@@ -23,6 +23,7 @@ public class Main extends Application {
     public static DataInputStream dataReader;
     public static DataOutputStream dataWriter;
     public static UserAccount userAccount;
+    public static Request request;
 
 
 
