@@ -28,8 +28,11 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
+        request = new Request();
         socket_init();
+//        JSONObject temp = new JSONObject();
+//        temp.put("requestType","/test");
+//        write(temp);
         launch(args);
 
     }
@@ -80,11 +83,13 @@ public class Main extends Application {
     public static void write(JSONObject request){
         try {
             writer.write(request.toString());
+            writer.newLine();
+            writer.flush();
         }catch (IOException e){
             e.printStackTrace();
         }
     }
-                                                                                              //todo
+    //todo
 
 }
 
