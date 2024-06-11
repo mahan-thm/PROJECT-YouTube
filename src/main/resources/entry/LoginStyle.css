@@ -1,8 +1,9 @@
-#signIn_boarderPane{
+#login_boarderPane{
     -fx-background-color: #f0f4f9;
+/*    */
 }
 
-#signIn_gridPane{
+#login_anchorPane{
     -fx-background-radius: 30;
     -fx-background-color: white;
 }

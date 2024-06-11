@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="postInHome_anchorPane" minHeight="296.0" minWidth="286.0" prefHeight="286.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.PostInHomeController">
+   <children>
+      <VBox spacing="5.0">
+         <children>
+            <ImageView fx:id="imageThumbnail_imageView" fitHeight="161.0" fitWidth="286.0" pickOnBounds="true" preserveRatio="true" />
+            <Label text="Label">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label text="chanel name" textFill="#5b5b5b" />
+            <Label text="view • time upload" textFill="#5b5b5b" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
