@@ -8,7 +8,7 @@ import static client.models.Main.write;
 public class Request {
     //account requests--------------------------------------------------------------------------------------
 
-    public void login(String username_input,String password_input){
+    public static void login(String username_input, String password_input){
         JSONObject request = new JSONObject();
         request.put("requestType","/login");
         request.put("username",username_input);

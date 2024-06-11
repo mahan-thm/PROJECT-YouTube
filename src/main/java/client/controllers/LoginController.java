@@ -1,5 +1,6 @@
 package client.controllers;
 
+import client.models.UserAccount;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import org.json.simple.parser.JSONParser;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
+import client.models.Request;
 
 import static client.models.Main.*;
 
@@ -33,18 +35,11 @@ public class LoginController {
     public void login_action(ActionEvent actionEvent) throws IOException {
         String username = loginUsername_textField.getText();
         String password = loginPass_passwordField.getText();
-        loginStatus_label.setText("wrong pass or user"); //uses to show the login error
+        loginStatus_label.setText("Username or Password is Wrong"); //uses to show the login error
+        Request.login(username,password);
+        getResponse();
 
 
-
-
-        //if everything correct:
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML
@@ -57,19 +52,22 @@ public class LoginController {
         stage.show();
 
     }
+    public void goToHome() {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
+        stage.setScene(scene);
+        stage.show();
+
+    }
 
 
 
 
-
-
-
-
-    //TODO in case of press login button we should run request.login();
 
     private void getResponse(){
-        JSONObject response = new JSONObject();
-        response = read();
+        JSONObject response = read();
         if(response.get("responseType").equals("/login_accepted")){
             loginAccepted(response);
         }
@@ -79,13 +77,15 @@ public class LoginController {
 
     private void loginAccepted(JSONObject response) {
 
-        //todo save client information
-        //TODO navigate to next page
+
+        userAccount = new UserAccount((String) response.get("username"),(String) response.get("password"));
+        goToHome();
+
 
     }
 
     private void loginRejected() {
-        //TODO show client username or password is wrong
+        loginStatus_label.setVisible(true);
     }
 
 }
