@@ -235,14 +235,14 @@ public class Dbm {
             if(rs.next()) {     // rs.next() movesthe curser to the first row of resultset
                 max = rs.getInt("maxId");
             }
-        for(int i=0 ; i< channelCount ; i++){
-            int randomNumber = getRandomNumber(1 ,max );
-            randList.add(randomNumber);
-        }
+            for(int i=0 ; i< channelCount ; i++){
+                int randomNumber = getRandomNumber(1 ,max );
+                randList.add(randomNumber);
+            }
         }catch(SQLException e){
             e.printStackTrace();
         }
-         finally {
+        finally {
             close();
         }
         return randList;
@@ -252,7 +252,7 @@ public class Dbm {
     public static int getCommentCount(int videoId) {
         open();
         String query = " SELECT * FROM comments " +
-                        "WHERE video_id = " + videoId ;
+                "WHERE video_id = " + videoId ;
         int count =0;
         try {
             ResultSet rs = stat.executeQuery(query);
@@ -272,7 +272,7 @@ public class Dbm {
         open();
         List<Integer> commentIdList = new ArrayList<>();
         String query = "SELECT id FROM comments" +
-                        " WHERE video_id =" + videoId;
+                " WHERE video_id =" + videoId;
         try {
             ResultSet rs = stat.executeQuery(query);
             while (rs.next()){
@@ -294,7 +294,7 @@ public class Dbm {
         String body="";
         try {
             ResultSet rs = stat.executeQuery(query);
-               body =rs.getString("body");
+            body =rs.getString("body");
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -329,8 +329,8 @@ public class Dbm {
                 "WHERE channel_id = " + channelId ;
         int total_videos =0;
         try {
-             ResultSet rs = stat.executeQuery(query);
-             total_videos = rs.getInt("total_videos");
+            ResultSet rs = stat.executeQuery(query);
+            total_videos = rs.getInt("total_videos");
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -439,7 +439,7 @@ public class Dbm {
 
             String query =
                     "INSERT INTO TABLE comments (id ,user_id, video_id,creationDate, body, repliedTo) VALUES ("
-                    + lastId +","+ user_id + "," + video_id +",'" + creationDate + "','" + text + "',"+ repliedToId+")";
+                            + lastId +","+ user_id + "," + video_id +",'" + creationDate + "','" + text + "',"+ repliedToId+")";
             stat.executeUpdate(query);
             close();
             return lastId;
@@ -577,7 +577,7 @@ public class Dbm {
         return "";
     }
 
-    public static int addChannel(String channelUsername, int owner_id, String creationDate ,String channelDescription ) {
+    public static int addChannel(String channelName,String channelUsername, int owner_id, String creationDate ,String channelDescription ) {
         // it returns the new channel id
         open();
         String maxId = "SELECT MAX(id) AS maxId FROM channels";
@@ -691,5 +691,9 @@ public class Dbm {
         }
         close();
         return 0;
+    }
+
+    public static int getCommentSender_id(int commentId) {
+        return commentId;
     }
 }

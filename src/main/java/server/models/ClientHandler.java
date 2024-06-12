@@ -8,6 +8,7 @@ import server.database.Dbm;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -281,10 +282,10 @@ public class ClientHandler implements Runnable {
     private void comment(JSONObject request) {
         JSONObject response = new JSONObject();
         int comment_id = (int) request.get("comment_id");
-        String senderName = Dbm.getUsername(Dbm.getCommentSender_id);
+        String senderName = Dbm.getUsername(Dbm.getCommentSender_id(comment_id));
         String Text = Dbm.getCommentText(comment_id);
         String repliedTo = Dbm.getcommentRepliedTo(comment_id);
-        String creationTime = Dbm.getcommentCreationTime(comment_id);
+        Timestamp creationTime = Dbm.getcommentCreationTime(comment_id);
 
         response.put("responseType","/comment_accepted");
         response.put("senderName","/senderName");
@@ -323,8 +324,9 @@ public class ClientHandler implements Runnable {
         String channelName = (String) request.get("channelName");
         String channelUsername = (String) request.get("channelUsername");
         String channelDescription = (String) request.get("channelDescription");
+        int owner_id = (int) request.get("channelDescription");
         JSONArray tags = (JSONArray) request.get("tags");
-
+        String creationDate = "";
 
         if (!Dbm.checkChannelUsername(channelUsername)){
             response.put("responseType","/createChannel_rejected");
@@ -332,7 +334,7 @@ public class ClientHandler implements Runnable {
         else
         {
             response.put("responseType","/createChannel_accepted");
-            Dbm.addChannel(channelName,channelUsername,channelDescription);
+            Dbm.addChannel(channelName,channelUsername,owner_id,creationDate , channelDescription);
         }
         write(response);
 
@@ -376,7 +378,7 @@ public class ClientHandler implements Runnable {
         String videoDescription = (String) request.get("videoDescription");
         JSONArray tags = (JSONArray) request.get("tags");
 
-        Dbm.addVideo(channel_id,videoName,videoDescription,tags);
+        Dbm.addVideo(channel_id,videoName , videoDescription,"" , "" ,tags);
         response.put("responseType","/addVideo_accepted");
 
         write(response);
@@ -388,7 +390,7 @@ public class ClientHandler implements Runnable {
         int video_id = (int) request.get("video_id");
         try {
 
-            File file = new File(Dbm.getVideoPath(video_id));
+            File file = new File(Dbm.getVideoPath());
 
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             DataInputStream dataIn = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
@@ -431,7 +433,7 @@ public class ClientHandler implements Runnable {
         int repliedTo_id = (int) request.get("repliedTo_id");
 
 
-        Dbm.addComment(video_id,text,repliedTo_id);
+        Dbm.addComment(video_id,user_id,text,repliedTo_id,"");
         response.put("responseType","/addComment_accepted");
 
 
@@ -572,7 +574,7 @@ public class ClientHandler implements Runnable {
 
         switch(editType){
             case "addLike"    -> Dbm.editCommentLike(comment_id,user_id,"liked");
-            case "removeLike" -> Dbm.removeCommentLike();
+            case "removeLike" -> Dbm.removeCommentLike(comment_id);
             case "addDislike" -> Dbm.editCommentLike(comment_id,user_id,"Disliked");
 
         }
