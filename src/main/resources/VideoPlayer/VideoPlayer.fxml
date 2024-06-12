@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -15,25 +17,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.shape.Arc?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.HomeController">
-   <center>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-         <children>
-            <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="910.0" pannable="true" HBox.hgrow="ALWAYS">
-               <content>
-                  <VBox fx:id="postInHome_vBox" prefHeight="490.0" prefWidth="906.0" />
-               </content>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets left="5.0" top="5.0" />
-               </padding></ScrollPane>
-         </children>
-      </HBox>
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.VideoPlayerController">
    <top>
       <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="960.0">
          <columnConstraints>
@@ -45,6 +33,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
+            <TextField fx:id="Search_textField" prefHeight="40.0" prefWidth="140.0" promptText="Search" GridPane.columnIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <Button fx:id="search_button" maxHeight="40.0" maxWidth="60.0" minHeight="40.0" minWidth="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" GridPane.columnIndex="1">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="60.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@searchIcon.gif" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <AnchorPane prefHeight="200.0" prefWidth="194.0">
                <children>
                   <Group layoutX="55.0" layoutY="10.0">
@@ -60,10 +64,6 @@
                      </graphic>
                   </Button>
                </children></AnchorPane>
-            <TextField fx:id="Search_textField" prefHeight="40.0" prefWidth="558.0" promptText="Search" GridPane.columnIndex="1">
-               <font>
-                  <Font size="18.0" />
-               </font></TextField>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
                   <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="38.0" maxWidth="38.0" minHeight="38.0" minWidth="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" text="M" textAlignment="CENTER">
@@ -73,18 +73,6 @@
                   </Button>
                </children>
             </AnchorPane>
-            <Button fx:id="search_button" maxHeight="40.0" maxWidth="60.0" minHeight="40.0" minWidth="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" GridPane.columnIndex="1">
-               <font>
-                  <Font size="19.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="60.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@searchIcon.gif" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
          </children>
       </GridPane>
    </top>
@@ -156,4 +144,63 @@
          </children>
       </AnchorPane>
    </left>
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="908.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <HBox>
+               <children>
+                  <VBox prefHeight="488.0" prefWidth="682.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <MediaView fitHeight="396.0" fitWidth="656.0" />
+                              <Label text="Label">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <GridPane>
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button mnemonicParsing="false" text="join" GridPane.columnIndex="1" />
+                              <Button mnemonicParsing="false" text="subscribe" GridPane.columnIndex="2" />
+                              <Button mnemonicParsing="false" text="like &amp; dis" GridPane.columnIndex="4" />
+                              <Button mnemonicParsing="false" text="share" GridPane.columnIndex="5" />
+                              <Button mnemonicParsing="false" text="download" GridPane.columnIndex="6" />
+                              <Button mnemonicParsing="false" text="..." GridPane.columnIndex="7" />
+                              <Button mnemonicParsing="false" text="chanel" />
+                           </children>
+                        </GridPane>
+                        <Hyperlink text="Hyperlink">
+                           <graphic>
+                              <Label text="about video" />
+                           </graphic>
+                        </Hyperlink>
+                        <VBox fx:id="videoComments_vBox" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="recommendVideo_vBox" prefHeight="488.0" prefWidth="300.0" HBox.hgrow="NEVER">
+                     <children>
+                        <Arc fill="DODGERBLUE" length="270.0" radiusX="100.0" radiusY="100.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
+   </center>
 </BorderPane>

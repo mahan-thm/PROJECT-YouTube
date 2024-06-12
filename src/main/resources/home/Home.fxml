@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
@@ -19,20 +18,14 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.HomeController">
    <center>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-         <children>
-            <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="910.0" pannable="true" HBox.hgrow="ALWAYS">
-               <content>
-                  <VBox fx:id="postInHome_vBox" prefHeight="490.0" prefWidth="906.0" />
-               </content>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets left="5.0" top="5.0" />
-               </padding></ScrollPane>
-         </children>
-      </HBox>
+      <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="910.0" pannable="true">
+         <content>
+            <VBox fx:id="postInHome_vBox" prefHeight="490.0" prefWidth="906.0" />
+         </content>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </ScrollPane>
    </center>
    <top>
       <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="960.0">
