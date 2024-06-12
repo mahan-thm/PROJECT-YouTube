@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,10 +19,83 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
-<?import javafx.scene.shape.Arc?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.VideoPlayerController">
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="908.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <HBox>
+               <children>
+                  <VBox prefHeight="488.0" prefWidth="682.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <MediaView fx:id="video_mediaView" fitHeight="396.0" fitWidth="656.0" />
+                              <Slider fx:id="videoTimline_slider" />
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />
+                                    <Label text="Label" GridPane.columnIndex="2" />
+                                    <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" />
+                                 </children>
+                              </GridPane>
+                              <Label text="Label">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <GridPane alignment="CENTER">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button mnemonicParsing="false" text="join" GridPane.columnIndex="1" />
+                              <Button mnemonicParsing="false" text="subscribe" GridPane.columnIndex="2" />
+                              <Button mnemonicParsing="false" text="like &amp; dis" GridPane.columnIndex="4" />
+                              <Button mnemonicParsing="false" text="share" GridPane.columnIndex="5" />
+                              <Button mnemonicParsing="false" text="download" GridPane.columnIndex="6" />
+                              <Button mnemonicParsing="false" text="..." GridPane.columnIndex="7" />
+                              <Button mnemonicParsing="false" text="chanel" />
+                           </children>
+                        </GridPane>
+                        <Hyperlink text="Hyperlink">
+                           <graphic>
+                              <Label text="about video" />
+                           </graphic>
+                        </Hyperlink>
+                        <VBox fx:id="videoComments_vBox" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="recommendVideo_vBox" prefHeight="488.0" prefWidth="300.0" HBox.hgrow="NEVER" />
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
+   </center>
    <top>
       <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="960.0">
          <columnConstraints>
@@ -144,63 +218,4 @@
          </children>
       </AnchorPane>
    </left>
-   <center>
-      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="908.0" prefHeight="200.0" prefWidth="200.0">
-         <content>
-            <HBox>
-               <children>
-                  <VBox prefHeight="488.0" prefWidth="682.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <MediaView fitHeight="396.0" fitWidth="656.0" />
-                              <Label text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <GridPane>
-                          <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Button mnemonicParsing="false" text="join" GridPane.columnIndex="1" />
-                              <Button mnemonicParsing="false" text="subscribe" GridPane.columnIndex="2" />
-                              <Button mnemonicParsing="false" text="like &amp; dis" GridPane.columnIndex="4" />
-                              <Button mnemonicParsing="false" text="share" GridPane.columnIndex="5" />
-                              <Button mnemonicParsing="false" text="download" GridPane.columnIndex="6" />
-                              <Button mnemonicParsing="false" text="..." GridPane.columnIndex="7" />
-                              <Button mnemonicParsing="false" text="chanel" />
-                           </children>
-                        </GridPane>
-                        <Hyperlink text="Hyperlink">
-                           <graphic>
-                              <Label text="about video" />
-                           </graphic>
-                        </Hyperlink>
-                        <VBox fx:id="videoComments_vBox" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-                  <VBox fx:id="recommendVideo_vBox" prefHeight="488.0" prefWidth="300.0" HBox.hgrow="NEVER">
-                     <children>
-                        <Arc fill="DODGERBLUE" length="270.0" radiusX="100.0" radiusY="100.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </content>
-      </ScrollPane>
-   </center>
 </BorderPane>
