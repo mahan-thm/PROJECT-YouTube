@@ -1,35 +1,55 @@
 package client.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
 
 
-public class PostInHomeController implements Initializable {
+public class PostInHomeController {
+    private byte[] thumbnailByte;
+    private String channel;
+    private String topic;
+    private String view;
+    private String timeUpload;
 
-    @FXML
-    private ImageView imageThumbnail_imageView;
+    public void define(byte[] thumbnailByte, String topic, String chanel, String view, String timeUpload) {
+        this.thumbnailByte = thumbnailByte;
+        this.topic = topic;
+        this.channel = chanel;
+        this.view = view;
+        this.timeUpload = timeUpload;
+    }
+
     @FXML
     private AnchorPane postInHome_anchorPane;
+    @FXML
+    private ImageView thumbnail_imageView;
+    @FXML
+    private Label videoTopic_label;
+    @FXML
+    private Hyperlink chanel_hyperlink;
+    @FXML
+    private Label timeAndView_label;
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        imageThumbnail_imageView.
-        Image image = null;
+    public void setup() {
+        ByteArrayInputStream bis = new ByteArrayInputStream(thumbnailByte);
+        Image image = new Image(bis);
+        thumbnail_imageView.setImage(image);
         try {
-            image = new Image(Objects.requireNonNull(getClass().getResource("../../home/girl_AI-generated_wallpapers-4.jpg")).openStream());
-
+            bis.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        imageThumbnail_imageView.setImage(image);
+
+        videoTopic_label.setText(topic);
+        chanel_hyperlink.setText(channel);
+        timeAndView_label.setText(view + " • " + timeUpload);
     }
 }
