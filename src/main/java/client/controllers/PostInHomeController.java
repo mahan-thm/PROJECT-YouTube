@@ -2,14 +2,21 @@ package client.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class PostInHomeController {
@@ -55,8 +62,26 @@ public class PostInHomeController {
     }
 
 
-    public void goToVideoPlayer(ActionEvent actionEvent){
-        String anchorPaneID = ((AnchorPane)actionEvent.getSource()).getId();
+    public void goToVideoPlayer_action(ActionEvent actionEvent) throws IOException {
+//        String anchorPaneID = ((AnchorPane)actionEvent.getSource()).getId();
 
+
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/VideoPlayer.fxml")));
+        BorderPane borderPane = fxmlLoader.load();
+        VideoPlayerController videoPlayerController = fxmlLoader.getController();
+
+
+        videoPlayerController.define();
+
+        videoPlayerController.setup();
+        Scene scene = new Scene(borderPane);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/VideoPlayerStyle.css")).toExternalForm());
+        stage.setScene(scene);
+        stage.show();
     }
+
+
+
+
 }
