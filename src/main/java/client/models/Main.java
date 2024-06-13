@@ -24,6 +24,7 @@ public class Main extends Application {
     public static DataOutputStream dataWriter;
     public static UserAccount userAccount;
     public static Request request;
+    private static Socket socket;
 
 
 
@@ -53,7 +54,7 @@ public class Main extends Application {
 
     private static void socket_init() {
         try{
-            Socket socket = new Socket("localhost", 4444);
+            socket = new Socket("localhost", 4444);
 
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -79,6 +80,18 @@ public class Main extends Application {
         }
         response.put("respondType","/error");
         return response;
+    }
+    public static byte[] readFile(){
+
+        try {
+            DataInputStream dataIn = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            byte[] bytes = new byte[1024];
+            dataIn.read(bytes);
+            return bytes;
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
     public static void write(JSONObject request){
         try {

@@ -76,6 +76,7 @@ public class ClientHandler implements Runnable {
                 case "/commentList"        -> commentList(request);
                 case "/video"              -> video(request);
                 case "/videoFile"          -> videoFile(request);
+                case "/imageFile"          -> imageFile(request);
                 case "/comment"            -> comment(request);
                 case "/channel"            -> channel(request);
                 case "/createChannel"      -> createChannel(request);
@@ -276,6 +277,15 @@ public class ClientHandler implements Runnable {
         String videoLink = Dbm.getVideo_link(video_id);
 
         File fileToSend = new File(videoLink);
+        sendFile(fileToSend);
+    }
+
+    private void imageFile(JSONObject request) {
+        int video_id = (int) request.get("video_id");
+//        String imageLink = Dbm.getImage_link(video_id);
+        String imageLink = "D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\server\\image_examples\\"+video_id+".jpg";
+
+        File fileToSend = new File(imageLink);
         sendFile(fileToSend);
     }
 

@@ -96,6 +96,13 @@ public class Request {
 
         write(request);
     }
+    static void imageFile(String video_id){
+        JSONObject request = new JSONObject();
+        request.put("requestType","/imageFile");
+        request.put("video_id",video_id);
+
+        write(request);
+    }
     public void comment(String comment_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/comment");
