@@ -92,6 +92,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
+        return new byte[0];
     }
     public static void write(JSONObject request){
         try {

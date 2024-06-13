@@ -259,6 +259,12 @@ public class ClientHandler implements Runnable {
         String total_likes = Dbm.getVideo_totalLikes(id);
         String total_dislikes = Dbm.getVideo_totalDislikes(id);
 
+//        int channel_id = Dbm.getchannel_id(id);
+//        String channel_name = Dbm.getchannel_name(channel_id);
+
+        int channel_id = 1;
+        String channel_name = "";
+
         response.put("responseType","/video_accepted");
         response.put("title",title);
         response.put("title_body",title_body);
@@ -267,6 +273,9 @@ public class ClientHandler implements Runnable {
         response.put("total_view",total_view);
         response.put("total_likes",total_likes);
         response.put("total_dislikes",total_dislikes);
+
+        response.put("channel_id",channel_id);
+        response.put("channel_name",channel_name);
 
         write(response);
 
