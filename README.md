@@ -57,17 +57,18 @@
 4. trending videos (hot)
 5. Send feedback
 6. report user for admin
-7. internet server 
-8. open file explorer to select uploading file 
-9. creat channels
-10. email to forgot pass
-11. ads
-12. you tube premium
-13. share post
-14. android app 
-15. SMS verification
-16. share post
-17. miniPlayer
+7. video stream
+8. internet server 
+9. open file explorer to select uploading file 
+10. creat channels
+11. email to forgot pass
+12. ads
+13. you tube premium
+14. share post
+15. android app 
+16. SMS verification
+17. share post
+18. miniPlayer
 
 
 
