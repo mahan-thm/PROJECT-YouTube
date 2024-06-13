@@ -1,10 +1,10 @@
 package client.models;
 
-import org.json.simple.JSONObject;
-import server.database.Dbm;
+import org.json.JSONObject;
+
 
 public class Video {
-    int id ;
+    public int id ;
     String title ;
     String title_body ;
     String duration ;
@@ -12,11 +12,57 @@ public class Video {
     String total_view ;
     String total_likes ;
     String total_dislikes ;
+    int imageSIze ;
+
+    public int getImageSIze() {
+        return imageSIze;
+    }
+
+    public String getTitle_body() {
+        return title_body;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public String getCreation_time() {
+        return creation_time;
+    }
+
+    public String getTotal_view() {
+        return total_view;
+    }
+
+    public String getTotal_likes() {
+        return total_likes;
+    }
+
+    public String getTotal_dislikes() {
+        return total_dislikes;
+    }
+
+    public int getChannel_id() {
+        return channel_id;
+    }
+
+    public String getChannel_name() {
+        return channel_name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     int channel_id ;
     String channel_name ;
 
-    public Video(JSONObject response){
+    public Video(int video_id,JSONObject response){
+        id = video_id;
 
         title = (String) response.get("title");
         title_body = (String) response.get("title_body");
@@ -28,7 +74,9 @@ public class Video {
 
         channel_id = (int) response.get("channel_id");
         channel_name = (String) response.get("channel_name");
+        imageSIze = (int) response.get("imageSize");
     }
+
 
 
 

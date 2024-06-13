@@ -6,8 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -68,25 +67,34 @@ public class Main extends Application {
     }
 
     public static JSONObject read(){
-        JSONParser parser = new JSONParser();
         JSONObject response = new JSONObject();
         try {
-            response = (JSONObject) parser.parse(reader.readLine());
+            String line = reader.readLine();
+            response = new JSONObject(line);
             return response;
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         }
-        response.put("respondType","/error");
+        response.put("respondType", "/error");
         return response;
     }
-    public static byte[] readFile(){
+    public static byte[] readFile(int size){
 
         try {
             DataInputStream dataIn = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            byte[] bytes = new byte[1024];
-            dataIn.read(bytes);
+            long fileLength = dataIn.readLong();
+
+            byte[] bytes = new byte[(int) fileLength];
+            int bytesRead;
+            int totalBytesRead = 0;
+            while (totalBytesRead < fileLength) {
+                bytesRead = dataIn.read(bytes, totalBytesRead, bytes.length - totalBytesRead);
+                if (bytesRead == -1) { // End of stream
+                    break;
+                }
+                totalBytesRead += bytesRead;
+            }
+
             return bytes;
         }catch (IOException e){
             e.printStackTrace();
@@ -96,7 +104,8 @@ public class Main extends Application {
     }
     public static void write(JSONObject request){
         try {
-            writer.write(request.toString());
+            String requestToSend =  request.toString();
+            writer.write(requestToSend);
             writer.newLine();
             writer.flush();
         }catch (IOException e){

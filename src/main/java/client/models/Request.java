@@ -1,7 +1,7 @@
 package client.models;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import static client.models.Main.write;
 
@@ -11,8 +11,8 @@ public class Request {
     public void login(String username_input, String password_input){
         JSONObject request = new JSONObject();
         request.put("requestType","/login");
-        request.put("username",username_input);
-        request.put("password",password_input);
+        request.put("username_input",username_input);
+        request.put("password_input",password_input);
 
         write(request);
     }
@@ -46,7 +46,7 @@ public class Request {
     //-------------------------------------------------------------------------------------------------------
 
     // item list request-------------------------------------------------------------------------------------
-    static void videoList(String videoCount, JSONArray tags){
+    public void videoList(int videoCount, JSONArray tags){
         JSONObject request = new JSONObject();
         request.put("requestType","/videoList");
         request.put("count",videoCount);
@@ -82,7 +82,7 @@ public class Request {
 
     //-------------------------------------------------------------------------------------------------------
     // item request------------------------------------------------------------------------------------------
-    static void video(String video_id){
+    public void video(int video_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/video");
         request.put("video_id",video_id);
@@ -96,7 +96,7 @@ public class Request {
 
         write(request);
     }
-    static void imageFile(String video_id){
+    public void imageFile(int video_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/imageFile");
         request.put("video_id",video_id);

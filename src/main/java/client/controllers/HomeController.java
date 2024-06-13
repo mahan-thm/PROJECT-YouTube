@@ -1,5 +1,6 @@
 package client.controllers;
 
+import client.models.Video;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,16 +10,23 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static client.models.Main.*;
 
 public class HomeController implements Initializable {
     @FXML
@@ -32,8 +40,19 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        request.videoList(1,new JSONArray());
+        JSONObject response1 = read();
+        JSONArray video_idList = response1.getJSONArray("videoIdList");
+        ArrayList<Video> videoList = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < video_idList.length(); i++) {
+            int video_id = video_idList.getInt(i);
+            request.video(video_id);
+            JSONObject response2 = read();
+            videoList.add(new Video(video_id,response2));
+
+        }
+        for (int i = 0; i < 6; i++) {
             HBox hBox = new HBox();
             hBox.setSpacing(15);
             hBox.setFillHeight(true);
@@ -45,12 +64,21 @@ public class HomeController implements Initializable {
                 try {
 
                     //to convert an image to bytes
-                    BufferedImage bufferedImage = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("../../home/girl_AI-generated_wallpapers-4.jpg")).toURI()));
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bos.close();
-                    ImageIO.write(bufferedImage, "png", bos);
-                    byte[] imageBytes = bos.toByteArray();
+//                    BufferedImage bufferedImage = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("../../home/girl_AI-generated_wallpapers-4.jpg")).toURI()));
+//                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//                    bos.close();
+//                    ImageIO.write(bufferedImage, "png", bos);
+//                    byte[] imageBytes = bos.toByteArray();
 
+                    Video video = videoList.get(i*3 + j);
+                    request.imageFile(video.id);
+                    byte[] imageBytes = readFile(video.getImageSIze());
+                    File file = new File("D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\imageCache\\img" + (i*3 + j) + ".jpg");
+
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(imageBytes);
+
+//                    System.out.println(Arrays.toString(imageBytes));
                     //to load fxml file
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = fxmlLoader.load();
@@ -58,18 +86,18 @@ public class HomeController implements Initializable {
 
                     //TODO
                     //to set up PostInHome fxml file
-                    postInHomeController.define(imageBytes, "AI Girl", "MyChanel", "25k", "12 march");
+                    postInHomeController.define(imageBytes, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
                     postInHomeController.setup();
 
 
                     pane.prefWidthProperty().bind(post_scrollPane.widthProperty());
                     pane.prefHeightProperty().bind(post_scrollPane.widthProperty());
-                    ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(pane.widthProperty());
-                    ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(pane.widthProperty());
+                    ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
+                    ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
 
 
                     hBox.getChildren().add(pane);
-                } catch (IOException | URISyntaxException e) {
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }

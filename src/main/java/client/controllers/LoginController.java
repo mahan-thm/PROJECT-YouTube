@@ -11,8 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.JSONObject;
+
 
 import java.awt.*;
 import java.io.IOException;
@@ -80,8 +80,17 @@ public class LoginController {
 
     private void loginAccepted(JSONObject response,ActionEvent actionEvent) {
 
-        userAccount = new UserAccount((String) response.get("username"), (String) response.get("password"));
-        goToHome(actionEvent);
+//
+//        userAccount = new UserAccount((String) response.get("username"), (String) response.get("password"));
+//        goToHome(actionEvent);
+
+        Object username = response.get("username");
+        Object password = response.get("password");
+
+        if (username != null && password != null) {
+            userAccount = new UserAccount(username.toString(), password.toString());
+            goToHome(actionEvent);
+        }
     }
 
     private void loginRejected() {
