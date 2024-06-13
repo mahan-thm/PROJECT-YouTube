@@ -50,8 +50,9 @@ public class HomeController implements Initializable {
             request.video(video_id);
             JSONObject response2 = read();
             videoList.add(new Video(video_id,response2));
-
         }
+
+
         for (int i = 0; i < 6; i++) {
             HBox hBox = new HBox();
             hBox.setSpacing(15);
@@ -63,7 +64,6 @@ public class HomeController implements Initializable {
             for (int j = 0; j < 3; j++) {
                 try {
 
-                    //
                     //to convert an image to bytes
 //                    BufferedImage bufferedImage = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("../../home/girl_AI-generated_wallpapers-4.jpg")).toURI()));
 //                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -76,10 +76,10 @@ public class HomeController implements Initializable {
                     byte[] imageBytes = readFile(video.getImageSIze());
                     File file = new File("D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\imageCache\\img" + (i*3 + j) + ".jpg");
 
+
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
                     fileOutputStream.write(imageBytes);
 
-//                    System.out.println(Arrays.toString(imageBytes));
                     //to load fxml file
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = fxmlLoader.load();
@@ -88,6 +88,7 @@ public class HomeController implements Initializable {
                     //TODO
                     //to set up PostInHome fxml file
                     postInHomeController.define(imageBytes, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
+//                    postInHomeController.define(imageBytes,"Ai Girl", "My Channel", "2k", "12 july");
                     postInHomeController.setup();
 
 
@@ -104,8 +105,6 @@ public class HomeController implements Initializable {
             }
             postInHome_vBox.getChildren().add(hBox);
         }
-
-
     }
 
 
