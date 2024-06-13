@@ -1,5 +1,6 @@
 package client.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
@@ -51,5 +52,11 @@ public class PostInHomeController {
         videoTopic_label.setText(topic);
         chanel_hyperlink.setText(channel);
         timeAndView_label.setText(view + " • " + timeUpload);
+    }
+
+
+    public void goToVideoPlayer(ActionEvent actionEvent){
+        String anchorPaneID = ((AnchorPane)actionEvent.getSource()).getId();
+
     }
 }

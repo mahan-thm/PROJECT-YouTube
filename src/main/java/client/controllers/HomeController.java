@@ -10,19 +10,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -40,8 +36,9 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        request.videoList(1,new JSONArray());
+        request.videoList(1, new JSONArray());
         JSONObject response1 = read();
+//        JSONObject response1 = new JSONObject();
         JSONArray video_idList = response1.getJSONArray("videoIdList");
         ArrayList<Video> videoList = new ArrayList<>();
 
@@ -49,7 +46,7 @@ public class HomeController implements Initializable {
             int video_id = video_idList.getInt(i);
             request.video(video_id);
             JSONObject response2 = read();
-            videoList.add(new Video(video_id,response2));
+            videoList.add(new Video(video_id, response2));
         }
 
 
@@ -71,11 +68,10 @@ public class HomeController implements Initializable {
 //                    ImageIO.write(bufferedImage, "png", bos);
 //                    byte[] imageBytes = bos.toByteArray();
 
-                    Video video = videoList.get(i*3 + j);
+                    Video video = videoList.get(i * 3 + j);
                     request.imageFile(video.id);
                     byte[] imageBytes = readFile(video.getImageSIze());
-                    File file = new File("D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\imageCache\\img" + (i*3 + j) + ".jpg");
-
+                    File file = new File("src/main/resources/imageCache" + "/img" + (i * 3 + j) + ".jpg");
 
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
                     fileOutputStream.write(imageBytes);
@@ -83,6 +79,7 @@ public class HomeController implements Initializable {
                     //to load fxml file
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = fxmlLoader.load();
+                    pane.setId(String.valueOf(i * 3 + j));
                     PostInHomeController postInHomeController = fxmlLoader.getController();
 
                     //TODO

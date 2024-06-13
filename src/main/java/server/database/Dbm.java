@@ -2,10 +2,9 @@ package server.database;
 
 import org.json.JSONArray;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.sql.*;
 
 public class Dbm {
     private static final String url = "jdbc:mysql://localhost:3306/youtube_db";

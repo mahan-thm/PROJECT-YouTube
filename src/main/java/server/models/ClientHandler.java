@@ -1,17 +1,15 @@
 package server.models;
 
 import org.json.JSONArray;
-
 import org.json.JSONObject;
 import server.database.Dbm;
 
-import javax.imageio.ImageIO;
-import javax.management.StringValueExp;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 
 public class ClientHandler implements Runnable {
@@ -49,11 +47,15 @@ public class ClientHandler implements Runnable {
     @Override
 
     public void run() {
-        requestHandler();
+        try {
+            requestHandler();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
-    private void requestHandler() {
+    private void requestHandler() throws URISyntaxException {
         while (socket.isConnected()) {
             JSONObject request = new JSONObject();
             try {
@@ -251,7 +253,7 @@ public class ClientHandler implements Runnable {
         write(response);
     }
 
-    private void video(JSONObject request) {
+    private void video(JSONObject request) throws URISyntaxException {
 
         JSONObject response = new JSONObject();
 
@@ -290,9 +292,12 @@ public class ClientHandler implements Runnable {
         response.put("channel_id", channel_id);
         response.put("channel_name", channel_name);
 
-        String imageLink = "D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\server\\image_examples\\" + id + ".jpg";
+//        String imageLink = "D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\server\\image_examples\\" + id + ".jpg";
+//        File fileToSend = new File(imageLink);
 
-        File fileToSend = new File(imageLink);
+
+        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../server/image_examples" + "/" + id + ".jpg")).toURI());
+
         response.put("imageSize", Math.toIntExact(fileToSend.length()));
 
         write(response);
@@ -307,12 +312,13 @@ public class ClientHandler implements Runnable {
         sendFile(fileToSend);
     }
 
-    private void imageFile(JSONObject request) {
+    private void imageFile(JSONObject request) throws URISyntaxException {
         int video_id = (int) request.get("video_id");
 //        String imageLink = Dbm.getImage_link(video_id);
-        String imageLink = "D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\server\\image_examples\\" + video_id + ".jpg";
+//        String imageLink = "D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\server\\image_examples\\" + video_id + ".jpg";
+//        File fileToSend = new File(imageLink);
 
-        File fileToSend = new File(imageLink);
+        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../server/image_examples" + "/" + video_id + ".jpg")).toURI());
         sendFile(fileToSend);
     }
 
