@@ -63,6 +63,7 @@ public class HomeController implements Initializable {
             for (int j = 0; j < 3; j++) {
                 try {
 
+                    //
                     //to convert an image to bytes
 //                    BufferedImage bufferedImage = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("../../home/girl_AI-generated_wallpapers-4.jpg")).toURI()));
 //                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
