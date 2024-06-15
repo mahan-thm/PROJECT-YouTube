@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.Icon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
@@ -112,7 +113,10 @@
                               <VBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <Button mnemonicParsing="false" text="imoji" />
-                                    <Button mnemonicParsing="false" text="Comment" />
+                                    <Button mnemonicParsing="false" text="Comment">
+                                       <graphic>
+                                          <Icon content="BRIGHTNESS_6" />
+                                       </graphic></Button>
                                  </children>
                               </VBox>
                               <MenuButton mnemonicParsing="false" text="Sort by" GridPane.columnIndex="1">
