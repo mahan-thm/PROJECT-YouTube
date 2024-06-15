@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -40,35 +41,35 @@ public class VideoPlayerController {
     @FXML
     private MediaView video_mediaView;
     @FXML
-    private Slider videoTimline_slider;
+    private Slider videoTimeline_slider;
     @FXML
-    private VBox first_vBox;
+    private ScrollPane videoPlayer_scrollPane;
 
 
-    public void setup(){
+    public void setup() {
         Media media = new Media(file.toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         video_mediaView.setMediaPlayer(mediaPlayer);
-        video_mediaView.fitHeightProperty().bind(first_vBox.widthProperty());
-        video_mediaView.fitWidthProperty().bind(first_vBox.widthProperty());
+        video_mediaView.fitHeightProperty().bind(videoPlayer_scrollPane.widthProperty().subtract(254));
+        video_mediaView.fitWidthProperty().bind(videoPlayer_scrollPane.widthProperty().subtract(254));
 
         mediaPlayer.totalDurationProperty().addListener((obs, oldDuration, newDuration) ->
-                videoTimline_slider.setMax(newDuration.toSeconds())
+                videoTimeline_slider.setMax(newDuration.toSeconds())
         );
 
         mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
-            if (!videoTimline_slider.isValueChanging()) {
-                videoTimline_slider.setValue(newTime.toSeconds());
+            if (!videoTimeline_slider.isValueChanging()) {
+                videoTimeline_slider.setValue(newTime.toSeconds());
             }
         });
 
 
-        videoTimline_slider.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+        videoTimeline_slider.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             mediaPlayer.pause();
         });
-
-        videoTimline_slider.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
-            mediaPlayer.seek(Duration.seconds(videoTimline_slider.getValue()));
+//        mediaPlayer.setRate(2);
+        videoTimeline_slider.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+            mediaPlayer.seek(Duration.seconds(videoTimeline_slider.getValue()));
             mediaPlayer.play();
         });
 
@@ -84,7 +85,7 @@ public class VideoPlayerController {
     }
 
     @FXML
-    public void goToHome_action(ActionEvent actionEvent){
+    public void goToHome_action(ActionEvent actionEvent) {
         try {
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
