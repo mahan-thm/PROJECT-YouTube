@@ -47,6 +47,17 @@ public class VideoPlayerController {
 
 
     public void setup() {
+
+
+
+
+
+
+
+
+
+
+
         Media media = new Media(file.toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         video_mediaView.setMediaPlayer(mediaPlayer);
