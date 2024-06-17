@@ -13,6 +13,12 @@ import javafx.scene.layout.VBox;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import javax.imageio.ImageIO;
+import org.imgscalr.Scalr;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -64,11 +70,14 @@ public class HomeController implements Initializable {
                     Video video = videoList.get(i * 3 + j);
                     request.imageFile(video.id);
                     byte[] imageBytes = readFile();
-                    File file = new File("src/main/resources/imageCache" + "/img" + (i * 3 + j) + ".jpg");
 
+
+                    File file = new File("src/main/resources/imageCache" + "/img" + (i * 3 + j) + ".jpg");
+                    // to resize image
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
                     fileOutputStream.write(imageBytes);
 
+//                  imageBytes = resize(file);
                     //to load fxml file
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = fxmlLoader.load();
@@ -96,7 +105,25 @@ public class HomeController implements Initializable {
             postInHome_vBox.getChildren().add(hBox);
         }
     }
+    public static byte[] resize(File icon) {
+        try {
+            BufferedImage originalImage = ImageIO.read(icon);
 
+//            originalImage= Scalr.resize(originalImage, Scalr.Method.QUALITY, Scalr.Mode.FIT_EXACT, 128, 153);
+            //To save with original ratio uncomment next line and comment the above.
+            originalImage= Scalr.resize(originalImage, 306, 256);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(originalImage, "jpg", baos);
+            baos.flush();
+            byte[] imageInByte = baos.toByteArray();
+            baos.close();
+            return imageInByte;
+        } catch (Exception e) {
+            return null;
+        }
+
+
+    }
 
     public void toolBar_action() {
         boolean toolbarShow = toolBar_pane.isVisible();

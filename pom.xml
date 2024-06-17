@@ -19,6 +19,11 @@
             <artifactId>json</artifactId>
             <version>20210307</version> <!-- Use the latest version available -->
         </dependency>
+        <dependency>
+            <groupId>org.imgscalr</groupId>
+            <artifactId>imgscalr-lib</artifactId>
+            <version>4.2</version>
+        </dependency>
 
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>

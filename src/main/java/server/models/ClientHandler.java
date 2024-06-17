@@ -1,9 +1,12 @@
 package server.models;
 
+import org.imgscalr.Scalr;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import server.database.Dbm;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.net.URISyntaxException;
@@ -324,7 +327,10 @@ public class ClientHandler implements Runnable {
 //        String imageLink = "D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\server\\image_examples\\" + video_id + ".jpg";
 //        File fileToSend = new File(imageLink);
 
-        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../server/image_examples" + "/" + video_id + ".jpg")).toURI());
+//        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../server/image_examples/"        + video_id + ".jpg")).toURI());
+        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../server/image_examples/lowSize/lowSize" + video_id + ".jpg")).toURI());
+
+//        fileToSend = resize(fileToSend,video_id);
         sendFile(fileToSend);
     }
 
@@ -680,4 +686,35 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         }
     }
+
+    public static File resize(File icon,int video_id) {
+        File resizedFile = new File("src/main/resources/server/image_examples/lowSize/lowSize" + video_id +".jpg");
+        try {
+            BufferedImage originalImage = ImageIO.read(icon);
+//
+//            //To save with original ratio uncomment next line and comment the above.
+            originalImage= Scalr.resize(originalImage, 960, 540);
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            ImageIO.write(originalImage, "jpg", baos);
+//            baos.flush();
+//            byte[] imageInByte = baos.toByteArray();
+//            baos.close();
+//            return imageInByte;
+
+            // Resize the image
+
+            // Write the resized image to a file
+            ImageIO.write(originalImage, "jpg", resizedFile);
+
+            return resizedFile;
+
+
+        } catch (Exception e) {
+            return null;
+        }
+
+
+    }
+
+
 }
