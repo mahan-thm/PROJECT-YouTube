@@ -89,7 +89,7 @@ public class Request {
 
         write(request);
     }
-    static void videoFile(String video_id){
+    public void videoFile(int video_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/videoFile");
         request.put("video_id",video_id);

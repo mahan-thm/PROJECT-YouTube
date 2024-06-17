@@ -60,16 +60,10 @@ public class HomeController implements Initializable {
             for (int j = 0; j < 3; j++) {
                 try {
 
-                    //to convert an image to bytes
-//                    BufferedImage bufferedImage = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("../../home/girl_AI-generated_wallpapers-4.jpg")).toURI()));
-//                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//                    bos.close();
-//                    ImageIO.write(bufferedImage, "png", bos);
-//                    byte[] imageBytes = bos.toByteArray();
 
                     Video video = videoList.get(i * 3 + j);
                     request.imageFile(video.id);
-                    byte[] imageBytes = readFile(video.getImageSIze());
+                    byte[] imageBytes = readFile();
                     File file = new File("src/main/resources/imageCache" + "/img" + (i * 3 + j) + ".jpg");
 
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -83,7 +77,7 @@ public class HomeController implements Initializable {
 
                     //TODO
                     //to set up PostInHome fxml file
-                    postInHomeController.define(imageBytes, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
+                    postInHomeController.define(imageBytes,video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
 //                    postInHomeController.define(imageBytes,"Ai Girl", "My Channel", "2k", "12 july");
                     postInHomeController.setup();
 

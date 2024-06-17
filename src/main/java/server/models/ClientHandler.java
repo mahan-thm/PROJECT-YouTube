@@ -306,7 +306,13 @@ public class ClientHandler implements Runnable {
 
     private void videoFile(JSONObject request) {
         int video_id = (int) request.get("video_id");
-        String videoLink = Dbm.getVideo_link(video_id);
+//        String videoLink = Dbm.getVideo_link(video_id);
+//        String videoLink = "../../server/image_examples" + "/" + video_id + ".mp4";
+
+
+        String videoLink = "src/main/resources/server/video_examples/1.mp4";
+//        String videoLink = "src/main/resources/server/video_examples/1.mkv";
+
 
         File fileToSend = new File(videoLink);
         sendFile(fileToSend);

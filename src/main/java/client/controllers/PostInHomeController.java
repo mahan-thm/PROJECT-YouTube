@@ -21,13 +21,15 @@ import java.util.Objects;
 
 public class PostInHomeController {
     private byte[] thumbnailByte;
+    private int video_id;
     private String channel;
     private String topic;
     private String view;
     private String timeUpload;
 
-    public void define(byte[] thumbnailByte, String topic, String chanel, String view, String timeUpload) {
+    public void define(byte[] thumbnailByte,int video_id, String topic, String chanel, String view, String timeUpload) {
         this.thumbnailByte = thumbnailByte;
+        this.video_id = video_id;
         this.topic = topic;
         this.channel = chanel;
         this.view = view;
@@ -72,7 +74,7 @@ public class PostInHomeController {
         VideoPlayerController videoPlayerController = fxmlLoader.getController();
 
 
-        videoPlayerController.define();
+        videoPlayerController.define(video_id);
 
         videoPlayerController.setup();
         Scene scene = new Scene(borderPane);

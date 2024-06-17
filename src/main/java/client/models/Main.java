@@ -77,7 +77,7 @@ public class Main extends Application {
         response.put("respondType", "/error");
         return response;
     }
-    public static byte[] readFile(int size){
+    public static byte[] readFile(){
 
         try {
             DataInputStream dataIn = new DataInputStream(new BufferedInputStream(socket.getInputStream()));

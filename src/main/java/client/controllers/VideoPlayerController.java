@@ -19,15 +19,34 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
+
+import static client.models.Main.readFile;
+import static client.models.Main.request;
 
 public class VideoPlayerController {
     private File file;
 
 
-    public void define() { //like a constructor
-        this.file = new File(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/VideoTest.mp4")).getFile());
+    public void define(int video_id) { //like a constructor
+        request.videoFile(video_id);
+        byte[] videoBytes = readFile();
+
+        File file = new File("src/main/resources/imageCache" + "/video" + video_id + ".mp4");
+//        File file = new File("src/main/resources/imageCache" + "/video" + video_id + ".mkv");
+        try {
+
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(videoBytes);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        this.file = file;
+
+//        this.file = new File(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/VideoTest.mp4")).getFile());
     }
 
 
