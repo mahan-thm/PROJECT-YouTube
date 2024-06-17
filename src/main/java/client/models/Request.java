@@ -13,6 +13,12 @@ public class Request {
         request.put("requestType","/login");
         request.put("username_input",username_input);
         request.put("password_input",password_input);
+//        request.put("name_input",name_input);
+//        request.put("email_input",email_input);
+//        request.put("number_input",number_input);
+        request.put("name_input","example_name");
+        request.put("email_input","example_email");
+        request.put("number_input","example_number");
 
         write(request);
     }

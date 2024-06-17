@@ -155,17 +155,16 @@ public class ClientHandler implements Runnable {
         String email_input = (String) request.get("email_input");
         String number_input = (String) request.get("number_input");
 
-//        if (!Dbm.checkUsername(username_input)){
-//            response.put("responseType","/signUp_rejected");
-
-//        }
-//        else
-//        {
-        response.put("responseType", "/signUp_accepted");
-        response.put("username", username_input);
-        response.put("password", password_input);
-//            Dbm.addUser(username_input,password_input,name_input,email_input,number_input,false,"");
-//        }
+        if (Dbm.checkUsername(username_input)){
+            response.put("responseType","/signUp_rejected");
+        }
+        else
+        {
+            response.put("responseType", "/signUp_accepted");
+            response.put("username", username_input);
+            response.put("password", password_input);
+            Dbm.addUser(username_input,password_input,name_input,email_input,number_input,false,"");
+        }
         write(response);
     }
 

@@ -20,10 +20,13 @@ public class Dbm {
 
 
     private static void open(){
+
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
             con = DriverManager.getConnection(url, username, password);
             stat =  con.createStatement();
-        }catch (SQLException e){
+        }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
         }
     }
@@ -42,8 +45,9 @@ public class Dbm {
                 "WHERE username =  '" + usernameInput+ "'";
         try{
             ResultSet rs = stat.executeQuery(query);
+            boolean toReturn = rs.next();
             close();
-            return rs.next();
+            return toReturn;
         }
         catch (SQLException e){
             e.printStackTrace();
