@@ -123,7 +123,7 @@
                               </MenuButton>
                            </children>
                         </GridPane>
-                        <VBox fx:id="videoComments_vBox" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+                        <VBox fx:id="videoComments_vBox" fillWidth="false" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="SOMETIMES" />
                      </children>
                   </VBox>
                   <VBox fx:id="recommendVideo_vBox" prefHeight="488.0" prefWidth="300.0" HBox.hgrow="NEVER" />

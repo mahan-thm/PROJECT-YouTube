@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -48,14 +49,31 @@ public class VideoPlayerController {
 
     public void setup() {
 
+        for (int i = 0; i < 6; i++) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/Comment.fxml")));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/CommentStyle.css")).toExternalForm());
+                CommentController commentController = fxmlLoader.getController();
+
+                ((VBox)anchorPane.getChildren().get(1)).prefWidthProperty().bind(videoPlayer_scrollPane.widthProperty().subtract(254));
+//                ((VBox)anchorPane.getChildren().get(1)).prefHeightProperty().bind(videoPlayer_scrollPane.widthProperty().subtract(254));
 
 
+                //TODO
+//                commentController.define(); //defining the prof image, comment text, when commented & ...
+//
+//
+//                commentController.setup();
+
+                videoComments_vBox.getChildren().add(anchorPane);
 
 
-
-
-
-
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
 
         Media media = new Media(file.toURI().toString());
