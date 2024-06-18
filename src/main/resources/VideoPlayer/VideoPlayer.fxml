@@ -176,10 +176,20 @@
                </children></AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
-                  <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="38.0" maxWidth="38.0" minHeight="38.0" minWidth="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" text="M" textAlignment="CENTER">
+                  <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
+                  </Button>
+                  <Button alignment="CENTER" layoutX="87.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <Button fx:id="notification_button" maxHeight="22.0" maxWidth="16.0" minHeight="22.0" minWidth="16.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="16.0" />
+                     </graphic>
+                  </Button>
+                  <Button alignment="CENTER" layoutX="38.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <Button fx:id="creat_button" maxHeight="13.0" maxWidth="22.0" minHeight="13.0" minWidth="22.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="22.0" />
+                     </graphic>
                   </Button>
                </children>
             </AnchorPane>
