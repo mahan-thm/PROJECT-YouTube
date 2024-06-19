@@ -21,13 +21,13 @@ public class TestMain extends Application {
     public void start(Stage stage) throws IOException {
 //        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../entry/Login.fxml")));
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
-//        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/VideoPlayer.fxml")));
+//        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../videoPlayer/videoPlayer.fxml")));
 
         Scene scene = new Scene(root);
 
 //        String css = Objects.requireNonNull(this.getClass().getResource("../../entry/LoginStyle.css")).toExternalForm();
         String css = Objects.requireNonNull(this.getClass().getResource("../../home/HomeStyle.css")).toExternalForm();
-//        String css = Objects.requireNonNull(this.getClass().getResource("../../VideoPlayer/VideoPlayerStyle.css")).toExternalForm();
+//        String css = Objects.requireNonNull(this.getClass().getResource("../../videoPlayer/VideoPlayerStyle.css")).toExternalForm();
         scene.getStylesheets().add(css);
 
         stage.setTitle("YouTube");

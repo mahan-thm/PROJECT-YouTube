@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,16 +13,23 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.HomeController">
+<BorderPane fx:id="homeMain_borderPain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.HomeController">
    <center>
-      <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="910.0" pannable="true">
+      <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="420.0" prefWidth="910.0">
          <content>
-            <VBox fx:id="postInHome_vBox" prefHeight="490.0" prefWidth="906.0" spacing="15.0" />
+            <VBox fx:id="postInHome_vBox" prefHeight="329.0" prefWidth="905.0" spacing="15.0" />
          </content>
          <padding>
             <Insets left="5.0" top="5.0" />
@@ -28,68 +37,283 @@
       </ScrollPane>
    </center>
    <top>
-      <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="960.0">
-         <columnConstraints>
-            <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="195.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="800.0" minWidth="200.0" prefWidth="573.600048828125" />
-            <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="195.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-         </rowConstraints>
+      <VBox>
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="194.0">
+            <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="960.0">
+               <columnConstraints>
+                  <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="195.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="800.0" minWidth="200.0" prefWidth="573.600048828125" />
+                  <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="195.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+               </rowConstraints>
                <children>
-                  <Group layoutX="55.0" layoutY="10.0">
+                  <AnchorPane prefHeight="200.0" prefWidth="194.0">
                      <children>
-                        <Button fx:id="youTubeIconHome1_button" layoutX="2.0" layoutY="5.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="30.0" />
-                        <Button fx:id="youTubeTextHome_button" layoutX="34.0" layoutY="6.0" maxHeight="18.0" maxWidth="65.0" minHeight="18.0" minWidth="65.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="65.0" />
-                        <Button fx:id="youTubeIconHome2_button" layoutX="14.0" layoutY="11.0" maxHeight="8.0" maxWidth="8.0" minHeight="8.0" minWidth="8.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="8.0" />
+                        <Group layoutX="55.0" layoutY="10.0">
+                           <children>
+                              <Button fx:id="youTubeIconHome1_button" layoutX="2.0" layoutY="5.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="30.0" />
+                              <Button fx:id="youTubeTextHome_button" layoutX="34.0" layoutY="6.0" maxHeight="18.0" maxWidth="65.0" minHeight="18.0" minWidth="65.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="65.0" />
+                              <Button fx:id="youTubeIconHome2_button" layoutX="14.0" layoutY="11.0" maxHeight="8.0" maxWidth="8.0" minHeight="8.0" minWidth="8.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="8.0" />
+                           </children>
+                        </Group>
+                        <Button alignment="CENTER" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" onAction="#toolBar_action" prefHeight="40.0" prefWidth="40.0">
+                           <graphic>
+                              <Button fx:id="toolBarHome_button" maxHeight="15.0" maxWidth="20.0" minHeight="15.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="20.0" />
+                           </graphic>
+                        </Button>
                      </children>
-                  </Group>
-                  <Button alignment="CENTER" layoutX="6.0" layoutY="5.0" mnemonicParsing="false" onAction="#toolBar_action" prefHeight="40.0" prefWidth="40.0">
-                     <graphic>
-                        <Button fx:id="toolBarHome_button" maxHeight="15.0" maxWidth="20.0" minHeight="15.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="20.0" />
-                     </graphic>
-                  </Button>
-               </children></AnchorPane>
-            <TextField fx:id="Search_textField" prefHeight="40.0" prefWidth="558.0" promptText="Search" GridPane.columnIndex="1">
-               <font>
-                  <Font size="18.0" />
-               </font></TextField>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
-               <children>
-                  <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="38.0" maxWidth="38.0" minHeight="38.0" minWidth="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" text="M" textAlignment="CENTER">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </AnchorPane>
+                  <TextField fx:id="Search_textField" prefHeight="40.0" prefWidth="573.0" promptText="Search" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <font>
-                        <Font name="Arial Bold" size="16.0" />
+                        <Font size="18.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                     <children>
+                        <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#account_action" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="87.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                           <graphic>
+                              <Button fx:id="notification_button" maxHeight="22.0" maxWidth="16.0" minHeight="22.0" minWidth="16.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="16.0" />
+                           </graphic>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="38.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                           <graphic>
+                              <Button fx:id="creat_button" maxHeight="13.0" maxWidth="22.0" minHeight="13.0" minWidth="22.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="22.0" />
+                           </graphic>
+                        </Button>
+                     </children>
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </AnchorPane>
+                  <Button fx:id="search_button" maxHeight="40.0" maxWidth="60.0" minHeight="40.0" minWidth="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="60.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@searchIcon.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
                   </Button>
                </children>
-            </AnchorPane>
-            <Button fx:id="search_button" maxHeight="40.0" maxWidth="60.0" minHeight="40.0" minWidth="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" GridPane.columnIndex="1">
-               <font>
-                  <Font size="19.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="60.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@searchIcon.gif" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
+            </GridPane>
+            <GridPane>
+               <VBox.margin>
+                  <Insets left="50.0" />
+               </VBox.margin>
+               <columnConstraints>
+                  <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0" prefWidth="44.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="817.6" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="49.39996337890625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ScrollPane fx:id="tags_scrollPane" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                     <content>
+                        <HBox alignment="CENTER" prefHeight="40.0">
+                           <children>
+                              <Label text="Label" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                           </children>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="170.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.41722745625841184">
+                                 <color>
+                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9300000071525574" green="0.9300000071525574" blue="0.9300000071525574" opacity="0.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Rectangle>
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="&lt;">
+                     <font>
+                        <Font name="sofi" size="19.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="170.0" GridPane.columnIndex="2">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.41722745625841184">
+                                 <color>
+                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9300000071525574" green="0.9300000071525574" blue="0.9300000071525574" opacity="0.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Rectangle>
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="26.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="26.0" text="&gt;" textAlignment="CENTER" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="sofi" size="19.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets right="5.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Pane fx:id="account_pane" prefHeight="50.0" prefWidth="200.0" GridPane.columnIndex="2">
+                     <children>
+                        <CubicCurve controlX1="273.7999267578125" controlX2="177.79994201660156" controlY1="-355.6000061035156" controlY2="313.20001220703125" disable="true" endX="131.00001525878906" endY="54.599998474121094" fill="#e4e4e4" layoutX="-189.0" layoutY="-45.0" startX="131.00001525878906" startY="492.1999816894531" stroke="BLACK" strokeWidth="0.0" />
+                        <VBox fx:id="account_vBox" alignment="TOP_CENTER" layoutX="-257.0" layoutY="-11.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <AnchorPane prefHeight="81.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="accountProfHome_button1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="6.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Arial Bold" size="17.0" />
+                                       </font>
+                                    </Button>
+                                    <VBox layoutX="54.0" layoutY="6.0" prefWidth="128.0" spacing="3.0">
+                                       <children>
+                                          <Label text="Channel name " wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="\@Channel username" />
+                                          <Hyperlink text="View your channel">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Hyperlink>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Switch account             &gt;">
+                                 <graphic>
+                                    <Button fx:id="switchAccountIcon_Button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Sign out">
+                                 <graphic>
+                                    <Button fx:id="signOutIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Line endX="90.69285583496094" startX="-80.0" stroke="#a4a4a4" strokeWidth="0.5" />
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Purchases &amp; memberships">
+                                 <graphic>
+                                    <Button fx:id="purchasesIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                              <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Appearance: What?       &gt;">
+                                 <graphic>
+                                    <Button fx:id="appearanceIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Restricted mode: on      &gt;">
+                                 <graphic>
+                                    <Button fx:id="restrictedIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Settings">
+                                 <graphic>
+                                    <Button fx:id="settingsIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Help">
+                                 <graphic>
+                                    <Button fx:id="helpIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Send feedback">
+                                 <graphic>
+                                    <Button fx:id="feedbackIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </children>
+            </GridPane>
          </children>
-      </GridPane>
+      </VBox>
    </top>
    <left>
-      <AnchorPane prefHeight="490.0" prefWidth="50.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="477.0" prefWidth="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="490.0" prefWidth="480.0" visible="false">
+            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0" visible="false">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="490.0" prefWidth="200.0">
+                  <ScrollPane hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="200.0">
                      <content>
-                        <VBox prefHeight="220.0" prefWidth="200.0" spacing="40.0">
+                        <VBox prefHeight="285.0" prefWidth="200.0" spacing="10.0">
                            <children>
+                              <Group>
+                                 <children>
+                                    <Group layoutX="48.0" layoutY="5.0">
+                                       <children>
+                                          <Button fx:id="youTubeIconHome1_button1" layoutX="2.0" layoutY="5.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="30.0" />
+                                          <Button fx:id="youTubeTextHome_button1" layoutX="34.0" layoutY="6.0" maxHeight="18.0" maxWidth="65.0" minHeight="18.0" minWidth="65.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="65.0" />
+                                          <Button fx:id="youTubeIconHome2_button1" layoutX="14.0" layoutY="11.0" maxHeight="8.0" maxWidth="8.0" minHeight="8.0" minWidth="8.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="8.0" />
+                                       </children>
+                                    </Group>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#toolBar_action" prefHeight="40.0" prefWidth="40.0">
+                                       <graphic>
+                                          <Button fx:id="toolBarHome_button1" maxHeight="15.0" maxWidth="20.0" minHeight="15.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="20.0" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </Group>
                               <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   Home">
                                  <graphic>
                                     <Button fx:id="homeTollBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
@@ -112,14 +336,14 @@
                               </Button>
                            </children>
                            <padding>
-                              <Insets left="9.5" top="17.5" />
+                              <Insets left="7.0" top="7.0" />
                            </padding>
                         </VBox>
                      </content>
                   </ScrollPane>
                </children>
             </Pane>
-            <VBox fx:id="toolBar_vBox" spacing="40.0">
+            <VBox fx:id="toolBar_vBox" prefHeight="224.0" prefWidth="48.0" spacing="40.0">
                <children>
                   <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
                      <graphic>
@@ -143,10 +367,13 @@
                   </Button>
                </children>
                <padding>
-                  <Insets left="8.0" top="18.0" />
+                  <Insets left="8.0" top="40.0" />
                </padding>
             </VBox>
          </children>
+         <BorderPane.margin>
+            <Insets top="-54.0" />
+         </BorderPane.margin>
       </AnchorPane>
    </left>
 </BorderPane>

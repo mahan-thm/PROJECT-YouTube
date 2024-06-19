@@ -46,7 +46,7 @@ public class VideoPlayerController {
         }
         this.file = file;
 
-//        this.file = new File(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/VideoTest.mp4")).getFile());
+//        this.file = new File(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoTest.mp4")).getFile());
     }
 
 
@@ -70,10 +70,10 @@ public class VideoPlayerController {
 
         for (int i = 0; i < 6; i++) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/Comment.fxml")));
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/Comment.fxml")));
                 AnchorPane anchorPane = fxmlLoader.load();
 
-                anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/CommentStyle.css")).toExternalForm());
+                anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/CommentStyle.css")).toExternalForm());
                 CommentController commentController = fxmlLoader.getController();
 
                 ((VBox)anchorPane.getChildren().get(1)).prefWidthProperty().bind(videoPlayer_scrollPane.widthProperty().subtract(254));

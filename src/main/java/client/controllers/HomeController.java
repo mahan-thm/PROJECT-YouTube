@@ -38,6 +38,8 @@ public class HomeController implements Initializable {
     private Pane toolBar_pane;
     @FXML
     private VBox toolBar_vBox;
+    @FXML
+    Pane account_pane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -125,12 +127,20 @@ public class HomeController implements Initializable {
 
     }
 
+    @FXML
     public void toolBar_action() {
-        boolean toolbarShow = toolBar_pane.isVisible();
+        boolean show = toolBar_pane.isVisible();
 
-        toolBar_pane.setVisible(!toolbarShow);
-        toolBar_vBox.setVisible(toolbarShow);
+        toolBar_pane.setVisible(!show);
+        toolBar_vBox.setVisible(show);
     }
 
+    @FXML
+    public void account_action(){
+        boolean show = account_pane.isVisible();
+
+        account_pane.setVisible(!show);
+
+    }
 
 }

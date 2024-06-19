@@ -133,7 +133,7 @@
       </ScrollPane>
    </center>
    <top>
-      <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="960.0">
+      <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="960.0">
          <columnConstraints>
             <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="195.0" />
             <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="800.0" minWidth="200.0" prefWidth="573.600048828125" />
@@ -146,7 +146,10 @@
             <TextField fx:id="Search_textField" prefHeight="40.0" prefWidth="140.0" promptText="Search" GridPane.columnIndex="1">
                <font>
                   <Font size="18.0" />
-               </font></TextField>
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin></TextField>
             <Button fx:id="search_button" maxHeight="40.0" maxWidth="60.0" minHeight="40.0" minWidth="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" GridPane.columnIndex="1">
                <font>
                   <Font size="19.0" />
@@ -158,6 +161,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
             </Button>
             <AnchorPane prefHeight="200.0" prefWidth="194.0">
                <children>
@@ -173,15 +179,31 @@
                         <Button fx:id="toolBarHome_button" maxHeight="15.0" maxWidth="20.0" minHeight="15.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="20.0" />
                      </graphic>
                   </Button>
-               </children></AnchorPane>
+               </children>
+               <GridPane.margin>
+                  <Insets top="3.0" />
+               </GridPane.margin></AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
-                  <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="38.0" maxWidth="38.0" minHeight="38.0" minWidth="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" text="M" textAlignment="CENTER">
+                  <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
                   </Button>
+                  <Button alignment="CENTER" layoutX="87.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <Button fx:id="notification_button" maxHeight="22.0" maxWidth="16.0" minHeight="22.0" minWidth="16.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="16.0" />
+                     </graphic>
+                  </Button>
+                  <Button alignment="CENTER" layoutX="38.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <Button fx:id="creat_button" maxHeight="13.0" maxWidth="22.0" minHeight="13.0" minWidth="22.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="22.0" />
+                     </graphic>
+                  </Button>
                </children>
+               <GridPane.margin>
+                  <Insets top="3.0" />
+               </GridPane.margin>
             </AnchorPane>
          </children>
       </GridPane>
@@ -189,13 +211,29 @@
    <left>
       <AnchorPane prefHeight="490.0" prefWidth="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="490.0" prefWidth="480.0" visible="false">
+            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0" visible="false">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="490.0" prefWidth="200.0">
+                  <ScrollPane hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="200.0">
                      <content>
-                        <VBox prefHeight="220.0" prefWidth="200.0" spacing="40.0">
+                        <VBox prefHeight="280.0" prefWidth="200.0" spacing="10.0">
                            <children>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#goToHome_action" prefHeight="40.0" prefWidth="178.0" text="   Home">
+                              <Group>
+                                 <children>
+                                    <Group layoutX="48.0" layoutY="5.0">
+                                       <children>
+                                          <Button fx:id="youTubeIconHome1_button1" layoutX="2.0" layoutY="5.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="30.0" />
+                                          <Button fx:id="youTubeTextHome_button1" layoutX="34.0" layoutY="6.0" maxHeight="18.0" maxWidth="65.0" minHeight="18.0" minWidth="65.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="65.0" />
+                                          <Button fx:id="youTubeIconHome2_button1" layoutX="14.0" layoutY="11.0" maxHeight="8.0" maxWidth="8.0" minHeight="8.0" minWidth="8.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="8.0" />
+                                       </children>
+                                    </Group>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#toolBar_action" prefHeight="40.0" prefWidth="40.0">
+                                       <graphic>
+                                          <Button fx:id="toolBarHome_button1" maxHeight="15.0" maxWidth="20.0" minHeight="15.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="20.0" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </Group>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   Home">
                                  <graphic>
                                     <Button fx:id="homeTollBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -217,7 +255,7 @@
                               </Button>
                            </children>
                            <padding>
-                              <Insets left="9.5" top="17.5" />
+                              <Insets left="7.0" top="7.0" />
                            </padding>
                         </VBox>
                      </content>

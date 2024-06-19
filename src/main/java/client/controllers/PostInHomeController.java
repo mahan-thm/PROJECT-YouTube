@@ -69,7 +69,7 @@ public class PostInHomeController {
 
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/VideoPlayer.fxml")));
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/videoPlayer.fxml")));
         BorderPane borderPane = fxmlLoader.load();
         VideoPlayerController videoPlayerController = fxmlLoader.getController();
 
@@ -78,7 +78,7 @@ public class PostInHomeController {
 
         videoPlayerController.setup();
         Scene scene = new Scene(borderPane);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../VideoPlayer/VideoPlayerStyle.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoPlayerStyle.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
