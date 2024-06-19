@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="login_boarderPane" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.LoginController">
+   <top>
+      <AnchorPane prefHeight="100.0" prefWidth="960.0" BorderPane.alignment="CENTER" />
+   </top>
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <AnchorPane>
+         <children>
+            <Button layoutX="258.0" layoutY="117.0" mnemonicParsing="false" stylesheets="@CreatChannelStyle.css" text="Button" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
