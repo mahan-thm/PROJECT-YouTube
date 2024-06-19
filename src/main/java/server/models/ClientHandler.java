@@ -314,10 +314,6 @@ public class ClientHandler implements Runnable {
 //        File fileToSend = new File(imageLink);
 
 
-        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../DATA/image_examples" + "/" + id + ".jpg")).toURI());
-
-        response.put("imageSize", Math.toIntExact(fileToSend.length()));
-
         write(response);
 
     }
