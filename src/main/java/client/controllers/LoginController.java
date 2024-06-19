@@ -86,6 +86,7 @@ public class LoginController {
 
         if (username != null && password != null) {
             userAccount = new UserAccount(username.toString(), password.toString());
+            userAccount.writeRememberMe();
             goToHome_action(actionEvent);
         }
     }

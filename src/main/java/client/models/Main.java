@@ -28,23 +28,28 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         request = new Request();
+        userAccount = new UserAccount();
         socket_init();
-//        JSONObject temp = new JSONObject();
-//        temp.put("requestType","/test");
-//        write(temp);
         launch(args);
 
     }
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../entry/Login.fxml")));
+        String css;
+        Parent root;
+        if(userAccount.autoLogin()){
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
+            css = Objects.requireNonNull(this.getClass().getResource("../../home/HomeStyle.css")).toExternalForm();
+        }
+        else {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../entry/Login.fxml")));
+            css = Objects.requireNonNull(this.getClass().getResource("../../entry/LoginStyle.css")).toExternalForm();
+        }
         Scene scene = new Scene(root);
-        String css = Objects.requireNonNull(this.getClass().getResource("../../entry/LoginStyle.css")).toExternalForm();
         scene.getStylesheets().add(css);
         stage.setTitle("YouTube");
         stage.setScene(scene);
-
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../entry/youtube-icon.png")));
         stage.getIcons().add(icon);
         stage.show();

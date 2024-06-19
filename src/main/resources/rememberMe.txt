@@ -1,0 +1,1 @@
+{"password":"aaa","isLoggedIn":true,"username":"qqq"}
