@@ -4,12 +4,11 @@ import client.models.Video;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import javax.imageio.ImageIO;
+
 import org.imgscalr.Scalr;
 
 import java.io.FileOutputStream;
@@ -43,9 +43,22 @@ public class HomeController implements Initializable {
     private Pane fadeRectangle_pane;
     @FXML
     private Pane creat_pane;
+    @FXML
+    private Button accountProfHome_button;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        //____________________________________PROFILE PHOTO__________________________________________
+        //TODO
+            String profPath = "img0.jpg";
+
+            accountProfHome_button.setStyle("-fx-background-image: url('CACHE/imageCache/img0.jpg')");
+
+
+
+
+        //_________________________________________VIDEO THUMBNAIL___________________________________________
         request.videoList(1, new JSONArray());
         JSONObject response1 = read();
 //        JSONObject response1 = new JSONObject();
@@ -77,7 +90,7 @@ public class HomeController implements Initializable {
                     byte[] imageBytes = readFile();
 
 
-                    File file = new File("src/main/resources/imageCache" + "/img" + (i * 3 + j) + ".jpg");
+                    File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (i * 3 + j) + ".jpg");
                     // to resize image
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
                     fileOutputStream.write(imageBytes);
@@ -91,7 +104,7 @@ public class HomeController implements Initializable {
 
                     //TODO
                     //to set up PostInHome fxml file
-                    postInHomeController.define(imageBytes,video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
+                    postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
 //                    postInHomeController.define(imageBytes,"Ai Girl", "My Channel", "2k", "12 july");
                     postInHomeController.setup();
 
@@ -109,14 +122,16 @@ public class HomeController implements Initializable {
             }
             postInHome_vBox.getChildren().add(hBox);
         }
+        //_______________________________________________________________________________________________________
     }
+
     public static byte[] resize(File icon) {
         try {
             BufferedImage originalImage = ImageIO.read(icon);
 
 //            originalImage= Scalr.resize(originalImage, Scalr.Method.QUALITY, Scalr.Mode.FIT_EXACT, 128, 153);
             //To save with original ratio uncomment next line and comment the above.
-            originalImage= Scalr.resize(originalImage, 306, 256);
+            originalImage = Scalr.resize(originalImage, 306, 256);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(originalImage, "jpg", baos);
             baos.flush();
@@ -139,19 +154,21 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    public void account_action(){
+    public void account_action() {
 //        boolean show = account_pane.isVisible();
 //        account_pane.setVisible(!show);
         account_pane.setVisible(true);
         fadeRectangle_pane.setVisible(true);
     }
+
     @FXML
-    public void create_action(){
+    public void create_action() {
         fadeRectangle_pane.setVisible(true);
         creat_pane.setVisible(true);
     }
+
     @FXML
-    public void closeBars(){
+    public void closeBars() {
         fadeRectangle_pane.setVisible(false);
         account_pane.setVisible(false);
         creat_pane.setVisible(false);

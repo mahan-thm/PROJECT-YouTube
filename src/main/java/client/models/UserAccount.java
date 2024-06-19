@@ -30,7 +30,7 @@ public class UserAccount {
 
         try {
 
-            File file = new File("src/main/resources/rememberMe.txt");
+            File file = new File("src/main/resources/CACHE/rememberMe.txt");
             FileWriter fos = new FileWriter(file) ;
             JSONObject data = new JSONObject();
             data.put("isLoggedIn",true);
@@ -51,7 +51,7 @@ public class UserAccount {
 
         try {
 
-            String content = new String(Files.readAllBytes(Paths.get("src/main/resources/rememberMe.txt")));
+            String content = new String(Files.readAllBytes(Paths.get("src/main/resources/CACHE/rememberMe.txt")));
             JSONObject data = null;
             if (!content.equals("")) {
 

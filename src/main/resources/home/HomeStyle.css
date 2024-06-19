@@ -7,6 +7,16 @@
     -fx-background-color: #cccccc;
 }
 
+#accountProfHome_button{
+    -fx-background-position: center;
+    -fx-background-size: 40 40;
+
+    -fx-background-radius: 30;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 30;
+    -fx-border-color: black;
+}
+
 #toolBarHome_button {
     -fx-shape: "M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z";
     -fx-background-color: black;
@@ -59,11 +69,6 @@
 #creat_button {
     -fx-shape: "M14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2zm3-7H3v12h14v-6.39l4 1.83V8.56l-4 1.83V6m1-1v3.83L22 7v8l-4-1.83V19H2V5h16z";
     -fx-background-color: black;
-}
-
-
-#accountProfHome_button {
-    -fx-background-radius: 30;
 }
 
 #Search_textField {

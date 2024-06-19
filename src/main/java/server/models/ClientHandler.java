@@ -298,7 +298,7 @@ public class ClientHandler implements Runnable {
 //        File fileToSend = new File(imageLink);
 
 
-        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../server/image_examples" + "/" + id + ".jpg")).toURI());
+        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../DATA/image_examples" + "/" + id + ".jpg")).toURI());
 
         response.put("imageSize", Math.toIntExact(fileToSend.length()));
 
@@ -312,7 +312,7 @@ public class ClientHandler implements Runnable {
 //        String videoLink = "../../server/image_examples" + "/" + video_id + ".mp4";
 
 
-        String videoLink = "src/main/resources/server/video_examples/1.mp4";
+        String videoLink = "src/main/resources/DATA/video_examples/1.mp4";
 //        String videoLink = "src/main/resources/server/video_examples/1.mkv";
 
 
@@ -327,7 +327,7 @@ public class ClientHandler implements Runnable {
 //        File fileToSend = new File(imageLink);
 
 //        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../server/image_examples/"        + video_id + ".jpg")).toURI());
-        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../server/image_examples/lowSize/lowSize" + video_id + ".jpg")).toURI());
+        File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../DATA/image_examples/lowSize/lowSize" + video_id + ".jpg")).toURI());
 
 //        fileToSend = resize(fileToSend,video_id);
         sendFile(fileToSend);
@@ -687,7 +687,7 @@ public class ClientHandler implements Runnable {
     }
 
     public static File resize(File icon,int video_id) {
-        File resizedFile = new File("src/main/resources/server/image_examples/lowSize/lowSize" + video_id +".jpg");
+        File resizedFile = new File("src/main/resources/DATA/image_examples/lowSize/lowSize" + video_id +".jpg");
         try {
             BufferedImage originalImage = ImageIO.read(icon);
 //
