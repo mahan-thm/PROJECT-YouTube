@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -19,6 +20,8 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -75,7 +78,7 @@
                   </TextField>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
+                        <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#account_action" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="17.0" />
                            </font>
@@ -201,6 +204,86 @@
                         <Insets right="5.0" />
                      </GridPane.margin>
                   </Button>
+                  <Pane fx:id="account_pane" prefHeight="50.0" prefWidth="200.0" GridPane.columnIndex="2">
+                     <children>
+                        <CubicCurve controlX1="273.7999267578125" controlX2="177.79994201660156" controlY1="-355.6000061035156" controlY2="313.20001220703125" disable="true" endX="131.00001525878906" endY="54.599998474121094" fill="#e4e4e4" layoutX="-189.0" layoutY="-45.0" startX="131.00001525878906" startY="492.1999816894531" stroke="BLACK" strokeWidth="0.0" />
+                        <VBox fx:id="account_vBox" alignment="TOP_CENTER" layoutX="-257.0" layoutY="-11.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <AnchorPane prefHeight="81.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="accountProfHome_button1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="6.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Arial Bold" size="17.0" />
+                                       </font>
+                                    </Button>
+                                    <VBox layoutX="54.0" layoutY="6.0" prefWidth="128.0" spacing="3.0">
+                                       <children>
+                                          <Label text="Channel name " wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="\@Channel username" />
+                                          <Hyperlink text="View your channel">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Hyperlink>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Switch account             &gt;">
+                                 <graphic>
+                                    <Button fx:id="switchAccountIcon_Button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Sign out">
+                                 <graphic>
+                                    <Button fx:id="signOutIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Line endX="90.69285583496094" startX="-80.0" stroke="#a4a4a4" strokeWidth="0.5" />
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Purchases &amp; memberships">
+                                 <graphic>
+                                    <Button fx:id="purchasesIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                              <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Appearance: What?       &gt;">
+                                 <graphic>
+                                    <Button fx:id="appearanceIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Restricted mode: on      &gt;">
+                                 <graphic>
+                                    <Button fx:id="restrictedIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Settings">
+                                 <graphic>
+                                    <Button fx:id="settingsIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Help">
+                                 <graphic>
+                                    <Button fx:id="helpIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Send feedback">
+                                 <graphic>
+                                    <Button fx:id="feedbackIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
                </children>
             </GridPane>
          </children>
@@ -213,7 +296,7 @@
                <children>
                   <ScrollPane hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="200.0">
                      <content>
-                        <VBox prefHeight="280.0" prefWidth="200.0" spacing="10.0">
+                        <VBox prefHeight="285.0" prefWidth="200.0" spacing="10.0">
                            <children>
                               <Group>
                                  <children>
