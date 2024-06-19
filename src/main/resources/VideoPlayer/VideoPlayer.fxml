@@ -211,13 +211,29 @@
    <left>
       <AnchorPane prefHeight="490.0" prefWidth="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="490.0" prefWidth="480.0" visible="false">
+            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0" visible="false">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="490.0" prefWidth="200.0">
+                  <ScrollPane hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="200.0">
                      <content>
-                        <VBox prefHeight="220.0" prefWidth="200.0" spacing="10.0">
+                        <VBox prefHeight="280.0" prefWidth="200.0" spacing="10.0">
                            <children>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#goToHome_action" prefHeight="40.0" prefWidth="178.0" text="   Home">
+                              <Group>
+                                 <children>
+                                    <Group layoutX="48.0" layoutY="5.0">
+                                       <children>
+                                          <Button fx:id="youTubeIconHome1_button1" layoutX="2.0" layoutY="5.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="30.0" />
+                                          <Button fx:id="youTubeTextHome_button1" layoutX="34.0" layoutY="6.0" maxHeight="18.0" maxWidth="65.0" minHeight="18.0" minWidth="65.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="65.0" />
+                                          <Button fx:id="youTubeIconHome2_button1" layoutX="14.0" layoutY="11.0" maxHeight="8.0" maxWidth="8.0" minHeight="8.0" minWidth="8.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="8.0" />
+                                       </children>
+                                    </Group>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#toolBar_action" prefHeight="40.0" prefWidth="40.0">
+                                       <graphic>
+                                          <Button fx:id="toolBarHome_button1" maxHeight="15.0" maxWidth="20.0" minHeight="15.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="20.0" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </Group>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   Home">
                                  <graphic>
                                     <Button fx:id="homeTollBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -239,7 +255,7 @@
                               </Button>
                            </children>
                            <padding>
-                              <Insets left="9.5" top="17.5" />
+                              <Insets left="7.0" top="7.0" />
                            </padding>
                         </VBox>
                      </content>
