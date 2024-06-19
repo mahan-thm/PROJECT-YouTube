@@ -1,1 +1,1 @@
-{"password":"aaa","isLoggedIn":true,"username":"qqq"}
+{"password":"","isLoggedIn":true,"username":""}

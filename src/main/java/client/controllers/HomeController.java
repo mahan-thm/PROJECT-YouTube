@@ -19,7 +19,6 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -39,7 +38,11 @@ public class HomeController implements Initializable {
     @FXML
     private VBox toolBar_vBox;
     @FXML
-    Pane account_pane;
+    private Pane account_pane;
+    @FXML
+    private Pane fadeRectangle_pane;
+    @FXML
+    private Pane creat_pane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -137,9 +140,21 @@ public class HomeController implements Initializable {
 
     @FXML
     public void account_action(){
-        boolean show = account_pane.isVisible();
-
-        account_pane.setVisible(!show);
+//        boolean show = account_pane.isVisible();
+//        account_pane.setVisible(!show);
+        account_pane.setVisible(true);
+        fadeRectangle_pane.setVisible(true);
+    }
+    @FXML
+    public void create_action(){
+        fadeRectangle_pane.setVisible(true);
+        creat_pane.setVisible(true);
+    }
+    @FXML
+    public void closeBars(){
+        fadeRectangle_pane.setVisible(false);
+        account_pane.setVisible(false);
+        creat_pane.setVisible(false);
 
     }
 
