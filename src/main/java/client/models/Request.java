@@ -49,6 +49,11 @@ public class Request {
 
         write(request);
     }
+    public void profileImg() {
+        JSONObject request = new JSONObject();
+        request.put("requestType","/profileImg");
+        write(request);
+    }
     //-------------------------------------------------------------------------------------------------------
 
     // item list request-------------------------------------------------------------------------------------

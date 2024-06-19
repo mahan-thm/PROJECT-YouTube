@@ -13,14 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.io.*;
 import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -51,13 +48,28 @@ public class HomeController implements Initializable {
 
         //____________________________________PROFILE PHOTO__________________________________________
         //TODO
-            String profPath = "img0.jpg";
+            String profPath = "-fx-background-image: url('CACHE/imageCache/img0.jpg')";
+            request.profileImg();
+            if (read().getString("responseType").equals("/profileImg_accepted")){
 
-            accountProfHome_button.setStyle("-fx-background-image: url('CACHE/imageCache/img0.jpg')");
+                byte[] profImgBytes = readFile();
 
 
+                File file = new File("src/main/resources/CACHE/imageCache/img0.jpg");
+
+                try {
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(profImgBytes);
+
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
 
+                accountProfHome_button.setStyle(profPath);
+            }
         //_________________________________________VIDEO THUMBNAIL___________________________________________
         request.videoList(1, new JSONArray());
         JSONObject response1 = read();

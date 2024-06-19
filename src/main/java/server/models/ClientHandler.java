@@ -76,6 +76,7 @@ public class ClientHandler implements Runnable {
                 case "/login" -> login(request);
                 case "/logout" -> logout(request);
                 case "/signUp" -> signUp(request);
+                case "/profileImg" -> profileImg(request);
                 case "/videoList" -> videoList(request);
                 case "/channelList" -> channelList(request);
                 case "/hybridList" -> hybridList(request);
@@ -166,6 +167,21 @@ public class ClientHandler implements Runnable {
             Dbm.addUser(username_input,password_input,name_input,email_input,number_input,false,"");
         }
         write(response);
+    }
+
+    private void profileImg(JSONObject request){
+        try {
+
+            JSONObject response = new JSONObject();
+            response.put("responseType", "/profileImg_accepted");
+
+            File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../DATA/image_examples/profileImg" + user_id + ".jpg")).toURI());
+
+            write(response);
+            sendFile(fileToSend);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void videoList(JSONObject request) {
@@ -502,7 +518,7 @@ public class ClientHandler implements Runnable {
 
         int channel_id = (int) request.get("channel_id");
 
-        Dbm.addUserSubscribedChannels(channel_id, user_id);
+        Dbm.addUserSubscribedChannels(channel_id, user_id,"");
         Dbm.addChannelTotalSubscribers(channel_id);
 
         response.put("responseType", "/subscribeChannel_accepted");
