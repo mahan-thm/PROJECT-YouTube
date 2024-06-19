@@ -106,10 +106,10 @@ public class Dbm {
                 "WHERE id =  " +id ;
         try{
             ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            String str= rs.getString("creation_date");
             close();
-            return rs.getString("creation_date");
-
-
+            return str;
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -126,8 +126,10 @@ public class Dbm {
                 "WHERE id =  " +id ;
         try{
             ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            String str= rs.getString("duration");
             close();
-            return rs.getString("duration");
+            return str;
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -144,8 +146,10 @@ public class Dbm {
                 "WHERE id =  " +id ;
         try{
             ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            String str= rs.getString("total_view");
             close();
-            return rs.getString("total_view");
+            return str;
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -163,6 +167,7 @@ public class Dbm {
         try{
             ResultSet rs = stat.executeQuery(query);
             close();
+            rs.next();
             return rs.getString("total_likes");
         }
         catch (SQLException e){
@@ -213,8 +218,10 @@ public class Dbm {
 //        addUser("kourosh" , "111" ,"kourosh", "k.rasht@gmail.com" ,"1234" ,false ,"29.3.403" );
 //        System.out.println( checkUsername("koursh"));
 //        System.out.println(authorize("koursh" ,"111"));
-//        addVideo(1 , "vid" ,"this is a video" , "320" ,"29.3.403" ,["[\"fun\", \"horror\", \"adventure\"]"]);
+//        todo addVideo(1 , "vid" ,"this is a video" , "320" ,"29.3.403" ,["[\"fun\", \"horror\", \"adventure\"]"]);
 //        System.out.println((getVideo_Title(1)));
+//        System.out.println(getVideo_creationTime(1));
+
 
     }
 
@@ -423,7 +430,7 @@ public class Dbm {
             String query =
                     "INSERT INTO TABLE videos (id , title, video_description ,creation_date, duration) VALUES ("
                             + lastId +",'"+ title + "','" + videoDescription +"','" + creationDate + "','" + duration + "')";
-            stat.executeUpdate(query);
+            int res = stat.executeUpdate(query);
             close();
             return lastId;
 
@@ -458,7 +465,7 @@ public class Dbm {
             String query =
                     "INSERT INTO TABLE comments (id ,user_id, video_id,creation_date, body, repliedTo) VALUES ("
                             + lastId +","+ user_id + "," + video_id +",'" + creationDate + "','" + text + "',"+ repliedToId+")";
-            stat.executeUpdate(query);
+            int res = stat.executeUpdate(query);
             close();
             return lastId;
 
@@ -472,15 +479,12 @@ public class Dbm {
     }
 
     public static void removeComment(int commentId) {
+        // todo all void methods has int rs = stat.executeUpdate(query);
+        // todo nemikhay age amaliat dorost anjam nashod -1 return kone?
         open();
         try {
-
-
-
-            String query ="DELETE FROM comments WHERE id = " + commentId;
-
-            stat.executeUpdate(query);
-
+        String query ="DELETE FROM comments WHERE id = " + commentId;
+        int rs = stat.executeUpdate(query);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -495,7 +499,7 @@ public class Dbm {
         try {
             String query = " UPDATE comments SET type = '"+likeType+"' WHERE commentId =  "+commentId ;
 
-            stat.executeUpdate(query);
+            int rs = stat.executeUpdate(query);
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -510,7 +514,7 @@ public class Dbm {
         try {
             String query = "DELETE FROM liked_comments WHERE id = " + commentLike_id ;
 
-            stat.executeUpdate(query);
+            int rs = stat.executeUpdate(query);
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -610,7 +614,7 @@ public class Dbm {
             String query =
                     "INSERT INTO TABLE channels (id , owner_id, channel_username, channel_description ,creation_date) VALUES ("
                             + lastId +","+ owner_id + ",'"+ channelUsername + "','" + channelDescription +"','" + creationDate + "')";
-            stat.executeUpdate(query);
+            int res = stat.executeUpdate(query);
             close();
             return lastId;
 
@@ -662,25 +666,83 @@ public class Dbm {
     }
 
     public static void removeChannel(int channelId) {
+        open();
+        try {
+            String query = "DELETE FROM channels WHERE id = " + channelId ;
+            int rs = stat.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
     }
+
+
 
     public static String getVideoPath() {
         return videoPath;
     }
 
-    public static void addUserSubscribedChannels(int channelId, int userId) {
+    public static void addUserSubscribedChannels(int channelId, int userId , String add_date) {
+        open();
+        String query = "INSERT INTO subscribed_channels (channel_id , user_id , is_notif_on , add_date"
+                        +"VALUES ( " + channelId +","+ userId +","+ false +",'"+ add_date+"')";
+        try{
+           int rs = stat.executeUpdate(query);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
     }
 
     public static void addChannelTotalSubscribers(int channelId) {
+        // todo
     }
 
     public static void removeUserSubscribedChannels(int channelId, int userId) {
+        open();
+        try {
+            String query = "DELETE FROM subscribed_channels WHERE id = " + channelId ;
+            int rs = stat.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
     }
 
     public static void reduceChannelTotalSubscribers(int channelId) {
     }
 
     public static void addSavedVideo(int userId, String playlistType, int videoId) {
+        open();
+//        String maxId = "SELECT MAX(id) AS maxId FROM videos";
+//        int lastId=0;
+//        try {
+//            ResultSet rs = stat.executeQuery(maxId);
+//            // bug probablity
+//            lastId =rs.getInt("maxId") ;
+//            lastId++;
+
+//            String query =
+//                    "INSERT INTO TABLE saved_videos ( user_id ,video_Id , type ) VALUES ("
+//                            + userId +","+ videoId + ",'" + playlistType+ "')";
+//            int res = stat.executeUpdate(query);
+//            close();
+//
+//        }catch(SQLException e){
+//            e.printStackTrace();
+//        }
+//        finally {
+//            close();
+//        }
+//        return -1;
+
     }
 
     public static void removeSavedVideo(int userId, String playlistType, int videoId) {
@@ -720,3 +782,4 @@ public class Dbm {
     }
 
 }
+
