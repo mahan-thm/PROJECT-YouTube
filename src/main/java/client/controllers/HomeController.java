@@ -48,14 +48,14 @@ public class HomeController implements Initializable {
 
         //____________________________________PROFILE PHOTO__________________________________________
         //TODO
-            String profPath = "-fx-background-image: url('CACHE/imageCache/img0.jpg')";
+            String profPath = "-fx-background-image: url('CACHE/imageCache/profImg0.jpg')";
             request.profileImg();
             if (read().getString("responseType").equals("/profileImg_accepted")){
 
                 byte[] profImgBytes = readFile();
 
 
-                File file = new File("src/main/resources/CACHE/imageCache/img0.jpg");
+                File file = new File("src/main/resources/CACHE/imageCache/profImg0.jpg");
 
                 try {
                     FileOutputStream fileOutputStream = new FileOutputStream(file);

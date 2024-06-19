@@ -34,7 +34,7 @@ public class VideoPlayerController {
         request.videoFile(video_id);
         byte[] videoBytes = readFile();
 
-        File file = new File("src/main/resources/videoCache" + "/video" + video_id + ".mp4");
+        File file = new File("src/main/resources/CACHE/videoCache" + "/video" + video_id + ".mp4");
 //        File file = new File("src/main/resources/imageCache" + "/video" + video_id + ".mkv");
         try {
 
