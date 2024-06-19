@@ -12,11 +12,6 @@ public class Video {
     String total_view ;
     String total_likes ;
     String total_dislikes ;
-    int imageSIze ;
-
-    public int getImageSIze() {
-        return imageSIze;
-    }
 
     public String getTitle_body() {
         return title_body;
@@ -74,7 +69,7 @@ public class Video {
 
         channel_id = (int) response.get("channel_id");
         channel_name = (String) response.get("channel_name");
-        imageSIze = (int) response.get("imageSize");
+
     }
 
 
