@@ -39,6 +39,7 @@ public class Dbm {
             e.printStackTrace();
         }
     }
+
     public static boolean checkUsername(String usernameInput){
         open();
         String query = "SELECT * FROM users " +
@@ -52,7 +53,9 @@ public class Dbm {
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return false;
     }
 
@@ -63,17 +66,18 @@ public class Dbm {
                 "WHERE username =  '" + usernameInput+ "'" +"AND pass = '" + passwordInput+ "'";
         try{
             ResultSet rs = stat.executeQuery(query);
+            boolean bool = rs.next();
             close();
-            return rs.next();
+            return bool;
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return false;
     }
-
-
 
     public static String getVideo_Title(int id) {
         open();
@@ -81,14 +85,17 @@ public class Dbm {
                 "WHERE id =  " +id ;
         try{
             ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            String str = rs.getString("title");
             close();
-            return rs.getString("title");
-
+            return str;
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return "";
     }
 
@@ -100,14 +107,16 @@ public class Dbm {
         try{
             ResultSet rs = stat.executeQuery(query);
             close();
-            return rs.getString("creationDate");
+            return rs.getString("creation_date");
 
 
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return "";
     }
 
@@ -123,7 +132,9 @@ public class Dbm {
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return "";
     }
 
@@ -139,7 +150,9 @@ public class Dbm {
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return "";
     }
 
@@ -155,7 +168,9 @@ public class Dbm {
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return "";
     }
     public static List<Integer> getRandomVideoId(int videoCount) {
@@ -189,8 +204,18 @@ public class Dbm {
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return 0;
+    }
+    public  static  void main (String args[]){
+//        addUser("kourosh" , "111" ,"kourosh", "k.rasht@gmail.com" ,"1234" ,false ,"29.3.403" );
+//        System.out.println( checkUsername("koursh"));
+//        System.out.println(authorize("koursh" ,"111"));
+//        addVideo(1 , "vid" ,"this is a video" , "320" ,"29.3.403" ,["[\"fun\", \"horror\", \"adventure\"]"]);
+//        System.out.println((getVideo_Title(1)));
+
     }
 
     public static String getVideo_totalDislikes(int id) {
@@ -205,24 +230,12 @@ public class Dbm {
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return "";
     }
 
-    public static void addUser(String username, String password, String name,String email,
-                               String number,int is_premium,String creationDate ) {
-        open();
-        String query = "INSERT INTO users ( username ,name , number ,pass , email , is_premium ,creationDate) VALUES ('"+
-                username + "','" + name+"','"+ number + "','" +password + "','" +email+" '," + is_premium +", '"+ creationDate +"')";
-        try{
-            int rs = stat.executeUpdate(query);
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        close();
-
-    }
 
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
@@ -314,7 +327,7 @@ public class Dbm {
         String creation_time="";
         try {
             ResultSet rs = stat.executeQuery(query);
-            creation_time =rs.getString("creationDate");
+            creation_time =rs.getString("creation_date");
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -388,7 +401,9 @@ public class Dbm {
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return false;
     }
 
@@ -406,7 +421,7 @@ public class Dbm {
             lastId++;
 
             String query =
-                    "INSERT INTO TABLE videos (id , title, video_description ,creationDate, duration) VALUES ("
+                    "INSERT INTO TABLE videos (id , title, video_description ,creation_date, duration) VALUES ("
                             + lastId +",'"+ title + "','" + videoDescription +"','" + creationDate + "','" + duration + "')";
             stat.executeUpdate(query);
             close();
@@ -441,7 +456,7 @@ public class Dbm {
             lastId++;
 
             String query =
-                    "INSERT INTO TABLE comments (id ,user_id, video_id,creationDate, body, repliedTo) VALUES ("
+                    "INSERT INTO TABLE comments (id ,user_id, video_id,creation_date, body, repliedTo) VALUES ("
                             + lastId +","+ user_id + "," + video_id +",'" + creationDate + "','" + text + "',"+ repliedToId+")";
             stat.executeUpdate(query);
             close();
@@ -504,21 +519,23 @@ public class Dbm {
             close();
         }
     }
-
     public static void addUser(String username, String password, String name,String email,
                                String number,boolean is_premium,String creationDate ) {
         open();
-        String query = "INSERT INTO users ( username , number ,pass , email , is_premium ,creationDate) VALUES ("+
-                username+","+ number + "," +password + "," +email+"," + false +","+ creationDate +")";
+        String query = "INSERT INTO users ( username ,name , number ,pass , email , is_premium ,creation_date) VALUES ('"+
+                username + "','" + name+"','"+ number + "','" +password + "','" +email+" '," + is_premium +", '"+ creationDate +"')";
         try{
-            ResultSet rs = stat.executeQuery(query);
+            int rs = stat.executeUpdate(query);
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
 
     }
+
 
     public static String getVideo_description(int id) {
         open();
@@ -591,7 +608,7 @@ public class Dbm {
             lastId =rs.getInt("maxId") ;
             lastId++;
             String query =
-                    "INSERT INTO TABLE channels (id , owner_id, channel_username, channel_description ,creationDate) VALUES ("
+                    "INSERT INTO TABLE channels (id , owner_id, channel_username, channel_description ,creation_date) VALUES ("
                             + lastId +","+ owner_id + ",'"+ channelUsername + "','" + channelDescription +"','" + creationDate + "')";
             stat.executeUpdate(query);
             close();
@@ -692,11 +709,14 @@ public class Dbm {
         catch (SQLException e){
             e.printStackTrace();
         }
-        close();
+        finally {
+            close();
+        }
         return 0;
     }
 
     public static int getCommentSender_id(int commentId) {
         return commentId;
     }
+
 }
