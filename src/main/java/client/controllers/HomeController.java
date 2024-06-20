@@ -71,7 +71,7 @@ public class HomeController implements Initializable {
                 accountProfHome_button.setStyle(profPath);
             }
         //_________________________________________VIDEO THUMBNAIL___________________________________________
-        request.videoList(1, new JSONArray());
+        request.videoList(9, new JSONArray());
         JSONObject response1 = read();
 //        JSONObject response1 = new JSONObject();
         JSONArray video_idList = response1.getJSONArray("videoIdList");
@@ -85,7 +85,7 @@ public class HomeController implements Initializable {
         }
 
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 3; i++) {
             HBox hBox = new HBox();
             hBox.setSpacing(15);
             hBox.setFillHeight(true);

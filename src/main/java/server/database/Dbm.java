@@ -12,7 +12,7 @@ public class Dbm {
     private static final String password = "qazmlp2990";
     private static Connection con;
     private static Statement stat;
-    private static final String videoPath="" ;
+    private static final String videoPath="src/main/resources/DATA/video_examples/" ;
     private final String profileImagePath="" ;
     private final String channelImagePath="" ;
 
@@ -203,7 +203,7 @@ public class Dbm {
                 "WHERE username =  '" + username +"'";
         try{
             ResultSet rs = stat.executeQuery(query);
-            close();
+            rs.next();
             return rs.getInt("id");
         }
         catch (SQLException e){
@@ -560,7 +560,7 @@ public class Dbm {
     }
 
     public static String getVideo_link(int videoId) {
-        return videoPath +"/"+ videoId;
+        return videoPath +"/"+ videoId+".mp4";
     }
 
 

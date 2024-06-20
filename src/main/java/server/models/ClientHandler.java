@@ -116,21 +116,21 @@ public class ClientHandler implements Runnable {
         String password_input = (String) request.get("password_input");
         try {
 
-//            if (Dbm.checkUsername(username_input) && Dbm.authorize(username_input,password_input))
-//            {
+            if (Dbm.checkUsername(username_input) && Dbm.authorize(username_input,password_input))
+            {
 
-//                user_id = Dbm.get_user_id(username_input);
-            user_id = 1;
+                user_id = Dbm.get_user_id(username_input);
+//            user_id = 1;
 
-            response.put("responseType", "/login_accepted");
-            response.put("username", username_input);
-            response.put("password", password_input);
+                response.put("responseType", "/login_accepted");
+                response.put("username", username_input);
+                response.put("password", password_input);
 
 
-//            }
-//            else{
-//                response.put("responseType","/login_rejected");
-//            }
+            }
+            else{
+                response.put("responseType","/login_rejected");
+            }
 
             write(response);
 
@@ -170,18 +170,14 @@ public class ClientHandler implements Runnable {
     }
 
     private void profileImg(JSONObject request){
-        try {
 
-            JSONObject response = new JSONObject();
-            response.put("responseType", "/profileImg_accepted");
+        JSONObject response = new JSONObject();
+        response.put("responseType", "/profileImg_accepted");
 
-            File fileToSend = new File(Objects.requireNonNull(getClass().getResource("../../DATA/image_examples/profileImg" + user_id + ".jpg")).toURI());
+        File fileToSend = new File("src/main/resources/DATA/image_examples/profileImg"+user_id+".jpg");
 
-            write(response);
-            sendFile(fileToSend);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        write(response);
+        sendFile(fileToSend);
     }
 
     private void videoList(JSONObject request) {
@@ -199,7 +195,7 @@ public class ClientHandler implements Runnable {
 //        for (Integer id : idList) {
 //            videoIdList.put(id);
 //        }
-        for (int i = 1; i <= 18; i++) {
+        for (int i = 1; i <= videoCount; i++) {
             videoIdList.put(i);
         }
         response.put("responseType", "/videoList_accepted");
@@ -276,6 +272,7 @@ public class ClientHandler implements Runnable {
         JSONObject response = new JSONObject();
 
         int id = (int) request.get("video_id");
+
 //        String title = Dbm.getVideo_Title(id);
 //        String title_body = Dbm.getVideo_description(id);
 //        String duration = Dbm.getVideo_duration(id);
@@ -320,11 +317,12 @@ public class ClientHandler implements Runnable {
 
     private void videoFile(JSONObject request) {
         int video_id = (int) request.get("video_id");
-//        String videoLink = Dbm.getVideo_link(video_id);
-//        String videoLink = "../../server/image_examples" + "/" + video_id + ".mp4";
+
+        String videoLink = Dbm.getVideo_link(video_id);
 
 
-        String videoLink = "src/main/resources/DATA/video_examples/1.mp4";
+
+//        String videoLink = "src/main/resources/DATA/video_examples/1.mp4";
 //        String videoLink = "src/main/resources/server/video_examples/1.mkv";
 
 
