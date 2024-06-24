@@ -44,7 +44,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button layoutX="200.0" layoutY="155.0" mnemonicParsing="false" text="Subscribe">
+                        <Button layoutX="200.0" layoutY="155.0" mnemonicParsing="false" text="Customize Channel">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -57,6 +57,11 @@
                               <Font size="14.0" />
                            </font>
                         </Hyperlink>
+                        <Button layoutX="359.0" layoutY="155.0" mnemonicParsing="false" text="Mannage videos">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
                   <TabPane tabClosingPolicy="UNAVAILABLE">
@@ -143,6 +148,21 @@
                         <Insets bottom="5.0" />
                      </GridPane.margin>
                   </TextField>
+                  <Button fx:id="search_button" maxHeight="40.0" maxWidth="60.0" minHeight="40.0" minWidth="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="60.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../home/searchIcon.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Button>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
                         <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#account_action" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
@@ -165,21 +185,6 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </AnchorPane>
-                  <Button fx:id="search_button" maxHeight="40.0" maxWidth="60.0" minHeight="40.0" minWidth="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="60.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../home/searchIcon.gif" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" />
-                     </GridPane.margin>
-                  </Button>
                </children>
             </GridPane>
          </children>
@@ -215,13 +220,9 @@
                   <Insets left="8.0" top="40.0" />
                </padding>
             </VBox>
-            <Pane fx:id="fadeRectangle_pane" prefHeight="68.0" prefWidth="45.0" visible="false">
+            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="313.0" prefWidth="50.0" visible="false">
                <children>
-                  <Rectangle height="540.0" layoutY="-48.0" onMouseClicked="#closeBars" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="960.0" />
-               </children>
-            </Pane>
-            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0" visible="false">
-               <children>
+                  <Rectangle fx:id="fade_rectangle1" height="540.0" onMouseClicked="#closeBars" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="960.0" />
                   <ScrollPane hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="200.0">
                      <content>
                         <VBox prefHeight="285.0" prefWidth="200.0" spacing="10.0">
@@ -371,6 +372,11 @@
                      </children>
                   </VBox>
                   <CubicCurve controlX1="251.199951171875" controlX2="180.26666259765625" controlY1="-20.733333587646484" controlY2="81.66667175292969" disable="true" endX="134.39996337890625" endY="31.000003814697266" fill="#e4e4e4" layoutX="620.0" layoutY="-35.0" startX="134.39996337890625" startY="98.73332977294922" stroke="BLACK" strokeWidth="0.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="creatPost_Pane" prefHeight="490.0" prefWidth="30.0" visible="false">
+               <children>
+                  <ScrollPane layoutX="50.0" layoutY="35.0" prefHeight="460.0" prefWidth="871.0" />
                </children>
             </Pane>
          </children>

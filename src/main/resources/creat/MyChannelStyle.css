@@ -7,13 +7,7 @@
     -fx-background-color: #cccccc;
 }
 
-.my_custom_style {
-    -fx-background-color: rgba(255, 0, 0, 0.47);
--fx-background-radius: 30;
-    -fx-border-radius: 30;
-    -fx-border-color: blue;
-    -fx-background-image: url('girl_AI-generated_wallpapers-4.jpg');
-}
+
 
 #accountProfHome_button {
     -fx-background-position: center;
@@ -152,9 +146,4 @@
 }
 
 /*______________________________________________PRIVET_____________________________________________*/
-
-#searchInChannel_button {
--fx-shape: "M16.296 16.996a8 8 0 11.707-.708l3.909 3.91-.707.707-3.909-3.909ZM18 11a7 7 0 11-14 0 7 7 0 0114 0Z";
-    -fx-background-color: black;
-}
 
