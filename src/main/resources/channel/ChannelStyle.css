@@ -7,7 +7,15 @@
     -fx-background-color: #cccccc;
 }
 
-#accountProfHome_button{
+.my_custom_style {
+    -fx-background-color: rgba(255, 0, 0, 0.47);
+-fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-border-color: blue;
+    -fx-background-image: url('girl_AI-generated_wallpapers-4.jpg');
+}
+
+#accountProfHome_button {
     -fx-background-position: center;
     -fx-background-size: 40 40;
 
@@ -127,19 +135,28 @@
     -fx-shape: "M13 14h-2v-2h2v2zm0-9h-2v6h2V5zm6-2H5v16.59l3.29-3.29.3-.3H19V3m1-1v15H9l-5 5V2h16z";
     -fx-background-color: black;
 }
-#creat_vBox{
+
+#creat_vBox {
     -fx-background-color: #e4e4e4;
     -fx-background-radius: 20;
 }
-#uploadIcon_button{
+
+#uploadIcon_button {
     -fx-shape: "m10 8 6 4-6 4V8zm11-5v18H3V3h18zm-1 1H4v16h16V4z";
     -fx-background-color: black;
 }
-#liveIcon_button{
+
+#liveIcon_button {
     -fx-shape: "M14 12c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM8.48 8.45l-.71-.7C6.68 8.83 6 10.34 6 12s.68 3.17 1.77 4.25l.71-.71C7.57 14.64 7 13.39 7 12s.57-2.64 1.48-3.55zm7.75-.7-.71.71c.91.9 1.48 2.15 1.48 3.54s-.57 2.64-1.48 3.55l.71.71C17.32 15.17 18 13.66 18 12s-.68-3.17-1.77-4.25zM5.65 5.63l-.7-.71C3.13 6.73 2 9.24 2 12s1.13 5.27 2.95 7.08l.71-.71C4.02 16.74 3 14.49 3 12s1.02-4.74 2.65-6.37zm13.4-.71-.71.71C19.98 7.26 21 9.51 21 12s-1.02 4.74-2.65 6.37l.71.71C20.87 17.27 22 14.76 22 12s-1.13-5.27-2.95-7.08z";
     -fx-background-color: black;
 }
 
+/*______________________________________________PRIVET_____________________________________________*/
+
+#searchInChannel_button {
+-fx-shape: "M16.296 16.996a8 8 0 11.707-.708l3.909 3.91-.707.707-3.909-3.909ZM18 11a7 7 0 11-14 0 7 7 0 0114 0Z";
+    -fx-background-color: black;
+}
 
 .postThumbnail_imageView {
     -fx-border-radius: 10;

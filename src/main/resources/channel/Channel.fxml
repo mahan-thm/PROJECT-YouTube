@@ -6,7 +6,10 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,9 +20,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
@@ -29,7 +29,74 @@
    <center>
       <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="420.0" prefWidth="910.0">
          <content>
-            <VBox fx:id="postInHome_vBox" prefHeight="329.0" prefWidth="905.0" spacing="15.0" />
+            <VBox fx:id="postInHome_vBox" prefHeight="329.0" prefWidth="905.0" spacing="15.0">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="200.0" layoutY="20.0" text="Channel Name">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="200.0" layoutY="65.0" text="\@channelIsername • 20k subscribers • 20 videos">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="200.0" layoutY="155.0" mnemonicParsing="false" text="Subscribe">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Hyperlink layoutX="199.0" layoutY="87.0" maxHeight="66.0" maxWidth="410.0" minHeight="65.0" minWidth="410.0" prefHeight="66.0" prefWidth="410.0" text="About channel" wrapText="true">
+                           <padding>
+                              <Insets left="-1.0" />
+                           </padding>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Hyperlink>
+                     </children>
+                  </AnchorPane>
+                  <TabPane tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Home" />
+                      <Tab closable="false" text="Videos">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="905.0" spacing="10.0">
+                                       <children>
+                                          <ToggleButton mnemonicParsing="false" text="Latest" />
+                                          <ToggleButton mnemonicParsing="false" text="Popular" />
+                                          <ToggleButton mnemonicParsing="false" text="Oldest" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab text="Shorts" />
+                        <Tab text="Playlists" />
+                        <Tab text="Community" />
+                        <Tab text="Search">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <TextField layoutX="30.0" layoutY="14.0" prefHeight="26.0" prefWidth="254.0" promptText="Search" />
+                                          <Button fx:id="searchInChannel_button" layoutX="284.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+               </children></VBox>
          </content>
          <padding>
             <Insets left="5.0" top="5.0" />
@@ -105,103 +172,12 @@
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="60.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@searchIcon.gif" />
+                              <Image url="@../home/searchIcon.gif" />
                            </image>
                         </ImageView>
                      </graphic>
                      <GridPane.margin>
                         <Insets bottom="5.0" />
-                     </GridPane.margin>
-                  </Button>
-               </children>
-            </GridPane>
-            <GridPane>
-               <VBox.margin>
-                  <Insets left="50.0" />
-               </VBox.margin>
-               <columnConstraints>
-                  <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0" prefWidth="44.0" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="817.6" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="49.39996337890625" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ScrollPane fx:id="tags_scrollPane" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-                     <content>
-                        <HBox alignment="CENTER" prefHeight="40.0">
-                           <children>
-                              <Label text="Label" />
-                              <Label text="Label" />
-                              <Label text="Label" />
-                              <Label text="Label" />
-                              <Label text="Label" />
-                              <Label text="Label" />
-                           </children>
-                        </HBox>
-                     </content>
-                  </ScrollPane>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="170.0">
-                     <fill>
-                        <LinearGradient endX="1.0" endY="1.0" startY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="0.41722745625841184">
-                                 <color>
-                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.9300000071525574" green="0.9300000071525574" blue="0.9300000071525574" opacity="0.0" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </fill>
-                  </Rectangle>
-                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="&lt;">
-                     <font>
-                        <Font name="sofi" size="19.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Button>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="170.0" GridPane.columnIndex="2">
-                     <fill>
-                        <LinearGradient endX="1.0" endY="1.0" startY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="0.41722745625841184">
-                                 <color>
-                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.9300000071525574" green="0.9300000071525574" blue="0.9300000071525574" opacity="0.0" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </fill>
-                  </Rectangle>
-                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="26.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="&gt;" textAlignment="CENTER" GridPane.columnIndex="2">
-                     <font>
-                        <Font name="sofi" size="19.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets right="5.0" />
                      </GridPane.margin>
                   </Button>
                </children>
@@ -212,7 +188,7 @@
    <left>
       <AnchorPane prefHeight="477.0" prefWidth="50.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="toolBar_vBox" prefHeight="224.0" prefWidth="48.0" spacing="40.0">
+            <VBox fx:id="toolBar_vBox" layoutY="40.0" prefHeight="224.0" prefWidth="48.0" spacing="40.0">
                <children>
                   <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
                      <graphic>

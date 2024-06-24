@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -78,11 +79,15 @@
                   </TextField>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#account_action" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                        </Button>
+                        <StackPane layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" prefHeight="40.0" prefWidth="40.0">
+                           <children>
+                              <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#account_action" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="17.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </StackPane>
                         <Button alignment="CENTER" layoutX="87.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
                            <graphic>
                               <Button fx:id="notification_button" maxHeight="22.0" maxWidth="16.0" minHeight="22.0" minWidth="16.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="16.0" />
