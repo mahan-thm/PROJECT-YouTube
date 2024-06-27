@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="creat.UploadFile"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane fx:id="uploadVideo_anchorPain" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.UploadFileController">
+   <children>
+      <Button fx:id="close_button" layoutX="710.0" layoutY="27.0" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#close_action" prefHeight="15.0" prefWidth="15.0" />
+      <Button fx:id="feedback_button" layoutX="672.0" layoutY="27.0" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" />
+      <Pane prefHeight="214.0" prefWidth="257.0">
+         <children>
+            <Label layoutX="23.500015258789062" layoutY="18.0" text="Upload Video">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Line endX="632.6000366210938" layoutX="100.0" layoutY="57.5" startX="-85.00001525878906" stroke="#5b5b5b" strokeWidth="0.5" />
+            <Button fx:id="selectFile_button" alignment="BASELINE_CENTER" layoutX="323.50001525878906" layoutY="336.0" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#selectFile_action" prefHeight="35.0" prefWidth="100.0" text="SELECT FILE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="upload_imageView" fitHeight="91.0" fitWidth="149.0" layoutX="304.50001525878906" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+               <effect>
+                  <DropShadow height="30.36" radius="14.68" width="30.36">
+                     <color>
+                        <Color blue="0.501960813999176" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <image>
+                  <Image url="@uploadImage.jpg" />
+               </image>
+            </ImageView>
+            <Label fx:id="help_label" layoutX="204.50001525878906" layoutY="218.0" prefHeight="43.0" prefWidth="342.0" text="Here you can select the file to upload with explorer.    note: just mp4 files supported." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="selectedFile_label" alignment="TOP_CENTER" layoutX="170.50001525878906" layoutY="272.0" prefWidth="410.0" textAlignment="CENTER" textFill="#363356" wrapText="true" />
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>
