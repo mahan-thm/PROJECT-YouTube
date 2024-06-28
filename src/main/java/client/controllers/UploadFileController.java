@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.skin.ScrollBarSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -28,6 +30,8 @@ public class UploadFileController implements Initializable {
     private ImageView upload_imageView;
     @FXML
     private Label selectedFile_label;
+    @FXML
+    private ScrollPane details_scrollPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,7 +60,8 @@ public class UploadFileController implements Initializable {
 
         Timeline delayTimeline = new Timeline(
                 new KeyFrame(Duration.seconds(2.766667), event ->
-                        upload_imageView.setVisible(false))
+                        upload_imageView.setVisible(false)
+                )
         );
         delayTimeline.play();
 
