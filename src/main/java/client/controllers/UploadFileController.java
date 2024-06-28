@@ -45,7 +45,7 @@ private AnchorPane uploadVideo_anchorPain;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5));
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5));
         fadeTransition.setNode(uploadVideo_anchorPain);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1);
