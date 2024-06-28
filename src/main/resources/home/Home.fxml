@@ -246,12 +246,12 @@
             </VBox>
             <Pane fx:id="fadeRectangle_pane" prefHeight="98.0" prefWidth="46.0" visible="false">
                <children>
-                  <Rectangle height="540.0" layoutY="-48.0" onMouseClicked="#closeBars" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="960.0" />
+                  <Rectangle fx:id="fadeRectangle_rectangle" height="540.0" layoutY="-48.0" onMouseClicked="#closeBars" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="960.0" />
                </children>
             </Pane>
             <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0" visible="false">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="200.0">
+                  <ScrollPane fx:id="toolBar_scrollPane" hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="200.0">
                      <content>
                         <VBox prefHeight="285.0" prefWidth="200.0" spacing="10.0">
                            <children>
@@ -392,7 +392,7 @@
             </Pane>
             <Pane fx:id="creat_pane" prefHeight="61.0" prefWidth="44.0" visible="false">
                <children>
-                  <VBox fx:id="creat_vBox" alignment="TOP_CENTER" layoutX="-347.0" layoutY="-53.0" prefWidth="200.0" spacing="5.0">
+                  <VBox fx:id="creat_vBox" alignment="TOP_CENTER" layoutX="-395.0" layoutY="-53.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#uploadVideo_action" prefHeight="40.0" prefWidth="180.0" text=" Upload video">
@@ -408,7 +408,7 @@
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
                      </children>
                   </VBox>
-                  <CubicCurve controlX1="236.39996337890625" controlX2="177.99993896484375" controlY1="-61.19999694824219" controlY2="70.80000305175781" disable="true" endX="134.39996337890625" endY="31.000003814697266" fill="#e4e4e4" layoutX="-284.0" layoutY="-74.0" startX="134.39996337890625" startY="98.73332977294922" stroke="BLACK" strokeWidth="0.0" />
+                  <CubicCurve controlX1="236.39996337890625" controlX2="177.99993896484375" controlY1="-61.19999694824219" controlY2="70.80000305175781" disable="true" endX="134.39996337890625" endY="31.000003814697266" fill="#e4e4e4" layoutX="-332.0" layoutY="-74.0" startX="134.39996337890625" startY="98.73332977294922" stroke="BLACK" strokeWidth="0.0" />
                </children>
             </Pane>
          </children>

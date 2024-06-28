@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -35,6 +36,8 @@ import static client.models.Main.*;
 
 public class HomeController implements Initializable {
     @FXML
+    private BorderPane homeMain_borderPain;
+    @FXML
     private VBox postInHome_vBox;
     @FXML
     private ScrollPane post_scrollPane;
@@ -50,9 +53,16 @@ public class HomeController implements Initializable {
     private Pane creat_pane;
     @FXML
     private Button accountProfHome_button;
+    @FXML
+    private ScrollPane toolBar_scrollPane;
+    @FXML
+    private Rectangle fadeRectangle_rectangle;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        toolBar_scrollPane.prefHeightProperty().bind(homeMain_borderPain.heightProperty());
+        fadeRectangle_rectangle.widthProperty().bind(homeMain_borderPain.widthProperty());
+        fadeRectangle_rectangle.heightProperty().bind(homeMain_borderPain.heightProperty());
 
         //____________________________________PROFILE PHOTO__________________________________________
         //TODO
@@ -170,8 +180,8 @@ public class HomeController implements Initializable {
         boolean show = toolBar_pane.isVisible();
 
 
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), toolBar_pane);
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), fadeRectangle_pane);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), toolBar_pane);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), fadeRectangle_pane);
         if (!show) {
             toolBar_pane.setLayoutX(-200);
             translateTransition.setToX(200);
@@ -201,23 +211,45 @@ public class HomeController implements Initializable {
     public void account_action() {
         account_pane.setVisible(true);
         fadeRectangle_pane.setVisible(true);
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), account_pane);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), fadeRectangle_pane);
+        fadeTransition1.setFromValue(0);
+        fadeTransition1.setToValue(1);
+
+        fadeTransition.play();
+        fadeTransition1.play();
     }
 
     @FXML
     public void create_action() {
         fadeRectangle_pane.setVisible(true);
         creat_pane.setVisible(true);
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), creat_pane);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), fadeRectangle_pane);
+        fadeTransition1.setFromValue(0);
+        fadeTransition1.setToValue(1);
+
+        fadeTransition.play();
+        fadeTransition1.play();
     }
 
     @FXML
     public void closeBars() {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), fadeRectangle_pane);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), fadeRectangle_pane);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
         fadeTransition.setOnFinished(actionEvent -> {
             fadeRectangle_pane.setVisible(false);
         });
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), toolBar_pane);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), toolBar_pane);
         toolBar_pane.setLayoutX(-200);
         translateTransition.setToX(-400);
         translateTransition.setOnFinished(actionEvent -> {
