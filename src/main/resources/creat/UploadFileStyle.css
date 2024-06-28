@@ -1,6 +1,6 @@
 /*___________________________________PRIVET_________________________________*/
 #uploadVideo_anchorPain {
-    -fx-background-color: linear-gradient(to bottom, #f2f2f2, #818181);
+    -fx-background-color: linear-gradient(to bottom, rgba(242, 242, 242, 0.95), rgba(222, 179, 179, 0.95));
     -fx-background-insets: 10;
     -fx-background-radius: 40;
     -fx-effect: dropshadow(three-pass-box, #2f2f2f, 8, 0, 4, 4);

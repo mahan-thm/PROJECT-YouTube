@@ -501,7 +501,7 @@
          </children>
       </Pane>
       <Button fx:id="close_button" layoutX="707.0" layoutY="27.0" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#close_action" prefHeight="15.0" prefWidth="15.0" />
-      <Button fx:id="refresh_button" layoutX="669.0" layoutY="27.0" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" />
+      <Button fx:id="refresh_button" layoutX="669.0" layoutY="27.0" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#refresh_action" prefHeight="15.0" prefWidth="15.0" />
       <Button fx:id="feedback_button" layoutX="631.0" layoutY="27.0" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" />
       <Line endX="632.6000366210938" layoutX="102.0" layoutY="57.0" startX="-85.00001525878906" stroke="#5b5b5b" strokeWidth="0.5" />
    </children>

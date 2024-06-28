@@ -6,9 +6,11 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.skin.ScrollBarSkin;
@@ -16,8 +18,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -98,6 +102,16 @@ private AnchorPane uploadVideo_anchorPain;
 
     @FXML
     public void next_action() {
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(1));
+        fadeTransition1.setNode(selectFile_pane);
+        fadeTransition1.setFromValue(1);
+        fadeTransition1.setToValue(0);
+
+        FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(2));
+        fadeTransition2.setNode(details_pane);
+        fadeTransition2.setFromValue(0);
+        fadeTransition2.setToValue(1);
+
         selectFile_pane.setVisible(true);
         details_pane.setVisible(true);
         TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(1.5));
@@ -113,8 +127,24 @@ private AnchorPane uploadVideo_anchorPain;
                     selectFile_pane.setVisible(false);
                 }
         );
-
+        fadeTransition1.play();
+        fadeTransition2.play();
         translateTransition1.play();
         translateTransition2.play();
+    }
+
+    public void refresh_action(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/UploadFile.fxml")));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle.css")).toExternalForm();
+        scene.getStylesheets().add(css);
+        scene.setFill(Color.TRANSPARENT);
+//        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("Upload file");
+        stage.setScene(scene);
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../creat/uploadImage.jpg")));
+        stage.getIcons().add(icon);
+        stage.show();
     }
 }
