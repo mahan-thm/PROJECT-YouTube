@@ -244,7 +244,7 @@
                   <Insets left="8.0" top="40.0" />
                </padding>
             </VBox>
-            <Pane fx:id="fadeRectangle_pane" prefHeight="68.0" prefWidth="45.0" visible="false">
+            <Pane fx:id="fadeRectangle_pane" prefHeight="98.0" prefWidth="46.0" visible="false">
                <children>
                   <Rectangle height="540.0" layoutY="-48.0" onMouseClicked="#closeBars" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="960.0" />
                </children>
@@ -300,10 +300,19 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Pane fx:id="account_pane" prefHeight="92.0" prefWidth="46.0" visible="false">
+         </children>
+         <BorderPane.margin>
+            <Insets top="-54.0" />
+         </BorderPane.margin>
+      </AnchorPane>
+   </left>
+   <right>
+      <Pane maxHeight="20.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <Pane fx:id="account_pane" prefHeight="46.0" prefWidth="46.0" visible="false">
                <children>
-                  <CubicCurve controlX1="273.7999267578125" controlX2="169.00001525878906" controlY1="-355.6000061035156" controlY2="307.3999938964844" disable="true" endX="124.60003662109375" endY="42.20000457763672" fill="#e4e4e4" layoutX="719.0" layoutY="-42.0" startX="124.60003662109375" startY="472.3999938964844" stroke="BLACK" strokeWidth="0.0" />
-                  <VBox fx:id="account_vBox" alignment="TOP_CENTER" layoutX="651.0" layoutY="-18.0" prefWidth="200.0" spacing="5.0">
+                  <CubicCurve controlX1="268.5999755859375" controlX2="169.39996337890625" controlY1="-441.79998779296875" controlY2="385.4000244140625" disable="true" endX="157.00006103515625" endY="42.20000457763672" fill="#e4e4e4" layoutX="-245.0" layoutY="-75.0" startX="157.00006103515625" startY="477.1999816894531" stroke="BLACK" strokeWidth="0.0" />
+                  <VBox fx:id="account_vBox" alignment="TOP_CENTER" layoutX="-288.0" layoutY="-53.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <AnchorPane prefHeight="81.0" prefWidth="200.0">
                            <children>
@@ -381,9 +390,9 @@
                   </VBox>
                </children>
             </Pane>
-            <Pane fx:id="creat_pane" prefHeight="145.0" prefWidth="44.0" visible="false">
+            <Pane fx:id="creat_pane" prefHeight="61.0" prefWidth="44.0" visible="false">
                <children>
-                  <VBox fx:id="creat_vBox" alignment="TOP_CENTER" layoutX="555.0" layoutY="-18.0" prefWidth="200.0" spacing="5.0">
+                  <VBox fx:id="creat_vBox" alignment="TOP_CENTER" layoutX="-347.0" layoutY="-53.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#uploadVideo_action" prefHeight="40.0" prefWidth="180.0" text=" Upload video">
@@ -399,13 +408,10 @@
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
                      </children>
                   </VBox>
-                  <CubicCurve controlX1="251.199951171875" controlX2="180.26666259765625" controlY1="-20.733333587646484" controlY2="81.66667175292969" disable="true" endX="134.39996337890625" endY="31.000003814697266" fill="#e4e4e4" layoutX="620.0" layoutY="-35.0" startX="134.39996337890625" startY="98.73332977294922" stroke="BLACK" strokeWidth="0.0" />
+                  <CubicCurve controlX1="236.39996337890625" controlX2="177.99993896484375" controlY1="-61.19999694824219" controlY2="70.80000305175781" disable="true" endX="134.39996337890625" endY="31.000003814697266" fill="#e4e4e4" layoutX="-284.0" layoutY="-74.0" startX="134.39996337890625" startY="98.73332977294922" stroke="BLACK" strokeWidth="0.0" />
                </children>
             </Pane>
          </children>
-         <BorderPane.margin>
-            <Insets top="-54.0" />
-         </BorderPane.margin>
-      </AnchorPane>
-   </left>
+      </Pane>
+   </right>
 </BorderPane>

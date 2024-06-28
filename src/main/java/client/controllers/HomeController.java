@@ -168,6 +168,7 @@ public class HomeController implements Initializable {
 
         toolBar_pane.setVisible(!show);
         toolBar_vBox.setVisible(show);
+        fadeRectangle_pane.setVisible(!show);
     }
 
     @FXML
@@ -189,7 +190,7 @@ public class HomeController implements Initializable {
         fadeRectangle_pane.setVisible(false);
         account_pane.setVisible(false);
         creat_pane.setVisible(false);
-
+        toolBar_pane.setVisible(false);
     }
 
     @FXML
