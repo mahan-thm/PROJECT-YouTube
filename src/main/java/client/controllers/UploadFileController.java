@@ -1,9 +1,6 @@
 package client.controllers;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,10 +46,25 @@ private AnchorPane uploadVideo_anchorPain;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5));
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1));
         fadeTransition.setNode(uploadVideo_anchorPain);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1);
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1));
+        scaleTransition.setNode(uploadVideo_anchorPain);
+        scaleTransition.setCycleCount(1);
+        uploadVideo_anchorPain.setScaleX(0.1);
+        uploadVideo_anchorPain.setScaleY(0.1);
+        uploadVideo_anchorPain.setScaleZ(0.1);
+
+        scaleTransition.setToX(1);
+        scaleTransition.setToY(1);
+        scaleTransition.setToZ(1);
+
+//        scaleTransition.setByY(50);
+
+        scaleTransition.play();
         fadeTransition.play();
     }
 
@@ -89,7 +101,7 @@ private AnchorPane uploadVideo_anchorPain;
 
     @FXML
     public void close_action(ActionEvent actionEvent) {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5));
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1));
         fadeTransition.setNode(uploadVideo_anchorPain);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
@@ -97,30 +109,42 @@ private AnchorPane uploadVideo_anchorPain;
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
         });
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1));
+        scaleTransition.setNode(uploadVideo_anchorPain);
+        scaleTransition.setCycleCount(1);
+        uploadVideo_anchorPain.setScaleX(1);
+        uploadVideo_anchorPain.setScaleY(1);
+        uploadVideo_anchorPain.setScaleZ(1);
+        scaleTransition.setToX(0.1);
+        scaleTransition.setToY(0.1);
+        scaleTransition.setToZ(0.1);
+
+        scaleTransition.play();
         fadeTransition.play();
     }
 
     @FXML
     public void next_action() {
-        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(1));
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5));
         fadeTransition1.setNode(selectFile_pane);
         fadeTransition1.setFromValue(1);
         fadeTransition1.setToValue(0);
 
-        FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(2));
+        FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(1));
         fadeTransition2.setNode(details_pane);
         fadeTransition2.setFromValue(0);
         fadeTransition2.setToValue(1);
 
         selectFile_pane.setVisible(true);
         details_pane.setVisible(true);
-        TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(1.5));
+        TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(1));
         translateTransition1.setNode(selectFile_pane);
         translateTransition1.setToX(-750);
 
 
         details_pane.setLayoutX(750);
-        TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1.5));
+        TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1));
         translateTransition2.setNode(details_pane);
         translateTransition2.setToX(-750);
         translateTransition1.setOnFinished(actionEvent -> {

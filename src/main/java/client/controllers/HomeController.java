@@ -1,6 +1,8 @@
 package client.controllers;
 
 import client.models.Video;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -166,15 +169,36 @@ public class HomeController implements Initializable {
     public void toolBar_action() {
         boolean show = toolBar_pane.isVisible();
 
-        toolBar_pane.setVisible(!show);
-        toolBar_vBox.setVisible(show);
-        fadeRectangle_pane.setVisible(!show);
+
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), toolBar_pane);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), fadeRectangle_pane);
+        if (!show) {
+            toolBar_pane.setLayoutX(-200);
+            translateTransition.setToX(200);
+            toolBar_pane.setVisible(!show);
+            toolBar_vBox.setVisible(show);
+            fadeRectangle_pane.setVisible(!show);
+
+            fadeTransition.setFromValue(0);
+            fadeTransition.setToValue(1);
+        } else {
+            toolBar_pane.setLayoutX(-200);
+            translateTransition.setToX(-400);
+            translateTransition.setOnFinished(actionEvent -> {
+                toolBar_pane.setVisible(!show);
+                toolBar_vBox.setVisible(show);
+                fadeRectangle_pane.setVisible(!show);
+            });
+
+            fadeTransition.setFromValue(1);
+            fadeTransition.setToValue(0);
+        }
+        fadeTransition.play();
+        translateTransition.play();
     }
 
     @FXML
     public void account_action() {
-//        boolean show = account_pane.isVisible();
-//        account_pane.setVisible(!show);
         account_pane.setVisible(true);
         fadeRectangle_pane.setVisible(true);
     }
@@ -187,10 +211,24 @@ public class HomeController implements Initializable {
 
     @FXML
     public void closeBars() {
-        fadeRectangle_pane.setVisible(false);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), fadeRectangle_pane);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.setOnFinished(actionEvent -> {
+            fadeRectangle_pane.setVisible(false);
+        });
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), toolBar_pane);
+        toolBar_pane.setLayoutX(-200);
+        translateTransition.setToX(-400);
+        translateTransition.setOnFinished(actionEvent -> {
+            toolBar_pane.setVisible(false);
+            toolBar_vBox.setVisible(true);
+        });
+        fadeTransition.play();
+        translateTransition.play();
+
         account_pane.setVisible(false);
         creat_pane.setVisible(false);
-        toolBar_pane.setVisible(false);
     }
 
     @FXML
