@@ -52,18 +52,20 @@ public class UploadFileController implements Initializable {
 
         try {
             Image uploadGif = new Image(Objects.requireNonNull(getClass().getResource("../../creat/uploadGif.gif")).openStream());
+            Image uploadImage2 = new Image(Objects.requireNonNull(getClass().getResource("../../creat/uploadImage2.jpg")).openStream());
+
             upload_imageView.setImage(uploadGif);
 
+            Timeline delayTimeline = new Timeline(
+                    new KeyFrame(Duration.seconds(2.566667), event ->
+                            upload_imageView.setImage(uploadImage2)
+                    )
+            );
+            delayTimeline.play();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        Timeline delayTimeline = new Timeline(
-                new KeyFrame(Duration.seconds(2.766667), event ->
-                        upload_imageView.setVisible(false)
-                )
-        );
-        delayTimeline.play();
 
     }
 

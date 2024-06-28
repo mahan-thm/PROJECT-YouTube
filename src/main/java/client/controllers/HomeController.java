@@ -4,11 +4,16 @@ import client.models.Video;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -48,28 +53,28 @@ public class HomeController implements Initializable {
 
         //____________________________________PROFILE PHOTO__________________________________________
         //TODO
-            String profPath = "-fx-background-image: url('CACHE/imageCache/profImg0.jpg')";
-            request.profileImg();
-            if (read().getString("responseType").equals("/profileImg_accepted")){
+        String profPath = "-fx-background-image: url('CACHE/imageCache/profImg0.jpg')";
+        request.profileImg();
+        if (read().getString("responseType").equals("/profileImg_accepted")) {
 
-                byte[] profImgBytes = readFile();
-
-
-                File file = new File("src/main/resources/CACHE/imageCache/profImg0.jpg");
-
-                try {
-                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    fileOutputStream.write(profImgBytes);
-
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            byte[] profImgBytes = readFile();
 
 
-                accountProfHome_button.setStyle(profPath);
+            File file = new File("src/main/resources/CACHE/imageCache/profImg0.jpg");
+
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(profImgBytes);
+
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+
+
+            accountProfHome_button.setStyle(profPath);
+        }
         //_________________________________________VIDEO THUMBNAIL___________________________________________
         request.videoList(9, new JSONArray());
         JSONObject response1 = read();
@@ -187,4 +192,19 @@ public class HomeController implements Initializable {
 
     }
 
+    @FXML
+    public void uploadVideo_action() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/UploadFile.fxml")));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle.css")).toExternalForm();
+        scene.getStylesheets().add(css);
+        scene.setFill(Color.TRANSPARENT);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("Upload file");
+        stage.setScene(scene);
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../creat/uploadImage.jpg")));
+        stage.getIcons().add(icon);
+        stage.show();
+    }
 }

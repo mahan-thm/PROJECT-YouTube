@@ -386,7 +386,7 @@
                   <VBox fx:id="creat_vBox" alignment="TOP_CENTER" layoutX="555.0" layoutY="-18.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Upload video">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#uploadVideo_action" prefHeight="40.0" prefWidth="180.0" text=" Upload video">
                            <graphic>
                               <Button fx:id="uploadIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                            </graphic>

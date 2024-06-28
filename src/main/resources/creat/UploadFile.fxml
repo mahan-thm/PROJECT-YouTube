@@ -26,7 +26,7 @@
 
 <AnchorPane fx:id="uploadVideo_anchorPain" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.UploadFileController">
    <children>
-      <Pane fx:id="details_pane" prefHeight="200.0" prefWidth="200.0">
+      <Pane fx:id="details_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <Label fx:id="videoTitle_label" layoutX="26.0" layoutY="18.0" text="Video">
                <font>
@@ -421,7 +421,7 @@
                   </LinearGradient>
                </stroke>
             </Line>
-            <Button fx:id="upload_button" layoutX="620.0" layoutY="394.0" maxHeight="45.0" maxWidth="110.0" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" text="Upload">
+            <Button fx:id="upload_button" layoutX="620.0" layoutY="394.0" maxHeight="45.0" maxWidth="120.0" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Upload">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -457,16 +457,16 @@
                   </LinearGradient>
                </textFill>
             </Button>
-            <Button fx:id="back_button" layoutX="499.0" layoutY="394.0" maxHeight="45.0" maxWidth="110.0" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" text="Back">
+            <Button fx:id="back_button" layoutX="499.0" layoutY="394.0" maxHeight="45.0" maxWidth="120.0" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Back">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="selectFile_pane" prefHeight="214.0" prefWidth="257.0" visible="false">
+      <Pane fx:id="selectFile_pane" prefHeight="214.0" prefWidth="257.0">
          <children>
-            <Label layoutX="26.0" layoutY="18.0" text="Upload Video">
+            <Label layoutX="26.0" layoutY="18.0" text="Upload Video" textFill="MAROON">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -493,8 +493,8 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="selectedFile_label" alignment="TOP_CENTER" layoutX="170.50001525878906" layoutY="272.0" prefWidth="410.0" textAlignment="CENTER" textFill="#363356" wrapText="true" />
-            <Button fx:id="next_button" layoutX="630.0" layoutY="384.0" maxHeight="55.0" maxWidth="110.0" minHeight="55.0" minWidth="110.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="110.0" text="Next">
+            <Label fx:id="selectedFile_label" alignment="TOP_CENTER" layoutX="170.50001525878906" layoutY="272.0" prefWidth="410.0" textAlignment="CENTER" textFill="#543232" wrapText="true" />
+            <Button fx:id="next_button" layoutX="620.0" layoutY="394.0" maxHeight="45.0" maxWidth="120.0" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Next">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
