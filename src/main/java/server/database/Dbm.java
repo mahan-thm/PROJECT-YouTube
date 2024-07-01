@@ -160,42 +160,32 @@ public class Dbm {
         return "";
     }
 
-    public static String getVideo_totalLikes(int id) {
+    public static int getVideo_totalLikes_dislikes(int id , String type) {
         open();
-        String query = "SELECT *  FROM videos " +
-                "WHERE id =  " +id ;
+        String query = "SELECT type  FROM saved_videos " +
+                "WHERE video_id =  " +id +" AND type = ";
+        if (type =="liked"){
+            query+="\'liked\'";
+        }
+        else if (type == "disliked") {
+            query+="\'disliked\'";
+        }
+        else System.out.println("invlaid expression");
+        int counter = 0;
         try{
             ResultSet rs = stat.executeQuery(query);
-            close();
-            rs.next();
-            return rs.getString("total_likes");
+            while (rs.next()){
+                counter++;
+            }
         }
         catch (SQLException e){
             e.printStackTrace();
         }
         finally {
             close();
+            return counter;
         }
-        return "";
     }
-    public static List<Integer> getRandomVideoId(int videoCount) {
-        String maxId = "SELECT MAX(id) AS maxId FROM videos";
-        int max=0;
-        List <Integer> randList= new ArrayList<>();
-        try {
-            ResultSet rs = stat.executeQuery(maxId);
-            // bug probablity
-            max =rs.getInt("id") ;
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        for(int i=0 ; i< videoCount ; i++){
-            int randomNumber =getRandomNumber(1 ,max );
-            randList.add(randomNumber);
-        }
-        return randList;
-    }
-
 
     public static int get_user_id(String username) {
         open();
@@ -203,8 +193,10 @@ public class Dbm {
                 "WHERE username =  '" + username +"'";
         try{
             ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            int res = rs.getInt("id");
             close();
-            return rs.getInt("id");
+            return res;
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -214,53 +206,59 @@ public class Dbm {
         }
         return 0;
     }
-    public  static  void main (String args[]){
+    public  static  void main (String args[]) {
 //        addUser("kourosh" , "111" ,"kourosh", "k.rasht@gmail.com" ,"1234" ,false ,"29.3.403" );
 //        System.out.println( checkUsername("koursh"));
 //        System.out.println(authorize("koursh" ,"111"));
 //        todo addVideo(1 , "vid" ,"this is a video" , "320" ,"29.3.403" ,["[\"fun\", \"horror\", \"adventure\"]"]);
 //        System.out.println((getVideo_Title(1)));
 //        System.out.println(getVideo_creationTime(1));
+//        System.out.println(getVideo_duration(1));
+//        System.out.println(getVideo_totalLikes(1));
+//        System.out.println(getRandomVideoId(6));
+//        System.out.println(get_user_id("kourosh"));
+//        System.out.println(getVideo_totalLikes_dislikes(1 , "disliked"));
+//        System.out.println(getRandomChannelId(5));
+//        System.out.println(getCommentCount(1));
+//        System.out.println(getCommentIdList(1));
+//        System.out.println(getCommentText(1));
+        //todo : get commentCreationTime :Timestamp format must be yyyy-mm-dd hh:mm:ss[.fffffffff]  . so we must save such String in the dataBase
+//        System.out.println(getcommentCreationTime(1));
+//        System.out.println(getChannelTotalVideoes(1));
+//        System.out.println(getChannelTotalSubscribers(1));
+//        System.out.println(checkChannelUsername("kingMen"));
 
-
-    }
-
-    public static String getVideo_totalDislikes(int id) {
-        open();
-        String query = "SELECT *  FROM videos " +
-                "WHERE id =  " +id ;
-        try{
-            ResultSet rs = stat.executeQuery(query);
-            close();
-            return rs.getString("total_dislikes");
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        finally {
-            close();
-        }
-        return "";
     }
 
 
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
-
+    public static boolean isRepeated (List<Integer> numList , int newNum){
+        for(Integer i : numList){
+            if ( (int)i == newNum){
+                return true;
+            }
+        }
+        return false;
+    }
     public static List<Integer> getRandomChannelId(int channelCount) {
+        // todo change the name to getRandomChannel_VideoId
         open();
         String maxId = "SELECT MAX(id) AS maxId FROM channels";
         int max=0;
         List <Integer> randList= new ArrayList<>();
         try {
             ResultSet rs = stat.executeQuery(maxId);
-            if(rs.next()) {     // rs.next() movesthe curser to the first row of resultset
+            if(rs.next()) {     // rs.next() moves the curser to the first row of resultset
                 max = rs.getInt("maxId");
             }
             for(int i=0 ; i< channelCount ; i++){
                 int randomNumber = getRandomNumber(1 ,max );
-                randList.add(randomNumber);
+                if(! isRepeated(randList , randomNumber)) {
+                    randList.add(randomNumber);
+                }
+                else i--;
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -317,6 +315,7 @@ public class Dbm {
         String body="";
         try {
             ResultSet rs = stat.executeQuery(query);
+            rs.next();
             body =rs.getString("body");
         }catch (SQLException e){
             e.printStackTrace();
@@ -328,12 +327,15 @@ public class Dbm {
     }
 
     public static Timestamp getcommentCreationTime(int commentId) {
+        //todo : Timestamp format must be yyyy-mm-dd hh:mm:ss[.fffffffff]  . so we must save such String in the dataBase
+
         open();
         String query = "SELECT * FROM comments" +
                 " WHERE id =" + commentId;
         String creation_time="";
         try {
             ResultSet rs = stat.executeQuery(query);
+            rs.next();
             creation_time =rs.getString("creation_date");
         }catch (SQLException e){
             e.printStackTrace();
@@ -348,12 +350,14 @@ public class Dbm {
 
     public static int getChannelTotalVideoes(int channelId) {
         open();
-        String query = " SELECT * FROM channels " +
+        String query = " SELECT * FROM uploaded_videos " +
                 "WHERE channel_id = " + channelId ;
         int total_videos =0;
         try {
             ResultSet rs = stat.executeQuery(query);
-            total_videos = rs.getInt("total_videos");
+            while(rs.next()){
+                total_videos++;
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -364,6 +368,7 @@ public class Dbm {
     }
 
     public static int getChannelTotalViews(int channelId) {
+        // todo will we save total views in channels table or we gonna count it every time?
         open();
         String query = " SELECT * FROM channels " +
                 "WHERE channel_id = " + channelId ;
@@ -382,12 +387,14 @@ public class Dbm {
 
     public static int getChannelTotalSubscribers(int channelId) {
         open();
-        String query = " SELECT * FROM channels " +
+        String query = " SELECT * FROM subscribed_channels " +
                 "WHERE channel_id = " + channelId ;
         int total_subscribers =0;
         try {
             ResultSet rs = stat.executeQuery(query);
-            total_subscribers = rs.getInt("total_subscribers");
+            while (rs.next()){
+                total_subscribers++;
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -399,11 +406,12 @@ public class Dbm {
     public static boolean checkChannelUsername(String channelUsername) {
         open();
         String query = "SELECT * FROM channels " +
-                "WHERE channel_name =  '" + channelUsername+ "'";
+                "WHERE channel_username =  '" + channelUsername+ "'";
         try{
             ResultSet rs = stat.executeQuery(query);
+            boolean bool = rs.next();
             close();
-            return rs.next();
+            return bool;
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -449,6 +457,13 @@ public class Dbm {
 
     public static void removeVideo(int videoId) {
         // todo mmdhosain
+        String query =
+                "DELETE FROM videos WHERE id = " + videoId
+                +"DELETE FROM uploaded_videos WHERE id = " + videoId
+                +"DELETE FROM saved_videos WHERE  id = " + videoId // don't need to set the type of the video
+                +"DELETE FROM tags WHERE type = \"video\""
+                +"DELETE FROM ";
+
 
     }
 
@@ -684,10 +699,10 @@ public class Dbm {
         return videoPath;
     }
 
-    public static void addUserSubscribedChannels(int channelId, int userId , String add_date) {
+    public static void addUserSubscribedChannels(int channelId, int userId /*, String add_date*/) {
         open();
         String query = "INSERT INTO subscribed_channels (channel_id , user_id , is_notif_on , add_date"
-                        +"VALUES ( " + channelId +","+ userId +","+ false +",'"+ add_date+"')";
+                        +"VALUES ( " + channelId +","+ userId +","+ false /*",'"+ add_date+"')"*/ ;
         try{
            int rs = stat.executeUpdate(query);
         }
