@@ -32,7 +32,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <ScrollPane fx:id="details_scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="17.0" layoutY="60.0" prefHeight="360.0" prefWidth="480.0" vbarPolicy="ALWAYS">
+            <ScrollPane fx:id="details_scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="17.0" layoutY="60.0" prefHeight="366.0" prefWidth="480.0" vbarPolicy="ALWAYS">
                <content>
                   <VBox spacing="15.0">
                      <children>
@@ -85,6 +85,24 @@
                               <ToggleButton fx:id="thumbnail_imageView12" maxHeight="84.0" maxWidth="150.0" minHeight="84.0" minWidth="150.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="150.0" />
                            </children>
                         </HBox>
+                        <Label minHeight="21.0" prefHeight="20.0" prefWidth="361.0" text="Or you can set your own thumbnail." wrapText="true">
+                           <font>
+                              <Font name="Comic Sans MS" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="-10.0" top="-20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox spacing="20.0">
+                           <children>
+                              <Button fx:id="newPlaylist_button1" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="+">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="13.0" />
+                                 </font>
+                              </Button>
+                              <ToggleButton fx:id="thumbnail_imageView111" maxHeight="56.25" maxWidth="100.0" minHeight="56.25" minWidth="100.0" mnemonicParsing="false" prefHeight="56.25" prefWidth="100.0" />
+                           </children>
+                        </HBox>
                         <Label text="Playlists">
                            <font>
                               <Font name="Comic Sans MS Bold" size="14.0" />
@@ -129,7 +147,7 @@
                               <Insets top="-45.0" />
                            </padding>
                         </Label>
-                        <RadioButton mnemonicParsing="false" text="Yes, it's made for kids.">
+                        <RadioButton fx:id="childYes_radioButton" mnemonicParsing="false" text="Yes, it's made for kids.">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -140,7 +158,7 @@
                               <Insets top="-20.0" />
                            </padding>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="No, it's not made for kids">
+                        <RadioButton fx:id="childNo_radioButton" mnemonicParsing="false" text="No, it's not made for kids">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -202,13 +220,13 @@
                               <Insets bottom="-15.0" />
                            </VBox.margin>
                         </Label>
-                        <RadioButton mnemonicParsing="false" text="Private">
+                        <RadioButton fx:id="private_RadiButton" mnemonicParsing="false" text="Private">
                            <VBox.margin>
                               <Insets bottom="-15.0" />
                            </VBox.margin>
                         </RadioButton>
                         <Label text="      Only you and people you choose can watch video." textFill="#4b4b4b" />
-                        <RadioButton mnemonicParsing="false" text="Public">
+                        <RadioButton fx:id="public_radioButton" mnemonicParsing="false" text="Public">
                            <padding>
                               <Insets top="-5.0" />
                            </padding>
@@ -285,7 +303,7 @@
                   </LinearGradient>
                </fill>
             </Line>
-            <MediaView fitHeight="129.4" fitWidth="230.0" layoutX="505.0" layoutY="71.0" />
+            <MediaView fx:id="video_mediaView" fitHeight="129.4" fitWidth="230.0" layoutX="505.0" layoutY="71.0" />
             <Line endX="-100.0" endY="363.79998779296875" layoutX="720.0" layoutY="-48.0" rotate="90.0" startX="-100.0" startY="134.0">
                <stroke>
                   <LinearGradient endX="1.0" endY="1.0" startX="1.0">
@@ -420,7 +438,7 @@
                   </LinearGradient>
                </stroke>
             </Line>
-            <Button fx:id="upload_button" layoutX="620.0" layoutY="394.0" maxHeight="45.0" maxWidth="120.0" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Upload">
+            <Button fx:id="upload_button" layoutX="620.0" layoutY="394.0" maxHeight="45.0" maxWidth="120.0" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" onAction="#upload_action" prefHeight="45.0" prefWidth="120.0" text="Upload">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -456,11 +474,13 @@
                   </LinearGradient>
                </textFill>
             </Button>
-            <Button fx:id="back_button" layoutX="499.0" layoutY="394.0" maxHeight="45.0" maxWidth="120.0" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Back">
+            <Button fx:id="back_button" layoutX="499.0" layoutY="394.0" maxHeight="45.0" maxWidth="120.0" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" onAction="#back_action" prefHeight="45.0" prefWidth="120.0" text="Back">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
+            <Label fx:id="videoPath_label" layoutX="506.0" layoutY="274.0" maxWidth="229.0" prefWidth="229.0" text="Video path: " wrapText="true" />
+            <Label fx:id="status_label" alignment="CENTER" layoutX="503.0" layoutY="371.0" prefWidth="231.0" textAlignment="CENTER" textFill="#d40000" />
          </children>
       </Pane>
       <Pane fx:id="selectFile_pane" prefHeight="214.0" prefWidth="257.0">

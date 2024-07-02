@@ -7,6 +7,17 @@
     -fx-background-color: #cccccc;
 }
 
+#homeMain_borderPain{
+    -fx-background-color: linear-gradient(to bottom, #f2f2f2, #DEB3B3F2);
+}
+
+#post_scrollPane{
+    -fx-background-color: transparent;
+}
+#post_scrollPane .viewport {
+    -fx-background-color: transparent;
+}
+
 #accountProfHome_button{
     -fx-background-position: center;
     -fx-background-size: 40 40;
