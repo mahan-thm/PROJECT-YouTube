@@ -11,13 +11,6 @@
     -fx-background-color: linear-gradient(to bottom, #f2f2f2, #DEB3B3F2);
 }
 
-#post_scrollPane{
-    -fx-background-color: transparent;
-}
-#post_scrollPane .viewport {
-    -fx-background-color: transparent;
-}
-
 #accountProfHome_button{
     -fx-background-position: center;
     -fx-background-size: 40 40;
@@ -190,6 +183,32 @@
 }
 
 #tags_scrollPane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: -2;
+}
+
+#post_scrollPane {
+    -fx-background-color: transparent;
+}
+
+#post_scrollPane .increment-arrow,
+#post_scrollPane .decrement-arrow {
+    /*-fx-opacity: 0;*/
+    -fx-background-color: #800000;
+}
+
+#post_scrollPane .viewport {
+    -fx-background-color: transparent;
+}
+
+#post_scrollPane .thumb {
+    -fx-background-color: #800000;
+    -fx-background-radius: 20;
+    -fx-background-insets: 3;
+
+}
+
+#post_scrollPane .scroll-bar:vertical {
     -fx-background-color: transparent;
     -fx-padding: -2;
 }
