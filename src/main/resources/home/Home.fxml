@@ -168,28 +168,34 @@
                      <content>
                         <HBox alignment="CENTER" prefHeight="40.0">
                            <children>
-                              <Label text="Label" />
-                              <Label text="Label" />
-                              <Label text="Label" />
-                              <Label text="Label" />
-                              <Label text="Label" />
-                              <Label text="Label" />
+                              <Button mnemonicParsing="false" text="All" />
+                              <Button mnemonicParsing="false" text="Music" />
+                              <Button mnemonicParsing="false" text="Playlists" />
+                              <Button mnemonicParsing="false" text="Mixing consols" />
+                              <Button mnemonicParsing="false" text="gaming" />
+                              <Button mnemonicParsing="false" text="Object-oriented programming" />
+                              <Button mnemonicParsing="false" text="computer programming" />
                            </children>
                         </HBox>
                      </content>
                   </ScrollPane>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="170.0">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0" startY="1.0">
                            <stops>
                               <Stop>
                                  <color>
-                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
+                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.006729475100942127">
+                                 <color>
+                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
                                  </color>
                               </Stop>
                               <Stop offset="0.41722745625841184">
                                  <color>
-                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
+                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
                                  </color>
                               </Stop>
                               <Stop offset="1.0">
@@ -209,18 +215,18 @@
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="170.0" GridPane.columnIndex="2">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" GridPane.columnIndex="2">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0" startY="1.0">
                            <stops>
                               <Stop>
                                  <color>
-                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
+                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
                                  </color>
                               </Stop>
                               <Stop offset="0.41722745625841184">
                                  <color>
-                                    <Color red="0.9490196108818054" green="0.9490196108818054" blue="0.9490196108818054" />
+                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
                                  </color>
                               </Stop>
                               <Stop offset="1.0">
@@ -355,7 +361,7 @@
                                        </font>
                                     </Label>
                                     <Label text="\@Channel username" />
-                                    <Hyperlink text="View your channel">
+                                    <Hyperlink onAction="#myChannel_action" text="View your channel">
                                        <font>
                                           <Font size="10.0" />
                                        </font>

@@ -3,7 +3,7 @@ package server.models;
 import java.io.*;
 import java.net.ServerSocket;
 
-import org.bytedeco.ffmpeg.global.avcodec;
+import org.bytedeco .ffmpeg.global.avcodec;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;

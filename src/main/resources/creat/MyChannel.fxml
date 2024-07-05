@@ -25,7 +25,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="homeMain_borderPain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.HomeController">
+<BorderPane fx:id="homeMain_borderPain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.MyChannelController">
    <center>
       <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="420.0" prefWidth="910.0">
          <content>
@@ -34,22 +34,17 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="200.0" layoutY="20.0" text="Channel Name">
+                        <Label fx:id="channelName_label" layoutX="200.0" layoutY="20.0" text="Channel Name">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <Label layoutX="200.0" layoutY="65.0" text="\@channelIsername • 20k subscribers • 20 videos" textFill="#5b5b5b">
+                        <Label fx:id="channelInfo_label" layoutX="200.0" layoutY="65.0" text="\@channelIsername • 20k subscribers • 20 videos" textFill="#5b5b5b">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button layoutX="200.0" layoutY="155.0" mnemonicParsing="false" text="Customize Channel">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Hyperlink layoutX="199.0" layoutY="87.0" maxHeight="66.0" maxWidth="410.0" minHeight="65.0" minWidth="410.0" prefHeight="66.0" prefWidth="410.0" text="About channel" textFill="#5b5b5b" wrapText="true">
+                        <Hyperlink fx:id="aboutChennel_hyperLink" layoutX="199.0" layoutY="87.0" maxHeight="66.0" maxWidth="410.0" minHeight="65.0" minWidth="410.0" prefHeight="66.0" prefWidth="410.0" text="About channel" textFill="#5b5b5b" wrapText="true">
                            <padding>
                               <Insets left="-1.0" />
                            </padding>
@@ -57,6 +52,11 @@
                               <Font size="14.0" />
                            </font>
                         </Hyperlink>
+                        <Button layoutX="200.0" layoutY="155.0" mnemonicParsing="false" text="Customize Channel">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
                         <Button layoutX="359.0" layoutY="155.0" mnemonicParsing="false" text="Mannage videos">
                            <font>
                               <Font size="14.0" />
@@ -64,22 +64,33 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <TabPane tabClosingPolicy="UNAVAILABLE">
+                  <TabPane prefHeight="261.0" prefWidth="905.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab text="Home" />
-                      <Tab closable="false" text="Videos">
+                      <Tab text="Home">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="905.0" spacing="10.0">
+                              <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
+                                 <content>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
+                                 </content>
+                              </ScrollPane>
+                           </content></Tab>
+                      <Tab fx:id="videos_tab" closable="false" text="Videos">
+                           <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <ToggleButton mnemonicParsing="false" text="Latest" />
-                                          <ToggleButton mnemonicParsing="false" text="Popular" />
-                                          <ToggleButton mnemonicParsing="false" text="Oldest" />
+                                          <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="905.0" spacing="10.0">
+                                             <children>
+                                                <ToggleButton mnemonicParsing="false" text="Latest" />
+                                                <ToggleButton mnemonicParsing="false" text="Popular" />
+                                                <ToggleButton mnemonicParsing="false" text="Oldest" />
+                                             </children>
+                                          </HBox>
                                        </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
                            </content>
                         </Tab>
                         <Tab text="Shorts" />
