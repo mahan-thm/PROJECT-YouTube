@@ -30,10 +30,13 @@
    <center>
       <ScrollPane fx:id="post_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="420.0" prefWidth="910.0">
          <content>
-            <VBox fx:id="postInHome_vBox" prefHeight="329.0" prefWidth="905.0" spacing="15.0" />
+            <VBox fx:id="postInHome_vBox" prefHeight="329.0" prefWidth="905.0" spacing="15.0">
+               <padding>
+                  <Insets left="10.0" top="10.0" />
+               </padding></VBox>
          </content>
          <padding>
-            <Insets left="5.0" top="5.0" />
+            <Insets left="5.0" />
          </padding>
       </ScrollPane>
    </center>

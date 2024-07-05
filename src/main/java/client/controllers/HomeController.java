@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -74,7 +76,7 @@ public class HomeController implements Initializable {
         fadeRectangle_rectangle.heightProperty().bind(homeMain_borderPain.heightProperty());
 
         //TODO
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++) {
             Button button = new Button("Recommended tags" + i);
             button.setStyle("-fx-background-color: #dec6c6");
             tags_hBox.getChildren().add(button);
@@ -121,7 +123,7 @@ public class HomeController implements Initializable {
 
         for (int i = 0; i < 3; i++) {
             HBox hBox = new HBox();
-            hBox.setSpacing(15);
+            hBox.setSpacing(10);
             hBox.setFillHeight(true);
             hBox.prefHeightProperty().bind(post_scrollPane.widthProperty());
             hBox.prefWidthProperty().bind(post_scrollPane.heightProperty());
@@ -158,10 +160,15 @@ public class HomeController implements Initializable {
 
                     pane.prefWidthProperty().bind(post_scrollPane.widthProperty());
                     pane.prefHeightProperty().bind(post_scrollPane.widthProperty());
-                    ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
-                    ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
-                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(2)).endXProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(120));
-//                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
+//                    ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).maxWidthProperty().bind(post_scrollPane.widthProperty().subtract(200));
+//                    ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).maxHeightProperty().bind(post_scrollPane.widthProperty().subtract(200));
+                    ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
+                    ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
+//                    ((MediaView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(1)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
+//                    ((MediaView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(1)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
+//                    ((Button) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(2)).prefWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
+//                    ((Button) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(2)).prefHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
+                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(120));
 
 
                     hBox.getChildren().add(pane);
@@ -325,8 +332,9 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
-    public void signOut_action(ActionEvent actionEvent){
+    public void signOut_action(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../entry/Login.fxml")));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -341,12 +349,13 @@ public class HomeController implements Initializable {
 
     //________________________________________PRIVET______________________________________________
     @FXML
-    public void moveRight_action(){
+    public void moveRight_action() {
         double value = tags_scrollPane.getHvalue();
         tags_scrollPane.setHvalue(value + 0.1);
     }
+
     @FXML
-    public void moveLeft_action(){
+    public void moveLeft_action() {
         double value = tags_scrollPane.getHvalue();
         tags_scrollPane.setHvalue(value - 0.1);
     }

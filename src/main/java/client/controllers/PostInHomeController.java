@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -59,6 +60,10 @@ public class PostInHomeController {
     private Line lineOnThumbnail_line;
     @FXML
     private MediaView thumbnail_mediaView;
+    @FXML
+    private Button thumbnail_button;
+    @FXML
+    private AnchorPane thumbnail_anchorPane;
 
 
     public void setup() {
@@ -74,6 +79,15 @@ public class PostInHomeController {
         videoTopic_label.setText(topic);
         chanel_hyperlink.setText(channel);
         timeAndView_label.setText(view + " • " + timeUpload);
+
+
+        thumbnail_mediaView.fitWidthProperty().bind(thumbnail_imageView.fitWidthProperty());
+        thumbnail_mediaView.fitHeightProperty().bind(thumbnail_imageView.fitHeightProperty().divide(1.777778));
+        thumbnail_button.prefWidthProperty().bind(thumbnail_imageView.fitWidthProperty());
+        thumbnail_button.prefHeightProperty().bind(thumbnail_imageView.fitHeightProperty().divide(1.777778));
+//        thumbnail_anchorPane.maxWidthProperty().bind(thumbnail_imageView.fitWidthProperty().subtract(200));
+//        thumbnail_anchorPane.maxHeightProperty().bind(thumbnail_imageView.fitHeightProperty().subtract(200));
+
     }
 
 
@@ -103,12 +117,11 @@ public class PostInHomeController {
         //TODO
         File file = null;
         try {
-            file = new File(getClass().getResource("../../CACHE/videoCache/video1.mp4").toURI());
+            file = new File(getClass().getResource("../../CACHE/videoCache/video3.mp4").toURI());
             thumbnail_mediaView.setVisible(true);
             Media media = new Media(file.toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             thumbnail_mediaView.setMediaPlayer(mediaPlayer);
-
 
 
 //            DoubleProperty mvw = thumbnail_mediaView.fitWidthProperty();
