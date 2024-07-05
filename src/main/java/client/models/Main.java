@@ -39,6 +39,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         String css;
         Parent root;
+
         if(userAccount.autoLogin()){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
             css = Objects.requireNonNull(this.getClass().getResource("../../home/HomeStyle.css")).toExternalForm();
@@ -83,6 +84,19 @@ public class Main extends Application {
         response.put("respondType", "/error");
         return response;
     }
+    public static void saveFile(byte[] bytes,String path){
+
+        try {
+
+            File file = new File(path);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(bytes);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
     public static byte[] readFile(){
 
         try {
@@ -117,7 +131,33 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-    //todo
+    public static void uploadFile(File file) {
+
+        try {
+
+            DataOutputStream dataOut = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            FileInputStream fileInputStream= new FileInputStream(file);
+
+            long length = file.length();
+            dataOut.writeLong(length);
+            dataOut.flush();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                dataOut.write(buffer, 0, bytesRead);
+            }
+            dataOut.flush();
+
+            System.out.println("file has been sent");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
 
 }
 

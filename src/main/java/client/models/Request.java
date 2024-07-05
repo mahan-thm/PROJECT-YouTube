@@ -3,7 +3,9 @@ package client.models;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import static client.models.Main.write;
+import java.io.File;
+
+import static client.models.Main.*;
 
 public class Request {
     //account requests--------------------------------------------------------------------------------------
@@ -130,8 +132,16 @@ public class Request {
 
         write(request);
     }
-    //------------------------------------------------------------------------------------------------------
+    public void getChannelUsername(String username) {
 
+        JSONObject request = new JSONObject();
+        request.put("requestType","/getChannelUsername");
+
+        write(request);
+
+    }
+
+    //------------------------------------------------------------------------------------------------------
     // submit requests -------------------------------------------------------------------------------------
     public void createChannel(String channelName,String channelUsername ,JSONArray tags){
 
@@ -154,17 +164,26 @@ public class Request {
 
         write(request);
     }
-    public void addVideo(String channel_id, String videoName, String videoCaption, JSONArray tags){
+    public void addVideo(String channel_username, String videoName, String videoCaption, JSONArray tags, File fileToUpload){
 
         JSONObject request = new JSONObject();
         request.put("requestType","/addVideo");
-        request.put("channel_id",channel_id);
+        request.put("channel_username",channel_username);
         request.put("videoName",videoName);
         request.put("videoDescription",videoCaption);
         request.put("tags",tags);
 
 
         write(request);
+        JSONObject response = read();
+
+        if (response.getString("responseType").equals("/addVideo_accepted")){
+            uploadFile(fileToUpload);
+            System.out.println("upload successful");
+        }
+        else {
+            System.out.println("upload unsuccessful");
+        }
     }
     public void removeVideo(int video_id){
 
@@ -194,8 +213,8 @@ public class Request {
 
         write(request);
     }
-    //------------------------------------------------------------------------------------------------------
 
+    //------------------------------------------------------------------------------------------------------
     // tiny action request----------------------------------------------------------------------------------
     public void subscribeChannel(String channel_id, String videoName, String videoCaption, JSONArray tags){
 
@@ -276,6 +295,7 @@ public class Request {
 
         write(request);
     }
+
     static void edit_commentLike(String comment_id,String editType){
         JSONObject request = new JSONObject();
 

@@ -70,7 +70,6 @@ public class HomeController implements Initializable {
         fadeRectangle_rectangle.heightProperty().bind(homeMain_borderPain.heightProperty());
 
         //____________________________________PROFILE PHOTO__________________________________________
-        //TODO
         String profPath = "-fx-background-image: url('CACHE/imageCache/profImg0.jpg')";
         request.profileImg();
         if (read().getString("responseType").equals("/profileImg_accepted")) {
@@ -140,8 +139,7 @@ public class HomeController implements Initializable {
                     pane.setId(String.valueOf(i * 3 + j));
                     PostInHomeController postInHomeController = fxmlLoader.getController();
 
-                    //TODO
-                    //to set up PostInHome fxml file
+
                     postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
 //                    postInHomeController.define(imageBytes,"Ai Girl", "My Channel", "2k", "12 july");
                     postInHomeController.setup();

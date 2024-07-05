@@ -76,6 +76,7 @@ public class ClientHandler implements Runnable {
                 case "/login" -> login(request);
                 case "/logout" -> logout(request);
                 case "/signUp" -> signUp(request);
+                case "/getChannelUsername" -> getChannelUsername(request);
                 case "/profileImg" -> profileImg(request);
                 case "/videoList" -> videoList(request);
                 case "/channelList" -> channelList(request);
@@ -107,6 +108,20 @@ public class ClientHandler implements Runnable {
 
             }
         }
+    }
+
+    private void getChannelUsername(JSONObject request) {
+
+        JSONObject response = new JSONObject();
+
+
+//        user_id = 1;
+//        String channelUsername = Dbm.getChannelUsername(user_id);
+        String channelUsername = "demo";
+        response.put("channel_username",channelUsername);
+
+        write(response);
+
     }
 
 
@@ -432,15 +447,34 @@ public class ClientHandler implements Runnable {
     private void addVideo(JSONObject request) {
         JSONObject response = new JSONObject();
 
-        int channel_id = (int) request.get("channel_id");
-        String videoName = (String) request.get("channelName");
+        String channel_username =  request.getString("channel_username");
+        String videoName = (String) request.get("videoName");
         String videoDescription = (String) request.get("videoDescription");
         JSONArray tags = (JSONArray) request.get("tags");
-
-        Dbm.addVideo(channel_id, videoName, videoDescription, "", "", tags);
+//        int channel_id = Dbm.getChannel_id(); //todo
+        int channel_id = 1;
+//        int video_id = Dbm.addVideo(channel_id, videoName, videoDescription, "", "", tags);
+        int video_id =  5001;
         response.put("responseType", "/addVideo_accepted");
 
         write(response);
+        if (response.getString("responseType").equals("/addVideo_accepted")){
+            byte[] fileBytes = getUploadedFile();
+            saveFile(fileBytes,"src/main/resources/DATA/video_examples/"+ video_id + ".mp4");
+        }
+    }
+    public static void saveFile(byte[] bytes,String path){
+
+        try {
+
+            File file = new File(path);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(bytes);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     private void uploadVideoFile(JSONObject request) {
@@ -555,6 +589,7 @@ public class ClientHandler implements Runnable {
 
         response.put("responseType", "/remove_WatchedVideo_accepted");
     }
+
 // may be used fo recommendation system
 //    private void add_WatchLaterVideo(JSONObject request) {
 //        JSONObject response = new JSONObject();
@@ -622,7 +657,6 @@ public class ClientHandler implements Runnable {
 //
 //        response.put("responseType","/remove_dislikedVideo_accepted");
 //    }
-
     private void edit_commentLike(JSONObject request) {
 
         JSONObject response = new JSONObject();
@@ -683,6 +717,30 @@ public class ClientHandler implements Runnable {
 
 
 
+    }
+
+    private  byte[] getUploadedFile() {
+        try {
+            DataInputStream dataIn = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            long fileLength = dataIn.readLong();
+
+            byte[] bytes = new byte[(int) fileLength];
+            int bytesRead;
+            int totalBytesRead = 0;
+            while (totalBytesRead < fileLength) {
+                bytesRead = dataIn.read(bytes, totalBytesRead, bytes.length - totalBytesRead);
+                if (bytesRead == -1) { // End of stream
+                    break;
+                }
+                totalBytesRead += bytesRead;
+            }
+
+            return bytes;
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return new byte[0];
     }
 
     public void closeClientHandler(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {

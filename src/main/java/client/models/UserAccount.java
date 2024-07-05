@@ -9,17 +9,20 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static client.models.Main.read;
-import static client.models.Main.request;
+import static client.models.Main.*;
 
 public class UserAccount {
 
     public String username;
     public String password;
+    public String channel_username;
 
     public UserAccount(String username,String password){
         this.username = username;
         this.password = password;
+        request.getChannelUsername(username);
+        JSONObject response = read();
+        this.channel_username = response.getString("channel_username");
     }
     public UserAccount(){
         username = "";
@@ -61,8 +64,9 @@ public class UserAccount {
 
                     String responseType = read().getString("responseType");
                     if(responseType.equals("/login_accepted")){
-                        username = data.getString("username");
-                        password = data.getString("password");
+                        userAccount = new UserAccount(data.getString("username"),data.getString("password"));
+//                        username = data.getString("username");
+//                        password = data.getString("password");
                         return true;
                     }
                 }

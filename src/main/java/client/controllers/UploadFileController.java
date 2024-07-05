@@ -1,5 +1,13 @@
 package client.controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+//import org.bytedeco.javacv.FFmpegFrameGrabber;
+//import org.bytedeco.javacv.Frame;
+//import org.bytedeco.javacv.Java2DFrameConverter;
+
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +28,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,10 +37,13 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static client.models.Main.*;
+
 
 public class UploadFileController implements Initializable {
 
     private String filePath;
+    private File fileToUpload ;
     private boolean childAbuse;
     @FXML
     private AnchorPane uploadVideo_anchorPain;
@@ -110,17 +123,18 @@ public class UploadFileController implements Initializable {
         filePath = selectedFile.getAbsolutePath();
         selectedFile_label.setText("SELECTED FILE:\n" + filePath);
 
-        try {
-            Image uploadGif = new Image(Objects.requireNonNull(getClass().getResource("../../creat/uploadGif.gif")).openStream());
-            Image uploadImage2 = new Image(Objects.requireNonNull(getClass().getResource("../../creat/uploadImage2.jpg")).openStream());
+//        try {
 
-            upload_imageView.setImage(uploadGif);
+//            Image uploadGif = new Image(Objects.requireNonNull(getClass().getResource("../../creat/uploadGif.gif")).openStream());
+//            Image uploadImage2 = new Image(Objects.requireNonNull(getClass().getResource("../../creat/uploadImage2.jpg")).openStream());
 
-            Timeline delayTimeline = new Timeline(new KeyFrame(Duration.seconds(2.566667), event -> upload_imageView.setImage(uploadImage2)));
-            delayTimeline.play();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//            upload_imageView.setImage(uploadGif);
+
+//            Timeline delayTimeline = new Timeline(new KeyFrame(Duration.seconds(2.566667), event -> upload_imageView.setImage(uploadImage2)));
+//            delayTimeline.play();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
 
     }
@@ -168,8 +182,8 @@ public class UploadFileController implements Initializable {
 
 
         //__________________________________________
-        File file = new File(filePath);
-        Media media = new Media(file.toURI().toString());
+        fileToUpload = new File(filePath);
+        Media media = new Media(fileToUpload.toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         video_mediaView.setMediaPlayer(mediaPlayer);
         video_mediaView.fitWidthProperty().set(230);
@@ -268,9 +282,14 @@ public class UploadFileController implements Initializable {
 
 
         if (okayToUpload) {
-            //TODO
-            //ofter everything is okay, what should happen?
 
+            String[] hashtags = videoTags.split(" ");
+
+            JSONArray tags = new JSONArray();
+            for (String hashtag : hashtags) {
+                tags.put(hashtag);
+            }
+            request.addVideo(userAccount.channel_username,videoTitle,videoDescription,tags,fileToUpload);
 
 
             //________________________________
@@ -333,4 +352,27 @@ public class UploadFileController implements Initializable {
         translateTransition1.play();
         translateTransition2.play();
     }
+
+
+    private void randomThumbnail(int num){
+//        File videoFile = new File("path/to/your/video.mp4"); // Replace with your video file path
+//        FFmpegFrameGrabber frameGrabber = new FFmpegFrameGrabber(videoFile);
+//        frameGrabber.start();
+//
+//        int totalFrames = frameGrabber.getLengthInFrames();
+//        int randomFrameIndex = (int) (Math.random() * totalFrames); // Generate a random frame index
+//
+//        frameGrabber.setFrameNumber(randomFrameIndex);
+//        Frame frame = frameGrabber.grab();
+//        Java2DFrameConverter converter = new Java2DFrameConverter();
+//        BufferedImage bufferedImage = converter.convert(frame);
+//
+//        // Save the frame as an image (e.g., PNG)
+//        File outputImageFile = new File("random_frame.png");
+//        ImageIO.write(bufferedImage, "png", outputImageFile);
+//
+//        frameGrabber.stop();
+//        System.out.println("Random frame saved as: " + outputImageFile.getAbsolutePath());
+    }
+
 }
