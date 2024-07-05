@@ -23,14 +23,29 @@
     -fx-background-size: 40 40;
 
     -fx-background-radius: 30;
-    -fx-border-width: 0.5;
+    -fx-border-width: 1;
     -fx-border-radius: 30;
     -fx-border-color: black;
+}
+#circleOnProf_rectangle {
+    -fx-fill: radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.0%, radius 49.5413%, #ff000000 0.0%, #ff000000 0.6729%, #ff000000 94.6066%, rgb(241, 240, 240) 100.0%);
 }
 
 #toolBarHome_button {
     -fx-shape: "M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z";
     -fx-background-color: black;
+}
+#accountProfHome_button1{
+    -fx-background-position: center;
+    -fx-background-size: 48 48;
+
+    -fx-background-radius: 30;
+    -fx-border-width: 1;
+    -fx-border-radius: 30;
+    -fx-border-color: black;
+}
+#circleOnProf_rectangle1{
+    -fx-fill: radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.0%, radius 49.5413%, #ff000000 0.0%, #ff000000 0.6729%, #ff000000 94.6066%, #e4e4e4 100.0%);
 }
 
 
@@ -81,7 +96,10 @@
     -fx-shape: "M14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2zm3-7H3v12h14v-6.39l4 1.83V8.56l-4 1.83V6m1-1v3.83L22 7v8l-4-1.83V19H2V5h16z";
     -fx-background-color: black;
 }
-
+#refresh_button {
+    -fx-shape: "M22.4,11.65a1.09,1.09,0,0,0,1.09,1.09H34.43V1.81a1.09,1.09,0,1,0-2.19,0V8.95a16.41,16.41,0,1,0,1.47,15.86,1.12,1.12,0,0,0-2.05-.9,14.18,14.18,0,1,1-1.05-13.36H23.5A1.09,1.09,0,0,0,22.4,11.65Z";
+    -fx-background-color: black;
+}
 #Search_textField {
     -fx-border-color: #cccccc;
     -fx-border-radius: 20;
