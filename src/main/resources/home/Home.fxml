@@ -166,17 +166,7 @@
                <children>
                   <ScrollPane fx:id="tags_scrollPane" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                      <content>
-                        <HBox alignment="CENTER" prefHeight="40.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="All" />
-                              <Button mnemonicParsing="false" text="Music" />
-                              <Button mnemonicParsing="false" text="Playlists" />
-                              <Button mnemonicParsing="false" text="Mixing consols" />
-                              <Button mnemonicParsing="false" text="gaming" />
-                              <Button mnemonicParsing="false" text="Object-oriented programming" />
-                              <Button mnemonicParsing="false" text="computer programming" />
-                           </children>
-                        </HBox>
+                        <HBox fx:id="tags_hBox" alignment="CENTER" prefHeight="40.0" spacing="10.0" />
                      </content>
                   </ScrollPane>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0">
@@ -207,7 +197,7 @@
                         </LinearGradient>
                      </fill>
                   </Rectangle>
-                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="&lt;">
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#moveLeft_action" prefHeight="40.0" prefWidth="40.0" text="&lt;">
                      <font>
                         <Font name="sofi" size="19.0" />
                      </font>
@@ -238,7 +228,7 @@
                         </LinearGradient>
                      </fill>
                   </Rectangle>
-                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="26.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="&gt;" textAlignment="CENTER" GridPane.columnIndex="2">
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="26.0" mnemonicParsing="false" onAction="#moveRight_action" prefHeight="40.0" prefWidth="40.0" text="&gt;" textAlignment="CENTER" GridPane.columnIndex="2">
                      <font>
                         <Font name="sofi" size="19.0" />
                      </font>

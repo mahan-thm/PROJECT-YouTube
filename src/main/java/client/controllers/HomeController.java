@@ -62,12 +62,23 @@ public class HomeController implements Initializable {
     private Rectangle fadeRectangle_rectangle;
     @FXML
     private Button accountProfHome_button1;
+    @FXML
+    private HBox tags_hBox;
+    @FXML
+    private ScrollPane tags_scrollPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         toolBar_scrollPane.prefHeightProperty().bind(homeMain_borderPain.heightProperty());
         fadeRectangle_rectangle.widthProperty().bind(homeMain_borderPain.widthProperty());
         fadeRectangle_rectangle.heightProperty().bind(homeMain_borderPain.heightProperty());
+
+        //TODO
+        for (int i = 0; i < 20; i++){
+            Button button = new Button("Recommended tags" + i);
+            button.setStyle("-fx-background-color: #dec6c6");
+            tags_hBox.getChildren().add(button);
+        }
 
         //____________________________________PROFILE PHOTO__________________________________________
         String profPath = "-fx-background-image: url('CACHE/imageCache/profImg0.jpg')";
@@ -313,5 +324,17 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //________________________________________PRIVET______________________________________________
+    @FXML
+    public void moveRight_action(){
+        double value = tags_scrollPane.getHvalue();
+        tags_scrollPane.setHvalue(value + 0.1);
+    }
+    @FXML
+    public void moveLeft_action(){
+        double value = tags_scrollPane.getHvalue();
+        tags_scrollPane.setHvalue(value - 0.1);
     }
 }
