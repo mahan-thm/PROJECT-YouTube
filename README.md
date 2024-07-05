@@ -41,25 +41,25 @@
 
 ### Additional Features:
 
-1. dynamic homepage (recommendation system)
-2. notification
-3. dark and light theme
-4. watch history
-5. public or private playlist
+1. dynamic homepage (recommendation system)        mmd hosein
+2. notification                                    mahan
+3. dark and light theme                            mahan
+4. watch history                                   mmd hosein 
+5. public or private playlist                      mmd hosein, mahan
 
 ### Bonus Features:
 
-1. download video
-2. video speed
-3. switch account
+1. download video                                  
+2. video speed                                     ok mahan
+3. switch account 
 4. auto login $$$
 5. recommendation system (likes, search history, view, channels)
 6. trending videos (hot)
 7. Send feedback
 8. report user for admin
-9. video stream
-10. internet server
-11. open file explorer to select uploading file
+9. video stream                                     ok
+10. internet server                                 kurosh 
+11. open file explorer to select uploading file     $$$
 12. creat channels
 13. email to forgot pass
 14. ads
