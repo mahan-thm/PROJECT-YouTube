@@ -3,7 +3,7 @@ package client.models;
 import org.json.JSONObject;
 
 
-public class Video {
+public class VideoInfo {
     public int id ;
     String title ;
     String title_body ;
@@ -12,6 +12,8 @@ public class Video {
     String total_view ;
     String total_likes ;
     String total_dislikes ;
+
+    int partCount;
 
     public String getTitle_body() {
         return title_body;
@@ -56,7 +58,7 @@ public class Video {
     int channel_id ;
     String channel_name ;
 
-    public Video(int video_id,JSONObject response){
+    public VideoInfo(int video_id, JSONObject response){
         id = video_id;
 
         title = (String) response.get("title");
