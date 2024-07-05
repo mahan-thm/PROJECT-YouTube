@@ -325,6 +325,19 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    public void signOut_action(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../entry/Login.fxml")));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../entry/LoginStyle.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     //________________________________________PRIVET______________________________________________
     @FXML

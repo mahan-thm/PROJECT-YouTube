@@ -401,7 +401,7 @@
                               <Button fx:id="switchAccountIcon_Button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                            </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Sign out">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#signOut_action" prefHeight="40.0" prefWidth="180.0" text=" Sign out">
                            <graphic>
                               <Button fx:id="signOutIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                            </graphic>
