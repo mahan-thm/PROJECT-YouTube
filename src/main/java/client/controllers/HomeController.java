@@ -151,7 +151,7 @@ public class HomeController implements Initializable {
                     pane.prefHeightProperty().bind(post_scrollPane.widthProperty());
                     ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
                     ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
-                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(120));
+                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(2)).endXProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(120));
 //                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
 
 

@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
@@ -16,10 +17,19 @@
    <children>
       <VBox spacing="5.0">
          <children>
-            <ImageView fx:id="thumbnail_imageView" fitHeight="161.0" fitWidth="286.0" pickOnBounds="true" preserveRatio="true" />
-            <Line endX="185.0" startX="-100.0" strokeWidth="3.0">
+            <ImageView fx:id="thumbnail_imageView" fitHeight="161.0" fitWidth="286.0" onMouseEntered="#hideLine_action" onMouseExited="#showLine_action" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
-                  <Insets top="-6.0" />
+                  <Insets />
+               </VBox.margin>
+            </ImageView>
+            <MediaView fx:id="thumbnail_mediaView" fitHeight="161.0" fitWidth="286.0" onMouseEntered="#hideLine_action" onMouseExited="#showLine_action" visible="false">
+               <VBox.margin>
+                  <Insets top="-166.0" />
+               </VBox.margin>
+            </MediaView>
+            <Line fx:id="lineOnThumbnail_line" endX="182.0" startX="-100.0" strokeWidth="4.0">
+               <VBox.margin>
+                  <Insets top="-9.0" />
                </VBox.margin>
                <stroke>
                   <LinearGradient endX="1.0" endY="1.0" startY="1.0">

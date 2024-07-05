@@ -1,5 +1,7 @@
 package client.controllers;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +14,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 
@@ -27,7 +36,7 @@ public class PostInHomeController {
     private String view;
     private String timeUpload;
 
-    public void define(byte[] thumbnailByte,int video_id, String topic, String chanel, String view, String timeUpload) {
+    public void define(byte[] thumbnailByte, int video_id, String topic, String chanel, String view, String timeUpload) {
         this.thumbnailByte = thumbnailByte;
         this.video_id = video_id;
         this.topic = topic;
@@ -46,6 +55,10 @@ public class PostInHomeController {
     private Hyperlink chanel_hyperlink;
     @FXML
     private Label timeAndView_label;
+    @FXML
+    private Line lineOnThumbnail_line;
+    @FXML
+    private MediaView thumbnail_mediaView;
 
 
     public void setup() {
@@ -83,7 +96,47 @@ public class PostInHomeController {
         stage.show();
     }
 
+    private MediaPlayer mediaPlayer;
 
+    public void hideLine_action() {
+        lineOnThumbnail_line.setVisible(false);
+        //TODO
+        File file = null;
+        try {
+            file = new File(getClass().getResource("../../CACHE/videoCache/video1.mp4").toURI());
+            thumbnail_mediaView.setVisible(true);
+            Media media = new Media(file.toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            thumbnail_mediaView.setMediaPlayer(mediaPlayer);
+
+
+
+//            DoubleProperty mvw = thumbnail_mediaView.fitWidthProperty();
+//            DoubleProperty mvh = thumbnail_mediaView.fitHeightProperty();
+//            mvw.bind(Bindings.selectDouble(postInHome_anchorPane.sceneProperty(), "width"));
+//            mvh.bind(Bindings.selectDouble(postInHome_anchorPane.sceneProperty(), "height"));
+
+//            thumbnail_mediaView.setFitWidth(286);
+//            thumbnail_mediaView.setFitHeight(161);
+//            thumbnail_mediaView.fitHeightProperty().bind(thumbnail_imageView.fitHeightProperty());
+//            thumbnail_mediaView.fitWidthProperty().bind(thumbnail_imageView.fitWidthProperty());
+
+//            cloudinary.url().transformation(new Transformation().height(200).width(200).crop("crop")).videoTag("docs/cld_rubiks_guy");
+
+
+            //            mediaPlayer.setStartTime(Duration.ZERO);
+            mediaPlayer.setMute(true);
+            mediaPlayer.play();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void showLine_action() {
+        lineOnThumbnail_line.setVisible(true);
+        mediaPlayer.stop();
+        thumbnail_mediaView.setVisible(false);
+    }
 
 
 }
