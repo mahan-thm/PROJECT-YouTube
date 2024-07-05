@@ -29,7 +29,7 @@
             </MediaView>
             <Line fx:id="lineOnThumbnail_line" endX="182.0" startX="-100.0" strokeWidth="4.0">
                <VBox.margin>
-                  <Insets top="-9.0" />
+                  <Insets top="-10.0" />
                </VBox.margin>
                <stroke>
                   <LinearGradient endX="1.0" endY="1.0" startY="1.0">

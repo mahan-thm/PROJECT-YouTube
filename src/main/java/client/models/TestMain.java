@@ -24,17 +24,21 @@ public class TestMain extends Application {
 //        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../entry/Login.fxml")));
 //        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
 //        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../videoPlayer/videoPlayer.fxml")));
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/UploadFile.fxml")));
+//        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/UploadFile.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/MyChannel.fxml")));
+
 
         Scene scene = new Scene(root);
 
 //        String css = Objects.requireNonNull(this.getClass().getResource("../../entry/LoginStyle.css")).toExternalForm();
-        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle.css")).toExternalForm();
+//        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle.css")).toExternalForm();
 ////        String css = Objects.requireNonNull(this.getClass().getResource("../../videoPlayer/VideoPlayerStyle.css")).toExternalForm();
-        scene.getStylesheets().add(css);
-scene.setFill(Color.TRANSPARENT);
+        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/MyChannelStyle.css")).toExternalForm();
 
-        stage.initStyle(StageStyle.TRANSPARENT);
+        scene.getStylesheets().add(css);
+
+//        scene.setFill(Color.TRANSPARENT);
+//        stage.initStyle(StageStyle.TRANSPARENT);
 
         stage.setTitle("YouTube");
 
