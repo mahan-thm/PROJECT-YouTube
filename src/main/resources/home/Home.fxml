@@ -16,10 +16,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.shape.Line?>
@@ -42,9 +42,9 @@
          <children>
             <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="960.0">
                <columnConstraints>
-                  <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="195.0" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="800.0" minWidth="200.0" prefWidth="573.600048828125" />
-                  <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="195.0" />
+                  <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="250.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1000.0" minWidth="200.0" />
+                  <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="250.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -79,23 +79,54 @@
                   </TextField>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <StackPane layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" prefHeight="40.0" prefWidth="40.0">
-                           <children>
-                              <Button fx:id="accountProfHome_button" alignment="CENTER" contentDisplay="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#account_action" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Arial Bold" size="17.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </StackPane>
-                        <Button alignment="CENTER" layoutX="87.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                        <Button fx:id="accountProfHome_button" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#account_action" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle fx:id="circleOnProf_rectangle" disable="true" height="42.0" smooth="false" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="42.0">
+                                 <fill>
+                                    <RadialGradient centerX="0.5" centerY="0.5" radius="0.49541283091273874">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color red="1.0" opacity="0.0" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="0.006729475100942127">
+                                             <color>
+                                                <Color red="1.0" opacity="0.0" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="0.9460657190690345">
+                                             <color>
+                                                <Color red="1.0" opacity="0.0" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="1.0" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </RadialGradient>
+                                 </fill>
+                              </Rectangle>
+                           </graphic>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="89.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
                            <graphic>
                               <Button fx:id="notification_button" maxHeight="22.0" maxWidth="16.0" minHeight="22.0" minWidth="16.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="16.0" />
                            </graphic>
                         </Button>
-                        <Button alignment="CENTER" layoutX="38.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#create_action" prefHeight="40.0" prefWidth="40.0">
+                        <Button alignment="CENTER" layoutX="43.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#create_action" prefHeight="40.0" prefWidth="40.0">
                            <graphic>
                               <Button fx:id="creat_button" maxHeight="13.0" maxWidth="22.0" minHeight="13.0" minWidth="22.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="22.0" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="-3.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#refresh_action" prefHeight="40.0" prefWidth="40.0">
+                           <graphic>
+                              <Button fx:id="refresh_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#refresh_action" prefHeight="15.0" prefWidth="15.0" />
                            </graphic>
                         </Button>
                      </children>
@@ -316,11 +347,6 @@
                      <children>
                         <AnchorPane prefHeight="81.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="accountProfHome_button1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="6.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Arial Bold" size="17.0" />
-                                 </font>
-                              </Button>
                               <VBox layoutX="54.0" layoutY="6.0" prefWidth="128.0" spacing="3.0">
                                  <children>
                                     <Label text="Channel name " wrapText="true">
@@ -336,6 +362,41 @@
                                     </Hyperlink>
                                  </children>
                               </VBox>
+                              <Button fx:id="accountProfHome_button1" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="10.0" maxHeight="48.0" maxWidth="48.0" minHeight="48.0" minWidth="48.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" text="M" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="21.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle fx:id="circleOnProf_rectangle1" disable="true" height="50.0" smooth="false" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="50.0">
+                                       <fill>
+                                          <RadialGradient centerX="0.5" centerY="0.5" radius="0.49541283091273874">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="1.0" opacity="0.0" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="0.006729475100942127">
+                                                   <color>
+                                                      <Color red="1.0" opacity="0.0" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="0.9460657190690345">
+                                                   <color>
+                                                      <Color red="1.0" opacity="0.0" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color red="1.0" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </RadialGradient>
+                                       </fill>
+                                    </Rectangle>
+                                 </graphic>
+                              </Button>
                            </children>
                         </AnchorPane>
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
@@ -392,7 +453,7 @@
             </Pane>
             <Pane fx:id="creat_pane" prefHeight="61.0" prefWidth="44.0" visible="false">
                <children>
-                  <VBox fx:id="creat_vBox" alignment="TOP_CENTER" layoutX="-395.0" layoutY="-53.0" prefWidth="200.0" spacing="5.0">
+                  <VBox fx:id="creat_vBox" alignment="TOP_CENTER" layoutX="-388.0" layoutY="-53.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#uploadVideo_action" prefHeight="40.0" prefWidth="180.0" text=" Upload video">
@@ -408,7 +469,7 @@
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
                      </children>
                   </VBox>
-                  <CubicCurve controlX1="236.39996337890625" controlX2="177.99993896484375" controlY1="-61.19999694824219" controlY2="70.80000305175781" disable="true" endX="134.39996337890625" endY="31.000003814697266" fill="#e4e4e4" layoutX="-332.0" layoutY="-74.0" startX="134.39996337890625" startY="98.73332977294922" stroke="BLACK" strokeWidth="0.0" />
+                  <CubicCurve controlX1="236.39996337890625" controlX2="177.99993896484375" controlY1="-61.19999694824219" controlY2="70.80000305175781" disable="true" endX="134.39996337890625" endY="31.000003814697266" fill="#e4e4e4" layoutX="-325.0" layoutY="-74.0" startX="134.39996337890625" startY="98.73332977294922" stroke="BLACK" strokeWidth="0.0" />
                </children>
             </Pane>
          </children>

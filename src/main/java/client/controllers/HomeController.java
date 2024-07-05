@@ -3,9 +3,11 @@ package client.controllers;
 import client.models.Video;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -57,6 +60,8 @@ public class HomeController implements Initializable {
     private ScrollPane toolBar_scrollPane;
     @FXML
     private Rectangle fadeRectangle_rectangle;
+    @FXML
+    private Button accountProfHome_button1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,6 +92,7 @@ public class HomeController implements Initializable {
 
 
             accountProfHome_button.setStyle(profPath);
+            accountProfHome_button1.setStyle(profPath);
         }
         //_________________________________________VIDEO THUMBNAIL___________________________________________
         request.videoList(9, new JSONArray());
@@ -129,6 +135,8 @@ public class HomeController implements Initializable {
                     //to load fxml file
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = fxmlLoader.load();
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
                     pane.setId(String.valueOf(i * 3 + j));
                     PostInHomeController postInHomeController = fxmlLoader.getController();
 
@@ -143,6 +151,8 @@ public class HomeController implements Initializable {
                     pane.prefHeightProperty().bind(post_scrollPane.widthProperty());
                     ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
                     ((ImageView) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
+                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(2)).endXProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(120));
+//                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
 
 
                     hBox.getChildren().add(pane);
@@ -277,5 +287,18 @@ public class HomeController implements Initializable {
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../creat/uploadImage.jpg")));
         stage.getIcons().add(icon);
         stage.show();
+    }
+
+    public void refresh_action(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
