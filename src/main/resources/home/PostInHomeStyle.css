@@ -1,3 +1,10 @@
-#circle_rectangle{
--fx-fill: radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.0%, radius 70.1835%, #00000000 0.0%, #00000000 74.9529%, rgba(255, 220, 220, 0.9) 100.0%);
+#thumbnail_button{
+    -fx-background-radius: 0;
+}
+#thumbnail_button:hover{
+    -fx-border-width: 9;
+    -fx-border-radius: 5;
+    -fx-border-color: #a1a1a1;
+    -fx-background-color: transparent;
+    -fx-border-insets: -9;
 }
