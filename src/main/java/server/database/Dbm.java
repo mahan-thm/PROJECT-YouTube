@@ -88,7 +88,7 @@ public class Dbm {
         return searchBarList;
     }
     public static void showSearchedContent (){
-                // todo bayad age moshabehate esmi kamel mikardam
+        // todo bayad age moshabehate esmi kamel mikardam
     }
     public static List<String> findSimilarTitles(String toSearch, List<String> titles) {
         // Step 1: Use regex to filter out titles that contain the search term
@@ -325,10 +325,11 @@ public class Dbm {
 //        todo addVideo(1 , "vid" ,"this is a video" , "320" ,"29.3.403" ,["[\"fun\", \"horror\", \"adventure\"]"]);
 //        System.out.println((getVideo_Title(1)));
 //        System.out.println(getVideo_creationTime(1));
-        for(String i: searchBarList("heyn")){
-            System.out.println(i);
-        }
-
+//        for(String i: searchBarList("heyn")){
+//            System.out.println(i);
+//        }
+//        System.out.println(getChannelTotalVideoes(1));
+        System.out.println(getChannelId("heyy"));
 
 
     }
@@ -453,23 +454,41 @@ public class Dbm {
     }
 
 
+    public static int getChannelId(String channelUserName) {
+        open();
+        String query = "SELECT * FROM channels " +
+                "WHERE channel_username = '" + channelUserName + "'";
+        int id = 0;
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            id = rs.getInt("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return id;
+    }
 
     public static int getChannelTotalVideoes(int channelId) {
         open();
-        String query = " SELECT * FROM channels " +
-                "WHERE channel_id = " + channelId ;
-        int total_videos =0;
+        String query = "SELECT COUNT(video_id) AS total FROM uploaded_videos " +
+                "WHERE channel_id = " + channelId;
+        int totalVideos = 0;
         try {
             ResultSet rs = stat.executeQuery(query);
-            total_videos = rs.getInt("total_videos");
-        }catch (SQLException e){
+            rs.next();
+            totalVideos = rs.getInt("total");
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
-        return total_videos;
+        return totalVideos;
     }
+
+
 
     public static int getChannelTotalViews(int channelId) {
         open();
@@ -591,8 +610,8 @@ public class Dbm {
         // todo nemikhay age amaliat dorost anjam nashod -1 return kone?
         open();
         try {
-        String query ="DELETE FROM comments WHERE id = " + commentId;
-        int rs = stat.executeUpdate(query);
+            String query ="DELETE FROM comments WHERE id = " + commentId;
+            int rs = stat.executeUpdate(query);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -795,9 +814,9 @@ public class Dbm {
     public static void addUserSubscribedChannels(int channelId, int userId , String add_date) {
         open();
         String query = "INSERT INTO subscribed_channels (channel_id , user_id , is_notif_on , add_date"
-                        +"VALUES ( " + channelId +","+ userId +","+ false +",'"+ add_date+"')";
+                +"VALUES ( " + channelId +","+ userId +","+ false +",'"+ add_date+"')";
         try{
-           int rs = stat.executeUpdate(query);
+            int rs = stat.executeUpdate(query);
         }
         catch (SQLException e){
             e.printStackTrace();
