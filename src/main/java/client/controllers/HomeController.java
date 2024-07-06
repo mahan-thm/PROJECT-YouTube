@@ -83,7 +83,6 @@ public class HomeController implements Initializable {
         }
 
         //____________________________________PROFILE PHOTO__________________________________________
-        String profPath = "-fx-background-image: url('CACHE/imageCache/profImg0.jpg')";
         request.profileImg();
         if (read().getString("responseType").equals("/profileImg_accepted")) {
 
@@ -102,9 +101,12 @@ public class HomeController implements Initializable {
                 throw new RuntimeException(e);
             }
 
+            String profPath = "-fx-background-image: url('CACHE/imageCache/profImg0.jpg')";
 
             accountProfHome_button.setStyle(profPath);
             accountProfHome_button1.setStyle(profPath);
+
+//            accountProfHome_button1.
         }
         //_________________________________________VIDEO THUMBNAIL___________________________________________
         request.videoList(9, new JSONArray());
@@ -291,16 +293,16 @@ public class HomeController implements Initializable {
 
     @FXML
     public void uploadVideo_action() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/UploadFile.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../create/UploadFile.fxml")));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
-        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle.css")).toExternalForm();
+        String css = Objects.requireNonNull(this.getClass().getResource("../../create/UploadFileStyle.css")).toExternalForm();
         scene.getStylesheets().add(css);
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Upload file");
         stage.setScene(scene);
-        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../creat/uploadImage.jpg")));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../create/uploadImage.jpg")));
         stage.getIcons().add(icon);
         stage.show();
     }
@@ -322,14 +324,14 @@ public class HomeController implements Initializable {
     @FXML
     public void myChannel_action(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/MyChannel.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../create/MyChannel.fxml")));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../creat/MyChannelStyle.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../create/MyChannelStyle.css")).toExternalForm());
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();e.getCause();
         }
     }
 

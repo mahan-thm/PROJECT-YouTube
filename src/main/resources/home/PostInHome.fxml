@@ -56,7 +56,7 @@
                   </LinearGradient>
                </stroke>
             </Line>
-            <Label fx:id="videoTopic_label" text="Topic">
+            <Label fx:id="videoTopic_label" onMouseClicked="#goToVideoPlayer_action" text="Topic">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

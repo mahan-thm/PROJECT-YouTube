@@ -215,7 +215,7 @@ public class ClientHandler implements Runnable {
         JSONObject response = new JSONObject();
         response.put("responseType", "/profileImg_accepted");
 
-        File fileToSend = new File("src/main/resources/DATA/image_examples/profileImg"+user_id+".jpg");
+        File fileToSend = new File("src/main/resources/DATA/profileImage/"+ user_id+".jpg");
 
         write(response);
         sendFile(fileToSend);
