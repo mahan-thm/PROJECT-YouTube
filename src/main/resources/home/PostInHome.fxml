@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -15,18 +16,15 @@
 
 <AnchorPane fx:id="postInHome_anchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.PostInHomeController">
    <children>
-      <VBox spacing="5.0">
+      <VBox fillWidth="false" spacing="5.0">
          <children>
-            <ImageView fx:id="thumbnail_imageView" fitHeight="161.0" fitWidth="286.0" onMouseEntered="#hideLine_action" onMouseExited="#showLine_action" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ImageView>
-            <MediaView fx:id="thumbnail_mediaView" fitHeight="161.0" fitWidth="286.0" onMouseEntered="#hideLine_action" onMouseExited="#showLine_action" visible="false">
-               <VBox.margin>
-                  <Insets top="-166.0" />
-               </VBox.margin>
-            </MediaView>
+            <AnchorPane fx:id="thumbnail_anchorPane">
+               <children>
+                  <ImageView fx:id="thumbnail_imageView" fitHeight="161.0" fitWidth="286.0" pickOnBounds="true" preserveRatio="true" />
+                  <MediaView fx:id="thumbnail_mediaView" fitHeight="161.0" fitWidth="286.0" onMouseReleased="#goToVideoPlayer_action" visible="false" />
+                  <Button fx:id="thumbnail_button" mnemonicParsing="false" onAction="#goToVideoPlayer_action" onMouseEntered="#hideLine_action" onMouseExited="#showLine_action" opacity="0.37" />
+               </children>
+            </AnchorPane>
             <Line fx:id="lineOnThumbnail_line" endX="182.0" startX="-100.0" strokeWidth="4.0">
                <VBox.margin>
                   <Insets top="-10.0" />
@@ -66,7 +64,7 @@
                   <Insets left="3.0" />
                </VBox.margin>
             </Label>
-            <Hyperlink fx:id="chanel_hyperlink" onAction="#goToVideoPlayer_action" text="Hyperlink" textFill="#5b5b5b" />
+            <Hyperlink fx:id="chanel_hyperlink" text="Hyperlink" textFill="#5b5b5b" />
             <Label fx:id="timeAndView_label" text="view • time upload" textFill="#5b5b5b">
                <VBox.margin>
                   <Insets left="3.0" />
