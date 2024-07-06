@@ -1,6 +1,6 @@
 package client.controllers;
 
-import client.models.Video;
+import client.models.VideoInfo;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -111,13 +111,13 @@ public class HomeController implements Initializable {
         JSONObject response1 = read();
 //        JSONObject response1 = new JSONObject();
         JSONArray video_idList = response1.getJSONArray("videoIdList");
-        ArrayList<Video> videoList = new ArrayList<>();
+        ArrayList<VideoInfo> videoList = new ArrayList<>();
 
         for (int i = 0; i < video_idList.length(); i++) {
             int video_id = video_idList.getInt(i);
             request.video(video_id);
             JSONObject response2 = read();
-            videoList.add(new Video(video_id, response2));
+            videoList.add(new VideoInfo(video_id, response2));
         }
 
 
@@ -133,7 +133,7 @@ public class HomeController implements Initializable {
                 try {
 
 
-                    Video video = videoList.get(i * 3 + j);
+                    VideoInfo video = videoList.get(i * 3 + j);
                     request.imageFile(video.id);
                     byte[] imageBytes = readFile();
 
