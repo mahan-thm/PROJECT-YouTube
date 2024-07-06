@@ -7,6 +7,7 @@ import java.io.File;
 
 import static client.models.Main.*;
 
+
 public class Request {
     //account requests--------------------------------------------------------------------------------------
 
@@ -186,7 +187,7 @@ public class Request {
         JSONObject response = read();
 
         if (response.getString("responseType").equals("/addVideo_accepted")){
-            uploadFile(fileToUpload);
+//            uploadFile(fileToUpload);
             System.out.println("upload successful");
         }
         else {

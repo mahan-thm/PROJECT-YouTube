@@ -125,8 +125,8 @@ public class UploadFileController implements Initializable {
 
 //        try {
 
-//            Image uploadGif = new Image(Objects.requireNonNull(getClass().getResource("../../creat/uploadGif.gif")).openStream());
-//            Image uploadImage2 = new Image(Objects.requireNonNull(getClass().getResource("../../creat/uploadImage2.jpg")).openStream());
+//            Image uploadGif = new Image(Objects.requireNonNull(getClass().getResource("../../create/uploadGif.gif")).openStream());
+//            Image uploadImage2 = new Image(Objects.requireNonNull(getClass().getResource("../../create/uploadImage2.jpg")).openStream());
 
 //            upload_imageView.setImage(uploadGif);
 
@@ -231,16 +231,16 @@ public class UploadFileController implements Initializable {
 
     @FXML
     public void refresh_action(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/UploadFile.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../create/UploadFile.fxml")));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle.css")).toExternalForm();
+        String css = Objects.requireNonNull(this.getClass().getResource("../../create/UploadFileStyle.css")).toExternalForm();
         scene.getStylesheets().add(css);
         scene.setFill(Color.TRANSPARENT);
 //        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Upload file");
         stage.setScene(scene);
-        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../creat/uploadImage.jpg")));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../create/uploadImage.jpg")));
         stage.getIcons().add(icon);
         stage.show();
     }

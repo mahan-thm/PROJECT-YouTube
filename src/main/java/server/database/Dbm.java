@@ -492,37 +492,39 @@ public class Dbm {
 
     public static int getChannelTotalViews(int channelId) {
         open();
-        String query = " SELECT * FROM channels " +
-                "WHERE channel_id = " + channelId ;
-        int total_views =0;
+        String query = "SELECT total_views FROM channels WHERE id = " + channelId;
+        int totalViews = 0;
         try {
             ResultSet rs = stat.executeQuery(query);
-            total_views = rs.getInt("total_views");
-        }catch (SQLException e){
+            if (rs.next()) { // Move the cursor to the first row
+                totalViews = rs.getInt("total_views");
+            }else return 0;
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
-        return total_views;
+        return totalViews;
     }
+
 
     public static int getChannelTotalSubscribers(int channelId) {
         open();
-        String query = " SELECT * FROM channels " +
-                "WHERE channel_id = " + channelId ;
-        int total_subscribers =0;
+        String query = "SELECT COUNT(*) AS total_subscribers FROM subscribed_channels WHERE channel_id = '" + channelId + "'";
+        int totalSubscribers = 0;
         try {
             ResultSet rs = stat.executeQuery(query);
-            total_subscribers = rs.getInt("total_subscribers");
-        }catch (SQLException e){
+            if (rs.next()) {
+                totalSubscribers = rs.getInt("total_subscribers");
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
-        return total_subscribers;
+        return totalSubscribers;
     }
+
     public static boolean checkChannelUsername(String channelUsername) {
         open();
         String query = "SELECT * FROM channels " +
@@ -710,23 +712,21 @@ public class Dbm {
     }
 
     public static String getChannelDescription(int channelId) {
-
         open();
-        String query = "SELECT *  FROM channels" +
-                "WHERE id =  " +channelId ;
-        try{
+        String query = "SELECT * FROM channels WHERE id = " + channelId;
+        try {
             ResultSet rs = stat.executeQuery(query);
-            close();
-            return rs.getString("channel_description");
-        }
-        catch (SQLException e){
+            if (rs.next()) {
+                return rs.getString("channel_description");
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
         return "";
     }
+
 
     public static int addChannel(String channelName,String channelUsername, int owner_id, String creationDate ,String channelDescription ) {
         // it returns the new channel id
@@ -758,16 +758,18 @@ public class Dbm {
         // todo mmd hosain age catch kard , NULL return kone?
         open();
         List <Integer> channelVideoList = new ArrayList<>();
-        String query = "SELECT id FROM uploaded_videos WHERE channel_id = " + channelId;
+        String query = "SELECT video_id FROM uploaded_videos WHERE channel_id = " + channelId;
         try {
             ResultSet rs = stat.executeQuery(query);
-            close();
             while (rs.next()){
-                channelVideoList .add (rs.getInt("id"));
+                channelVideoList .add (rs.getInt("video_id"));
             }
             return channelVideoList;
         }catch (SQLException e){
             e.printStackTrace();
+
+        }
+        finally {
             close();
         }
         return null;
