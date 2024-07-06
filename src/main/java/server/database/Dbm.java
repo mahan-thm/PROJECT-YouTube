@@ -88,7 +88,7 @@ public class Dbm {
         return searchBarList;
     }
     public static void showSearchedContent (){
-                // todo bayad age moshabehate esmi kamel
+                // todo bayad age moshabehate esmi kamel mikardam
     }
     public static List<String> findSimilarTitles(String toSearch, List<String> titles) {
         // Step 1: Use regex to filter out titles that contain the search term
