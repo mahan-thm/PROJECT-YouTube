@@ -1,10 +1,12 @@
 package server.database;
 
 import org.json.JSONArray;
-
+import java.util.*;
+import java.util.regex.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Dbm {
     private static final String url = "jdbc:mysql://localhost:3306/youtube_db";
@@ -39,6 +41,108 @@ public class Dbm {
             e.printStackTrace();
         }
     }
+
+    public static List<String> searchBarList(String toSearch) {
+        List<String> searchBarList = new ArrayList<>();
+        open();
+
+        String videoQuery = "SELECT title FROM videos";
+        String channelQuery = "SELECT title FROM channels";
+        String playlistQuery = "SELECT title FROM channels";
+
+
+        try {
+            ResultSet videoResultSet = stat.executeQuery(videoQuery);
+            while (videoResultSet.next()) {
+                String title = videoResultSet.getString("title");
+                searchBarList.add(title);
+            }
+            searchBarList.add("videos :");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ResultSet channelResultSet = stat.executeQuery(channelQuery);
+            while (channelResultSet.next()) {
+                String title = channelResultSet.getString("title");
+                searchBarList.add(title);
+            }
+            searchBarList.add("channels :");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            ResultSet playlistResultSet = stat.executeQuery(playlistQuery);
+            while (playlistResultSet.next()) {
+                String title = playlistResultSet.getString("title");
+                searchBarList.add(title);
+            }
+            searchBarList.add("playLists :");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        searchBarList = findSimilarTitles(toSearch ,searchBarList);
+        return searchBarList;
+    }
+    public static void showSearchedContent (){
+                // todo bayad age moshabehate esmi kamel
+    }
+    public static List<String> findSimilarTitles(String toSearch, List<String> titles) {
+        // Step 1: Use regex to filter out titles that contain the search term
+        Pattern pattern = Pattern.compile(".*" + Pattern.quote(toSearch) + ".*", Pattern.CASE_INSENSITIVE);
+        List<String> filteredTitles = new ArrayList<>();
+        for (String title : titles) {
+            Matcher matcher = pattern.matcher(title);
+            if (matcher.matches()) {
+                filteredTitles.add(title);
+            }
+        }
+
+        // Step 2: Calculate Levenshtein distance for filtered titles
+        Map<String, Integer> titleDistances = new HashMap<>();
+        for (String title : filteredTitles) {
+            int distance = levenshteinDistance(toSearch, title);
+            titleDistances.put(title, distance);
+        }
+
+        // Step 3: Sort titles by their distance
+        List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(titleDistances.entrySet());
+        sortedEntries.sort(Map.Entry.comparingByValue());
+
+        List<String> sortedTitles = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : sortedEntries) {
+            sortedTitles.add(entry.getKey());
+        }
+
+        return sortedTitles;
+    }
+
+    public static int levenshteinDistance(String a, String b) {
+        int[][] dp = new int[a.length() + 1][b.length() + 1];
+
+        for (int i = 0; i <= a.length(); i++) {
+            for (int j = 0; j <= b.length(); j++) {
+                if (i == 0) {
+                    dp[i][j] = j;
+                } else if (j == 0) {
+                    dp[i][j] = i;
+                } else {
+                    dp[i][j] = Math.min(dp[i - 1][j - 1]
+                                    + (a.charAt(i - 1) == b.charAt(j - 1) ? 0 : 1),
+                            Math.min(dp[i - 1][j] + 1,
+                                    dp[i][j - 1] + 1));
+                }
+            }
+        }
+
+        return dp[a.length()][b.length()];
+    }
+
+
+
 
     public static boolean checkUsername(String usernameInput){
         open();
@@ -221,6 +325,10 @@ public class Dbm {
 //        todo addVideo(1 , "vid" ,"this is a video" , "320" ,"29.3.403" ,["[\"fun\", \"horror\", \"adventure\"]"]);
 //        System.out.println((getVideo_Title(1)));
 //        System.out.println(getVideo_creationTime(1));
+        for(String i: searchBarList("heyn")){
+            System.out.println(i);
+        }
+
 
 
     }
