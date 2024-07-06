@@ -59,6 +59,14 @@ public class Request {
     //-------------------------------------------------------------------------------------------------------
 
     // item list request-------------------------------------------------------------------------------------
+    public void ChannelVideoList(String channel_username){
+        JSONObject request = new JSONObject();
+        request.put("requestType","/ChannelVideoList");
+        request.put("channel_username",channel_username);
+
+
+        write(request);
+    }
     public void videoList(int videoCount, JSONArray tags){
         JSONObject request = new JSONObject();
         request.put("requestType","/videoList");
@@ -124,10 +132,10 @@ public class Request {
 
         write(request);
     }
-    public void channel(String channel_id){
+    public void channel(String channel_username){
         JSONObject request = new JSONObject();
         request.put("requestType","/channel");
-        request.put("channel_id",channel_id);
+        request.put("channel_username",channel_username);
 
 
         write(request);

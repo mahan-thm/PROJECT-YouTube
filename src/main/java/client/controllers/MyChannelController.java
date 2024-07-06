@@ -1,5 +1,6 @@
 package client.controllers;
 
+import client.models.VideoInfo;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -20,11 +21,18 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static client.models.Main.*;
 
 public class MyChannelController implements Initializable {
     @FXML
@@ -62,16 +70,35 @@ public class MyChannelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //TODO
-        channelName_label.setText("channel name");
-        channelInfo_label.setText("no info");
-        aboutChennel_hyperLink.setText("about");
+        request.channel(userAccount.channel_username);
+        JSONObject response = read();
+        channelName_label.setText(response.getString("channel_username"));
+        channelInfo_label.setText("@" + response.getString("channel_username") + " • " +response.getInt("totalSubscribers")+ " subscribers • "+ response.getInt("totalVideos")+" videos");
+        aboutChennel_hyperLink.setText(response.getString("channelDescription"));
+
+        request.ChannelVideoList(userAccount.channel_username);
+        response = read();
+        JSONArray video_idList = response.getJSONArray("videoIdList");
+        ArrayList<VideoInfo> videoInfoList = new ArrayList<>();
+        for (int k = 0; k < video_idList.length(); k++) {
+            int video_id = video_idList.getInt(k);
+            request.video(video_id);
+            JSONObject response2 = read();
+            videoInfoList.add(new VideoInfo(video_id, response2));
+        }
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {
-                //TODO
-                //adding the videos of my channel
+
                 try {
+                    VideoInfo video = videoInfoList.get(i * 3 + j);
+                    request.imageFile(video.id);
+                    byte[] imageBytes = readFile();
+                    File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (i * 3 + j) + ".jpg");
+                    // to resize image
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(imageBytes);
+
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = null;
                     pane = fxmlLoader.load();
@@ -82,8 +109,8 @@ public class MyChannelController implements Initializable {
 
                     //TODO
                     //to set up PostInHome fxml file
-//                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
-//                    postInHomeController.setup();
+                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
+                    postInHomeController.setup();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

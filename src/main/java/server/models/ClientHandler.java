@@ -79,6 +79,7 @@ public class ClientHandler implements Runnable {
                 case "/getChannelUsername" -> getChannelUsername(request);
                 case "/profileImg" -> profileImg(request);
                 case "/videoList" -> videoList(request);
+                case "/ChannelVideoList" -> ChannelVideoList(request);
                 case "/channelList" -> channelList(request);
                 case "/hybridList" -> hybridList(request);
                 case "/commentList" -> commentList(request);
@@ -119,6 +120,31 @@ public class ClientHandler implements Runnable {
 //        String channelUsername = Dbm.getChannelUsername(user_id);
         String channelUsername = "demo";
         response.put("channel_username",channelUsername);
+
+        write(response);
+
+    }
+    private void ChannelVideoList(JSONObject request) {
+
+        JSONObject response = new JSONObject();
+        String channel_username = request.getString("channel_username");
+
+        JSONArray videoIdList = new JSONArray();
+
+        response.put("responseType", "/ChannelVideoList_accepted");
+
+//        int channel_id = Dbm.getChannel_id(channel_username);
+        int channel_id = 1;
+
+        List<Integer> channelVideoList = Dbm.getChannelVideoList(channel_id);
+        assert channelVideoList != null;
+        for (Integer video_id : channelVideoList) {
+
+            videoIdList.put(video_id);
+
+        }
+        response.put("videoIdList", videoIdList);
+
 
         write(response);
 
@@ -378,17 +404,22 @@ public class ClientHandler implements Runnable {
 
     private void channel(JSONObject request) {
         JSONObject response = new JSONObject();
-        int channel_id = (int) request.get("channel_id");
-
+        String channel_username =  request.getString("channel_username");
+//        int channel_id = Dbm.getChannel_id(channel_username);
+        int channel_id = 1;
         int totalVideos = Dbm.getChannelTotalVideoes(channel_id);
         int totalViews = Dbm.getChannelTotalViews(channel_id);
         int totalSubscribers = Dbm.getChannelTotalSubscribers(channel_id);
         String description = Dbm.getChannelDescription(channel_id);
+//        String title = Dbm.getChanneltitle(channel_id);
+        String title = "my channel title";
 
         response.put("responseType", "/comment_accepted");
         response.put("totalVideos", totalVideos);
+        response.put("channel_username", channel_username);
         response.put("totalViews", totalViews);
         response.put("totalSubscribers", totalSubscribers);
+        response.put("channelTitle", title);
         response.put("channelDescription", description);
 
 
