@@ -65,9 +65,9 @@
                                           <Button fx:id="mute_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#muteUnmute_action" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="2" />
                                           <Button fx:id="playAndPause_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#playPauseVide_action" prefHeight="15.0" prefWidth="15.0" />
                                           <Label fx:id="duration_label" alignment="CENTER" text="00:00 / 00:00" textAlignment="CENTER" textFill="#f2f2f2" GridPane.columnIndex="4" />
-                                          <Button fx:id="fullScream_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="7" />
+                                          <Button fx:id="fullScream_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#fullScreen_action" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="7" />
                                           <Slider fx:id="volume_slider" GridPane.columnIndex="3" />
-                                          <Button fx:id="speed_button" maxHeight="18.0" maxWidth="18.0" minHeight="18.0" minWidth="18.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0" GridPane.columnIndex="6" />
+                                          <Button fx:id="speed_button" maxHeight="18.0" maxWidth="18.0" minHeight="18.0" minWidth="18.0" mnemonicParsing="false" onAction="#speed_action" prefHeight="18.0" prefWidth="18.0" GridPane.columnIndex="6" />
                                        </children>
                                        <VBox.margin>
                                           <Insets left="10.0" right="10.0" />
