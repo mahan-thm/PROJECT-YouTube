@@ -78,7 +78,7 @@ public class HomeController implements Initializable {
         //TODO
         for (int i = 0; i < 20; i++) {
             Button button = new Button("Recommended tags" + i);
-            button.setStyle("-fx-background-color: #dec6c6");
+            button.setStyle("-fx-background-color: #efd6d6");
             tags_hBox.getChildren().add(button);
         }
 

@@ -30,41 +30,58 @@
          <content>
             <HBox spacing="10.0">
                <children>
-                  <VBox prefHeight="488.0" prefWidth="682.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="928.0" prefWidth="471.0" spacing="20.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="video_vBox">
                            <children>
-                              <MediaView fx:id="video_mediaView" fitHeight="396.0" fitWidth="656.0" VBox.vgrow="ALWAYS" />
-                              <Slider fx:id="videoTimeline_slider" />
-                              <GridPane>
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="NEVER" maxWidth="94.39999389648438" minWidth="10.0" prefWidth="60.799991607666016" />
-                                    <ColumnConstraints hgrow="NEVER" maxWidth="139.20000839233398" minWidth="10.0" prefWidth="62.39998626708986" />
-                                    <ColumnConstraints hgrow="NEVER" maxWidth="177.60001373291016" minWidth="10.0" prefWidth="79.99994506835941" />
-                                    <ColumnConstraints hgrow="NEVER" maxWidth="221.60006713867188" minWidth="10.0" prefWidth="42.399996948242176" />
-                                    <ColumnConstraints hgrow="ALWAYS" maxWidth="309.8000030517578" minWidth="10.0" prefWidth="309.8000030517578" />
-                                    <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
+                              <MediaView fx:id="video_mediaView" fitHeight="300.0" fitWidth="471.0" onMouseClicked="#playPauseVide_action" onMouseMoved="#showVideoController_action">
+                                 <VBox.margin>
+                                    <Insets bottom="-71.0" />
+                                 </VBox.margin>
+                              </MediaView>
+                              <VBox fx:id="videoController_vBox" maxHeight="70.0" minHeight="70.0" onMouseMoved="#showVideoController_action" prefHeight="70.0" spacing="20.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="play" />
-                                    <Button mnemonicParsing="false" text="next" GridPane.columnIndex="1" />
-                                    <Label text="Label" GridPane.columnIndex="3" />
-                                    <Button mnemonicParsing="false" text="full screan" GridPane.columnIndex="6" />
-                                    <Slider GridPane.columnIndex="2" />
-                                    <Button mnemonicParsing="false" text="speed" GridPane.columnIndex="5" />
+                                    <Slider fx:id="videoTimeline_slider" prefHeight="14.0" prefWidth="528.0">
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                    </Slider>
+                                    <GridPane prefHeight="30.0" prefWidth="579.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="NEVER" maxWidth="94.39999389648438" minWidth="10.0" percentWidth="0.0" prefWidth="40.0" />
+                                          <ColumnConstraints hgrow="NEVER" maxWidth="139.20000839233398" minWidth="10.0" prefWidth="40.0" />
+                                          <ColumnConstraints hgrow="NEVER" maxWidth="177.60001373291016" minWidth="10.0" prefWidth="30.0" />
+                                          <ColumnConstraints hgrow="NEVER" maxWidth="177.60001373291016" minWidth="10.0" prefWidth="55.5999755859375" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="221.60006713867188" minWidth="8.599984741210932" prefWidth="57.600003051757824" />
+                                          <ColumnConstraints hgrow="ALWAYS" maxWidth="309.8000030517578" minWidth="10.0" prefWidth="65.3999969482422" />
+                                          <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Button fx:id="next_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="1" />
+                                          <Button fx:id="mute_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#muteUnmute_action" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="2" />
+                                          <Button fx:id="playAndPause_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#playPauseVide_action" prefHeight="15.0" prefWidth="15.0" />
+                                          <Label fx:id="duration_label" alignment="CENTER" prefHeight="18.0" prefWidth="50.0" text="time" textAlignment="CENTER" textFill="#f2f2f2" GridPane.columnIndex="4" />
+                                          <Button fx:id="fullScream_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="7" />
+                                          <Slider fx:id="volume_slider" GridPane.columnIndex="3" />
+                                          <Button fx:id="speed_button" maxHeight="18.0" maxWidth="18.0" minHeight="18.0" minWidth="18.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0" GridPane.columnIndex="6" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </VBox.margin>
+                                    </GridPane>
                                  </children>
-                              </GridPane>
-                              <Label text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Label>
+                              </VBox>
                            </children>
                         </VBox>
+                        <Label text="Label">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
                         <GridPane alignment="CENTER">
                           <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.60000610351562" minWidth="10.0" prefWidth="113.20001220703125" />
@@ -99,8 +116,8 @@
                         </Hyperlink>
                         <GridPane>
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="618.6000061035156" minWidth="10.0" prefWidth="579.2" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="276.1999877929687" minWidth="10.0" prefWidth="76.79999999999995" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="618.6000061035156" minWidth="10.0" prefWidth="439.9999877929688" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="276.1999877929687" minWidth="10.0" prefWidth="88.0000122070312" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -123,10 +140,16 @@
                               </MenuButton>
                            </children>
                         </GridPane>
-                        <VBox fx:id="videoComments_vBox" fillWidth="false" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="SOMETIMES" />
+                        <VBox fx:id="videoComments_vBox" fillWidth="false" VBox.vgrow="SOMETIMES" />
                      </children>
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin>
                   </VBox>
-                  <VBox fx:id="recommendVideo_vBox" prefHeight="488.0" prefWidth="300.0" HBox.hgrow="NEVER" />
+                  <VBox fx:id="recommendVideo_vBox" prefHeight="928.0" prefWidth="350.0" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets right="20.0" top="20.0" />
+                     </HBox.margin></VBox>
                </children>
             </HBox>
          </content>
