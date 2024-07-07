@@ -22,6 +22,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1000.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.VideoPlayerController">
@@ -39,7 +44,7 @@
                                     <Insets bottom="-71.0" />
                                  </VBox.margin>
                               </MediaView>
-                              <VBox fx:id="videoController_vBox" maxHeight="70.0" minHeight="70.0" onMouseMoved="#showVideoController_action" prefHeight="70.0" spacing="20.0">
+                              <VBox fx:id="videoController_vBox" maxHeight="70.0" minHeight="70.0" onMouseMoved="#showVideoController_action" prefHeight="70.0" spacing="20.0" visible="false">
                                  <children>
                                     <Slider fx:id="videoTimeline_slider" prefHeight="14.0" prefWidth="528.0">
                                        <padding>
@@ -82,31 +87,106 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <GridPane alignment="CENTER">
+                        <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="507.0">
                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.60000610351562" minWidth="10.0" prefWidth="113.20001220703125" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="74.79998779296875" minWidth="10.0" prefWidth="66.19996948242189" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="82.20001220703125" minWidth="10.0" prefWidth="81.19999999999999" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.20001220703125" minWidth="10.0" prefWidth="64.79996337890626" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.39999999999998" minWidth="10.0" prefWidth="104.39999999999998" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.20001220703125" minWidth="10.0" prefWidth="62.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.2000122070312" minWidth="10.0" prefWidth="108.7999877929687" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="91.20001220703125" minWidth="10.0" prefWidth="83.20001220703125" />
+                              <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                              <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" minWidth="10.0" />
+                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" />
+                              <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" text="join" GridPane.columnIndex="1" />
-                              <Button mnemonicParsing="false" text="subscribe" GridPane.columnIndex="2" />
-                              <Button mnemonicParsing="false" text="like &amp; dis" GridPane.columnIndex="4" />
-                              <Button mnemonicParsing="false" text="share" GridPane.columnIndex="5" />
-                              <Button mnemonicParsing="false" text="download" GridPane.columnIndex="6" />
-                              <Button mnemonicParsing="false" text="..." GridPane.columnIndex="7" />
-                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="34.0" prefWidth="95.0" text="chanel">
+                              <Button fx:id="subscribe_button" maxHeight="35.0" maxWidth="1.7976931348623157E308" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" text="subscribe" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></Button>
+                              <Button fx:id="like_button" alignment="BASELINE_LEFT" maxHeight="35.0" maxWidth="81.0" minHeight="35.0" minWidth="81.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="81.0" text="20k" GridPane.columnIndex="4">
                                  <graphic>
-                                    <Button mnemonicParsing="false" text="prof" />
-                                 </graphic></Button>
+                                    <Button fx:id="likeIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                                 <GridPane.margin>
+                                    <Insets right="49.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></Button>
+                              <Button fx:id="dislike_button" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" maxHeight="35.0" maxWidth="50.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" text="  " GridPane.columnIndex="4">
+                                 <graphic>
+                                    <Button fx:id="dislikeIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                                 <GridPane.margin>
+                                    <Insets left="80.0" />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button fx:id="share_button" alignment="BASELINE_LEFT" maxHeight="35.0" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" text="share" GridPane.columnIndex="5">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                                 <graphic>
+                                    <Button fx:id="shareIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                                 </graphic>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin></Button>
+                              <Button maxHeight="35.0" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" text="..." GridPane.columnIndex="6">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin></Button>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                              <Rectangle height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0">
+                                 <fill>
+                                    <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                       <stops>
+                                          <Stop>
+                                             <color>
+                                                <Color opacity="0.0" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="0.006729475100942127">
+                                             <color>
+                                                <Color opacity="0.0" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="0.9725798509667464">
+                                             <color>
+                                                <Color opacity="0.0" />
+                                             </color>
+                                          </Stop>
+                                          <Stop offset="1.0">
+                                             <color>
+                                                <Color red="0.28333333134651184" blue="1.0" />
+                                             </color>
+                                          </Stop>
+                                       </stops>
+                                    </RadialGradient>
+                                 </fill>
+                              </Rectangle>
+                              <Label text="Channel name" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="25.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="20k subscribers" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets top="25.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Line endX="30.0" rotate="90.0" GridPane.columnIndex="4">
+                                 <GridPane.margin>
+                                    <Insets right="34.0" />
+                                 </GridPane.margin>
+                              </Line>
                            </children>
                         </GridPane>
                         <Hyperlink text="Hyperlink">
