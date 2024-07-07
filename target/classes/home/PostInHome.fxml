@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="postInHome_anchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.PostInHomeController">
+   <children>
+      <VBox fillWidth="false" spacing="5.0">
+         <children>
+            <AnchorPane fx:id="thumbnail_anchorPane">
+               <children>
+                  <ImageView fx:id="thumbnail_imageView" fitHeight="161.0" fitWidth="286.0" pickOnBounds="true" preserveRatio="true" />
+                  <MediaView fx:id="thumbnail_mediaView" fitHeight="161.0" fitWidth="286.0" onMouseReleased="#goToVideoPlayer_action" visible="false" />
+                  <Button fx:id="thumbnail_button" mnemonicParsing="false" onAction="#goToVideoPlayer_action" onMouseEntered="#hideLine_action" onMouseExited="#showLine_action" opacity="0.37" />
+               </children>
+            </AnchorPane>
+            <Line fx:id="lineOnThumbnail_line" endX="182.0" startX="-100.0" strokeWidth="4.0">
+               <VBox.margin>
+                  <Insets top="-10.0" />
+               </VBox.margin>
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color opacity="0.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.006729475100942127">
+                           <color>
+                              <Color opacity="0.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.5208613728129206">
+                           <color>
+                              <Color red="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color opacity="0.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Line>
+            <Label fx:id="videoTopic_label" text="Topic">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="3.0" />
+               </VBox.margin>
+            </Label>
+            <Hyperlink fx:id="chanel_hyperlink" text="Hyperlink" textFill="#5b5b5b" />
+            <Label fx:id="timeAndView_label" text="view • time upload" textFill="#5b5b5b">
+               <VBox.margin>
+                  <Insets left="3.0" />
+               </VBox.margin></Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

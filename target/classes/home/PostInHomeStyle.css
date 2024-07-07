@@ -1,0 +1,10 @@
+#thumbnail_button{
+    -fx-background-radius: 0;
+}
+#thumbnail_button:hover{
+    -fx-border-width: 9;
+    -fx-border-radius: 5;
+    -fx-border-color: #a1a1a1;
+    -fx-background-color: transparent;
+    -fx-border-insets: -9;
+}
