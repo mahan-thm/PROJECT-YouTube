@@ -91,7 +91,7 @@ public class MyChannelController implements Initializable {
             for (int j = 0; j < 3; j++) {
 
                 try {
-                    VideoInfo video = videoInfoList.get(i * 3 + j);
+                    VideoInfo video = videoInfoList.get(0);
                     request.imageFile(video.id);
                     byte[] imageBytes = readFile();
                     File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (i * 3 + j) + ".jpg");
@@ -110,7 +110,7 @@ public class MyChannelController implements Initializable {
                     //TODO
                     //to set up PostInHome fxml file
                 postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
-                    postInHomeController.setup();
+                postInHomeController.setup();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

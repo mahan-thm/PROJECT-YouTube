@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -226,6 +227,7 @@ public class ClientHandler implements Runnable {
         JSONObject response = new JSONObject();
 
         int videoCount = request.getInt("count");
+
         JSONArray tags = (JSONArray) request.get("tags");
 
         // todo recommendation
@@ -236,10 +238,32 @@ public class ClientHandler implements Runnable {
 //        for (Integer id : idList) {
 //            videoIdList.put(id);
 //        }
-        for (int i = 1; i <= videoCount; i++) {
-            videoIdList.put(i);
+        ArrayList<Integer> subscribedChannels = Dbm.getSubscribedChannels(user_id);
+
+        for (int i = 1; i <= videoCount/3; i++) {
+            int channel_id = subscribedChannels.get(Dbm.getRandomNumber(0,subscribedChannels.size()));
+            List<Integer> channelVideos = Dbm.getChannelVideoList(channel_id);
+
+            int video_id = channelVideos.get(Dbm.getRandomNumber(0,channelVideos.size()));
+
+            videoIdList.put(video_id);
         }
+        ArrayList<Integer> recommendedVideos = Dbm.getRecommendedVideos(user_id);
+
+
+        for (int i = videoCount/3 +1; i <= videoCount; i++) {
+            int num = Dbm.getRandomNumber(videoCount/3 + 1,videoCount);
+            int num2 = Dbm.getRandomNumber(1,num+1);
+            if(num2 == num){
+                videoIdList.put(recommendedVideos.get(num));
+            }
+            else i--;
+        }
+
+
+
         response.put("responseType", "/videoList_accepted");
+
         response.put("videoIdList", videoIdList);
 
 

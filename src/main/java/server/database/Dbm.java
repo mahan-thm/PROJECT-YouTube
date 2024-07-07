@@ -1,6 +1,9 @@
 package server.database;
 
 import org.json.JSONArray;
+import server.models.TagScore;
+import server.models.tag;
+
 import java.util.*;
 import java.util.regex.*;
 import java.sql.*;
@@ -487,7 +490,26 @@ public class Dbm {
         }
         return totalVideos;
     }
+    public static ArrayList<Integer> getSubscribedChannels(int user_id) {
 
+        open();
+        ArrayList <Integer> channelVideoList = new ArrayList<>();
+        String query = "SELECT channel_id FROM subscribed_channels WHERE user_id = " + user_id;
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            while (rs.next()){
+                channelVideoList .add (rs.getInt("channel_id"));
+            }
+            return channelVideoList;
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+        return null;
+    }
 
 
     public static int getChannelTotalViews(int channelId) {
@@ -775,6 +797,88 @@ public class Dbm {
         return null;
     }
 
+    public static ArrayList<Integer> getRecommendedVideos(int userId) {
+        open();
+        ArrayList <Integer> videoIdList = new ArrayList<>();
+
+        ArrayList <tag> userTags = new ArrayList<>();
+        ArrayList <TagScore> videoTagScores = new ArrayList<>();
+        ArrayList <TagScore> sortedVideoTagScores = new ArrayList<>();
+
+        String userQuery = "SELECT * FROM tag WHERE item_id =  " + userId + " AND type = 'user' ";
+        String videosQuery = "SELECT id FROM videos ";
+        try {
+            ResultSet tagRs = stat.executeQuery(userQuery);
+
+            while (tagRs.next()){
+
+                String tagName = tagRs.getString("tag_name");
+                int score = tagRs.getInt("score");
+                userTags.add(new tag(tagName,score));
+
+            }
+            tagRs.close();
+            ResultSet videosRs = stat.executeQuery(videosQuery);
+            while (videosRs.next()){
+                videoIdList.add(videosRs.getInt("id"));
+            }
+            videosRs.close();
+
+            for (int i = 0; i < videoIdList.size(); i++) {
+                int video_id = videoIdList.get(i);
+                String videoTagQuery = "SELECT * FROM tag where type = 'video' AND item_id = " + video_id;
+                ResultSet videoTagsRs = stat.executeQuery(videoTagQuery);
+                ArrayList<tag> tags = new ArrayList<>();
+                while (videoTagsRs.next()){
+                    String tagName = videoTagsRs.getString("tag_name");
+                    int score = videoTagsRs.getInt("score");
+                    tags.add(new tag(tagName,score));
+                }
+                videoTagScores.add(new TagScore(video_id,tags));
+            }
+            close();
+
+            for (int i = 0; i < userTags.size(); i++) {
+                tag tag = userTags.get(i);
+                for (int j = 0; j < videoTagScores.size(); j++) {
+                    TagScore tagScore = videoTagScores.get(j);
+                    for (int k = 0; k < tagScore.tags.size(); k++) {
+                        if(tagScore.tags.get(k).tagName.equals(tag.tagName)){
+                            tagScore.totalScore += tagScore.tags.get(k).score * tag.score;
+                        }
+                    }
+                }
+            }
+            sortedVideoTagScores.add(videoTagScores.get(0));
+            for (int i = 1; i < videoTagScores.size(); i++) {
+                boolean x = true;
+                for (int j = 0; j < sortedVideoTagScores.size(); j++) {
+                    if(videoTagScores.get(i).totalScore>sortedVideoTagScores.get(j).totalScore){
+                        sortedVideoTagScores.add(j,videoTagScores.get(i));
+                        x= false;
+                    }
+                }
+                if (x){
+                    sortedVideoTagScores.add(videoTagScores.get(i));
+                }
+            }
+
+            videoIdList.clear();
+            for (int i = 0; i < sortedVideoTagScores.size(); i++) {
+                videoIdList.add(sortedVideoTagScores.get(i).video_id);
+            }
+
+            return videoIdList;
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+        return null;
+    }
+
     public static List<Integer> getVideoCommentList(Integer videoId) {
         // todo mmd hosain age catch kard , NULL return kone?
         open();
@@ -873,7 +977,6 @@ public class Dbm {
 //        return -1;
 
     }
-
     public static void removeSavedVideo(int userId, String playlistType, int videoId) {
     }
     public static String getcommentRepliedTo(int commentId) {
@@ -889,6 +992,7 @@ public class Dbm {
 //        }
         return "";
     }
+
     public static int getCommentTotalLikes(int commentId){
         open();
         String query = "SELECT *  FROM videos" +
@@ -909,6 +1013,5 @@ public class Dbm {
     public static int getCommentSender_id(int commentId) {
         return commentId;
     }
-
 }
 

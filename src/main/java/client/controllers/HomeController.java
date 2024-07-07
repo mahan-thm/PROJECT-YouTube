@@ -111,11 +111,11 @@ public class HomeController implements Initializable {
         //_________________________________________VIDEO THUMBNAIL___________________________________________
         request.videoList(9, new JSONArray());
         JSONObject response1 = read();
-//        JSONObject response1 = new JSONObject();
         JSONArray video_idList = response1.getJSONArray("videoIdList");
         ArrayList<VideoInfo> videoList = new ArrayList<>();
 
         for (int i = 0; i < video_idList.length(); i++) {
+
             int video_id = video_idList.getInt(i);
             request.video(video_id);
             JSONObject response2 = read();
@@ -133,9 +133,9 @@ public class HomeController implements Initializable {
 
             for (int j = 0; j < 3; j++) {
                 try {
+                    int pointer = i * 3 + j ;
 
-
-                    VideoInfo video = videoList.get(i * 3 + j);
+                    VideoInfo video = videoList.get(pointer);
                     request.imageFile(video.id);
                     byte[] imageBytes = readFile();
 
@@ -151,7 +151,7 @@ public class HomeController implements Initializable {
                     AnchorPane pane = fxmlLoader.load();
                     pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
 
-                    pane.setId(String.valueOf(i * 3 + j));
+                    pane.setId(String.valueOf(pointer));
                     PostInHomeController postInHomeController = fxmlLoader.getController();
 
 
