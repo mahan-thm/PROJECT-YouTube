@@ -27,6 +27,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 import static client.models.Main.readFile;
@@ -157,26 +158,38 @@ public class VideoPlayerController {
             mediaPlayer.play();
         });
 
-//        int i = 0;
-//        Duration totalDuration = media.getDuration();
-//        Timeline timeline = new Timeline(
-//                new KeyFrame(Duration.seconds(1), actionEvent ->
-//                {
-//                    Duration currentDuration = mediaPlayer.getCurrentTime();
-//                    if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
-//                    duration_label.setText(formatTime(currentDuration) + " / " + formatTime(totalDuration));
-//                    }
-//                })
-//        );
-//        timeline.setCycleCount(Timeline.INDEFINITE);
-//        timeline.play();
+
+        mediaPlayer.setOnReady(() -> {
+            System.out.println("Duration: " + media.getDuration());
+            Duration totalDuration = media.getDuration();
+            Duration currentDuration = mediaPlayer.getCurrentTime();
+            String totalDurationStr = formatTime(totalDuration);
+            duration_label.setText(formatTime(currentDuration) + " / " + totalDurationStr);
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(1), actionEvent ->
+                    {
+                        Duration currentDuration1 = mediaPlayer.getCurrentTime();
+                        duration_label.setText(formatTime(currentDuration1) + " / " + totalDurationStr);
+                    })
+            );
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.play();
+        });
+
     }
+
     private String formatTime(Duration time) {
         long seconds = (long) time.toSeconds();
         long minutes = seconds / 60;
         long hours = minutes / 60;
-        return String.format("%02d:%02d:%02d", hours, minutes % 60, seconds % 60);
+        if (hours != 0) {
+            return String.format("%02d:%02d:%02d", hours, minutes % 60, seconds % 60);
+        } else {
+            return String.format("%02d:%02d", minutes % 60, seconds % 60);
+
+        }
     }
+
     @FXML
     public void toolBar_action() {
         boolean show = toolBar_pane.isVisible();

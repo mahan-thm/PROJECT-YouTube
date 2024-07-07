@@ -48,14 +48,14 @@
                                     </Slider>
                                     <GridPane prefHeight="30.0" prefWidth="579.0">
                                       <columnConstraints>
-                                        <ColumnConstraints hgrow="NEVER" maxWidth="94.39999389648438" minWidth="10.0" percentWidth="0.0" prefWidth="40.0" />
-                                          <ColumnConstraints hgrow="NEVER" maxWidth="139.20000839233398" minWidth="10.0" prefWidth="40.0" />
-                                          <ColumnConstraints hgrow="NEVER" maxWidth="177.60001373291016" minWidth="10.0" prefWidth="30.0" />
-                                          <ColumnConstraints hgrow="NEVER" maxWidth="177.60001373291016" minWidth="10.0" prefWidth="55.5999755859375" />
+                                        <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="94.39999389648438" minWidth="10.0" percentWidth="0.0" prefWidth="40.0" />
+                                          <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="139.20000839233398" minWidth="10.0" prefWidth="40.0" />
+                                          <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="177.60001373291016" minWidth="10.0" prefWidth="30.0" />
+                                          <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="177.60001373291016" minWidth="10.0" prefWidth="55.5999755859375" />
                                           <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="221.60006713867188" minWidth="8.599984741210932" prefWidth="102.99996337890624" />
                                           <ColumnConstraints hgrow="ALWAYS" maxWidth="309.8000030517578" minWidth="10.0" prefWidth="164.0" />
-                                          <ColumnConstraints hgrow="NEVER" maxWidth="116.80000000000001" minWidth="10.0" prefWidth="32.80000000000001" />
-                                        <ColumnConstraints hgrow="NEVER" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="20.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="116.80000000000001" minWidth="10.0" prefWidth="40.0" />
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="40.0" />
                                       </columnConstraints>
                                       <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -64,7 +64,7 @@
                                           <Button fx:id="next_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="1" />
                                           <Button fx:id="mute_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#muteUnmute_action" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="2" />
                                           <Button fx:id="playAndPause_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#playPauseVide_action" prefHeight="15.0" prefWidth="15.0" />
-                                          <Label fx:id="duration_label" alignment="CENTER" text="time" textAlignment="CENTER" textFill="#f2f2f2" GridPane.columnIndex="4" />
+                                          <Label fx:id="duration_label" alignment="CENTER" text="00:00 / 00:00" textAlignment="CENTER" textFill="#f2f2f2" GridPane.columnIndex="4" />
                                           <Button fx:id="fullScream_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="7" />
                                           <Slider fx:id="volume_slider" GridPane.columnIndex="3" />
                                           <Button fx:id="speed_button" maxHeight="18.0" maxWidth="18.0" minHeight="18.0" minWidth="18.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0" GridPane.columnIndex="6" />
