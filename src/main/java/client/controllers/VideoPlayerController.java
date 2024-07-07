@@ -1,6 +1,7 @@
 package client.controllers;
 
 import javafx.animation.*;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -157,18 +158,25 @@ public class VideoPlayerController {
         });
 
 //        int i = 0;
+//        Duration totalDuration = media.getDuration();
 //        Timeline timeline = new Timeline(
 //                new KeyFrame(Duration.seconds(1), actionEvent ->
 //                {
-//                    mediaPlayer.totalDurationProperty();
-//                    if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)){
-//                        duration_label.setText();
+//                    Duration currentDuration = mediaPlayer.getCurrentTime();
+//                    if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+//                    duration_label.setText(formatTime(currentDuration) + " / " + formatTime(totalDuration));
 //                    }
 //                })
-//        )
-
+//        );
+//        timeline.setCycleCount(Timeline.INDEFINITE);
+//        timeline.play();
     }
-
+    private String formatTime(Duration time) {
+        long seconds = (long) time.toSeconds();
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        return String.format("%02d:%02d:%02d", hours, minutes % 60, seconds % 60);
+    }
     @FXML
     public void toolBar_action() {
         boolean show = toolBar_pane.isVisible();
