@@ -424,7 +424,7 @@ public class VideoPlayerController {
     public void fullScreen_action(ActionEvent actionEvent) {
         Pane pane = new Pane(video_vBox);
         Scene scene = new Scene(pane);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Stage stage = new Stage();
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
