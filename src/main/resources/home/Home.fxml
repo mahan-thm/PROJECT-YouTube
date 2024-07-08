@@ -72,9 +72,9 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </AnchorPane>
-                  <TextField fx:id="Search_textField" prefHeight="40.0" prefWidth="573.0" promptText="Search" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                  <TextField fx:id="Search_textField" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" prefWidth="573.0" promptText="Search" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                      </font>
                      <GridPane.margin>
                         <Insets bottom="5.0" />
@@ -137,7 +137,7 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </AnchorPane>
-                  <Button fx:id="search_button" maxHeight="40.0" maxWidth="60.0" minHeight="40.0" minWidth="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" GridPane.columnIndex="1">
+                  <Button fx:id="search_button" maxHeight="38.0" maxWidth="60.0" minHeight="38.0" minWidth="60.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="60.0" GridPane.columnIndex="1">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -281,9 +281,9 @@
             </Pane>
             <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0" visible="false">
                <children>
-                  <ScrollPane fx:id="toolBar_scrollPane" hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="200.0">
+                  <ScrollPane fx:id="toolBar_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="300.0" vbarPolicy="ALWAYS">
                      <content>
-                        <VBox prefHeight="285.0" prefWidth="200.0" spacing="10.0">
+                        <VBox prefHeight="285.0" prefWidth="300.0" spacing="10.0">
                            <children>
                               <Group>
                                  <children>
@@ -301,22 +301,22 @@
                                     </Button>
                                  </children>
                               </Group>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   Home">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="278.0" text="   Home">
                                  <graphic>
                                     <Button fx:id="homeTollBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   Shotrs">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="278.0" text="   Shotrs">
                                  <graphic>
                                     <Button fx:id="shortsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   Subscribtions">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="278.0" text="   Subscribtions">
                                  <graphic>
                                     <Button fx:id="subscriptionsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="178.0" text="   You">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="278.0" text="   You">
                                  <graphic>
                                     <Button fx:id="youToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
