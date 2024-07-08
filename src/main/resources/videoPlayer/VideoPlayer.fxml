@@ -78,7 +78,7 @@
                               </VBox>
                            </children>
                         </VBox>
-                        <Label text="Label">
+                        <Label fx:id="video_lable" text="Label">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -98,14 +98,15 @@
                           </rowConstraints>
                            <children>
                               <Circle fx:id="videoProf_circle" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-                              <Button fx:id="subscribe_button" maxHeight="35.0" maxWidth="1.7976931348623157E308" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" text="subscribe" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                              <Button fx:id="subscribe_button" maxHeight="35.0" maxWidth="1.7976931348623157E308" minHeight="35.0" mnemonicParsing="false" onAction="#on_subscribe" prefHeight="35.0" text="subscribe" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets left="10.0" />
-                                 </GridPane.margin></Button>
-                              <Button fx:id="like_button" alignment="BASELINE_LEFT" maxHeight="35.0" maxWidth="81.0" minHeight="35.0" minWidth="81.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="81.0" text="20k" GridPane.columnIndex="4">
+                                 </GridPane.margin>
+                              </Button>
+                              <Button fx:id="like_button" alignment="BASELINE_LEFT" maxHeight="35.0" maxWidth="81.0" minHeight="35.0" minWidth="81.0" mnemonicParsing="false" onAction="#on_like" prefHeight="35.0" prefWidth="81.0" text="20k" GridPane.columnIndex="4">
                                  <graphic>
                                     <Button fx:id="likeIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                                  </graphic>
@@ -117,7 +118,7 @@
                                  </font></Button>
                               <Button fx:id="dislike_button" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" maxHeight="35.0" maxWidth="50.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" text="  " GridPane.columnIndex="4">
                                  <graphic>
-                                    <Button fx:id="dislikeIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                    <Button fx:id="dislikeIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#on_dislike" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                                  <GridPane.margin>
                                     <Insets left="80.0" />
@@ -140,7 +141,7 @@
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin></Button>
-                              <Label maxWidth="1.7976931348623157E308" text="Channel name" GridPane.columnIndex="1">
+                              <Label fx:id="channelName_label" maxWidth="1.7976931348623157E308" text="Channel name" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="25.0" left="10.0" />
                                  </GridPane.margin>
@@ -148,7 +149,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label maxWidth="1.7976931348623157E308" text="20k subscribers" GridPane.columnIndex="1">
+                              <Label fx:id="totalSubscribers_label" maxWidth="1.7976931348623157E308" text="20k subscribers" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets left="10.0" top="25.0" />
                                  </GridPane.margin>
@@ -162,7 +163,7 @@
                         </GridPane>
                         <Hyperlink text="Hyperlink">
                            <graphic>
-                              <Label text="about video" />
+                              <Label fx:id="videoDiscription_label" text="about video" />
                            </graphic>
                         </Hyperlink>
                         <GridPane>
@@ -174,7 +175,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label text="n Comments">
+                              <Label fx:id="commentCount" text="n Comments">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font></Label>

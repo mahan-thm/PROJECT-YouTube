@@ -80,6 +80,7 @@ public class ClientHandler implements Runnable {
                 case "/signUp" -> signUp(request);
                 case "/getChannelUsername" -> getChannelUsername(request);
                 case "/profileImg" -> profileImg(request);
+                case "/channelProfileImg" -> channelProfileImg(request);
                 case "/videoList" -> videoList(request);
                 case "/ChannelVideoList" -> ChannelVideoList(request);
                 case "/channelList" -> channelList(request);
@@ -111,6 +112,20 @@ public class ClientHandler implements Runnable {
 
             }
         }
+    }
+
+    private void channelProfileImg(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        String channel_username = request.getString("channel_username");
+        int channel_id = Dbm.getChannel_id(channel_username);
+
+        response.put("responseType", "/profileImg_accepted");
+
+        File fileToSend = new File("src/main/resources/DATA/channelProfileImage/"+ channel_id+".jpg");
+
+        write(response);
+        sendFile(fileToSend);
     }
 
     private void getChannelUsername(JSONObject request) {

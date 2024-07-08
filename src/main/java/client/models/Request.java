@@ -57,6 +57,12 @@ public class Request {
         request.put("requestType","/profileImg");
         write(request);
     }
+    public void channelProfileImg(String channel_username) {
+        JSONObject request = new JSONObject();
+        request.put("requestType","/channelProfileImg");
+        request.put("channel_username",channel_username);
+        write(request);
+    }
     //-------------------------------------------------------------------------------------------------------
 
     // item list request-------------------------------------------------------------------------------------
@@ -272,9 +278,9 @@ public class Request {
 
         write(request);
     }
-    static void add_likedVideo(String video_id){
+    public void likeVideo(String video_id){
         JSONObject request = new JSONObject();
-        request.put("requestType","/add_likedVideo");
+        request.put("requestType","/likeVideo");
         request.put("video_id",video_id);
 
 
