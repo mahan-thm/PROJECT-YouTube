@@ -15,7 +15,30 @@ import java.util.ResourceBundle;
 
 public class ChannelController {
 
+    public void define() {
+        //TODO define the privet elements
+    }
 
+    @FXML
+    private Label channelName_label;
+    @FXML
+    private Label channelUserSubVid_label;
+    @FXML
+    private Hyperlink aboutChannel_hyperLink;
+    @FXML
+    private Tab videos_tab;
 
+    public void setup() {
+        //TODO setup the scene
+        channelName_label.setText("");
+        channelUserSubVid_label.setText("@username • 10k subscribers • 15 video");
+        aboutChannel_hyperLink.setText("");
 
+        //TODO add channel videos to videos_tab
+    }
+
+    @FXML
+    public void subscribe_action(){
+        //TODO client will subscribe the channel by pressing this button
+    }
 }

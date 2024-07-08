@@ -90,28 +90,33 @@ public class PostInHomeController {
 
     }
 
-
-    public void goToVideoPlayer_action(ActionEvent actionEvent) throws IOException {
+    @FXML
+    public void goToVideoPlayer_action(ActionEvent actionEvent) {
 //        String anchorPaneID = ((AnchorPane)actionEvent.getSource()).getId();
 
+        try {
 
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/videoPlayer.fxml")));
-        BorderPane borderPane = fxmlLoader.load();
-        VideoPlayerController videoPlayerController = fxmlLoader.getController();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/videoPlayer.fxml")));
+            BorderPane borderPane = fxmlLoader.load();
+            VideoPlayerController videoPlayerController = fxmlLoader.getController();
 
 
-        videoPlayerController.define(video_id);
+            videoPlayerController.define(video_id);
 
-        videoPlayerController.setup();
-        Scene scene = new Scene(borderPane);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoPlayerStyle.css")).toExternalForm());
-        stage.setScene(scene);
-        stage.show();
+            videoPlayerController.setup();
+            Scene scene = new Scene(borderPane);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoPlayerStyle.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private MediaPlayer mediaPlayer;
 
+    @FXML
     public void hideLine_action() {
         lineOnThumbnail_line.setVisible(false);
         //TODO
@@ -145,11 +150,36 @@ public class PostInHomeController {
         }
     }
 
+    @FXML
     public void showLine_action() {
         lineOnThumbnail_line.setVisible(true);
         mediaPlayer.stop();
         thumbnail_mediaView.setVisible(false);
     }
 
+    @FXML
+    public void channel_action(ActionEvent actionEvent) {
+        try {
 
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../channel/Channel.fxml")));
+            BorderPane borderPane = fxmlLoader.load();
+            ChannelController channelController = fxmlLoader.getController();
+
+
+            //TODO get to channel scene
+            channelController.define();
+
+
+
+            channelController.setup();
+            Scene scene = new Scene(borderPane);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../channel/ChannelStyle.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
