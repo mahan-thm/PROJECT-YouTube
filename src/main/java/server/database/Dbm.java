@@ -940,14 +940,12 @@ public class Dbm {
         }
     }
 
-    public static void addChannelTotalSubscribers(int channelId) {
-        // todo
-    }
 
     public static void removeUserSubscribedChannels(int channelId, int userId) {
         open();
         try {
-            String query = "DELETE FROM subscribed_channels WHERE id = " + channelId ;
+            String query = "DELETE FROM subscribed_channels WHERE channel_id = " + channelId
+                    +" AND user_id = "+userId ;
             int rs = stat.executeUpdate(query);
         }catch(SQLException e){
             e.printStackTrace();
@@ -957,8 +955,6 @@ public class Dbm {
         }
     }
 
-    public static void reduceChannelTotalSubscribers(int channelId) {
-    }
 
     public static void addSavedVideo(int userId, String playlistType, int videoId) {
         open();
@@ -1093,13 +1089,14 @@ public class Dbm {
     public static boolean is_subscribed(int channel_id,int user_id) {
         open();
 
-        String query = "SELECT * FROM channels " +
-                "WHERE channel_username = '" + channelUsername + "'";
-        int id = 0;
+        String query = "SELECT * FROM subscribed_channels " +
+                "WHERE channel_id = " + channel_id
+                + " AND user_id = " + user_id;
+
         try {
             ResultSet rs = stat.executeQuery(query);
-            rs.next();
-            id = rs.getInt("id");
+            return rs.next();
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

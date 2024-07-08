@@ -447,6 +447,8 @@ public class ClientHandler implements Runnable {
         response.put("totalSubscribers", totalSubscribers);
         response.put("channelTitle", title);
         response.put("channelDescription", description);
+        response.put("is_subscribed", is_subscribed);
+
 
 
         write(response);
@@ -603,24 +605,42 @@ public class ClientHandler implements Runnable {
 
         String channel_username =  request.getString("channel_username");
         int channel_id = Dbm.getChannel_id(channel_username);
-        String add_date = String.valueOf(LocalDateTime.now());
-        Dbm.addUserSubscribedChannels(channel_id, user_id,add_date);
-        Dbm.addChannelTotalSubscribers(channel_id);
 
-        response.put("responseType", "/subscribeChannel_accepted");
+        if (!Dbm.is_subscribed(channel_id,user_id)){
+            String add_date = String.valueOf(LocalDateTime.now());
+            Dbm.addUserSubscribedChannels(channel_id, user_id,add_date);
+            response.put("responseType", "/subscribeChannel_accepted");
+            System.out.println("/subscribeChannel_accepted");
+
+        }
+        else {
+            response.put("responseType", "/subscribeChannel_rejected");
+            System.out.println("/subscribeChannel_rejected");
+
+        }
+
+
         write(response);
     }
 
     private void unsubscribeChannel(JSONObject request) {
         JSONObject response = new JSONObject();
 
-        int channel_id = (int) request.get("channel_id");
+        String channel_username =  request.getString("channel_username");
+        int channel_id = Dbm.getChannel_id(channel_username);
 
+        if(Dbm.is_subscribed(channel_id,user_id)){
+            Dbm.removeUserSubscribedChannels(channel_id, user_id);
+            response.put("responseType", "/unsubscribeChannel_accepted");
+            System.out.println("/unsubscribeChannel_accepted");
 
-        Dbm.removeUserSubscribedChannels(channel_id, user_id);
-        Dbm.reduceChannelTotalSubscribers(channel_id);
-        response.put("responseType", "/unsubscribeChannel_accepted");
+        }
+        else {
+            response.put("responseType", "/unsubscribeChannel_rejected");
+            System.out.println("/unsubscribeChannel_rejected");
 
+        }
+        write(response);
     }
 
     private void add_savedVideo(JSONObject request) {

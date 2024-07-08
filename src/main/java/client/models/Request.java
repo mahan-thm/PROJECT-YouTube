@@ -234,13 +234,11 @@ public class Request {
 
         write(request);
     }
-    public void unsubscribeChannel(String channel_id, String videoName, String videoCaption, JSONArray tags){
+    public void unsubscribeChannel(String channel_username){
 
         JSONObject request = new JSONObject();
         request.put("requestType","/unsubscribeChannel");
-        request.put("channel_id",channel_id);
-
-
+        request.put("channel_username",channel_username);
 
         write(request);
     }
