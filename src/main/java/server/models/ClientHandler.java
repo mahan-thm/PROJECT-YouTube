@@ -611,6 +611,7 @@ public class ClientHandler implements Runnable {
             Dbm.addUserSubscribedChannels(channel_id, user_id,add_date);
             response.put("responseType", "/subscribeChannel_accepted");
             System.out.println("/subscribeChannel_accepted");
+            Dbm.addTag(user_id,"user","channel_" + channel_username,100);
 
         }
         else {

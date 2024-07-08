@@ -574,7 +574,7 @@ public class Dbm {
 
 
     public static int addVideo(int channelId, String title , String videoDescription,String duration , String creationDate , JSONArray tags) {
-        // todo mmd hosain we don't need channel id
+
         open();
         String maxId = "SELECT MAX(id) AS maxId FROM videos";
         int lastId=0;
@@ -1106,5 +1106,29 @@ public class Dbm {
     }
 
 
+    public static void addTag(int itemId, String type, String tagName, int score) {
+        open();
+        String maxId = "SELECT MAX(id) AS maxId FROM videos";
+        int lastId=0;
+        try {
+            ResultSet rs = stat.executeQuery(maxId);
+            // bug probablity
+            lastId =rs.getInt("maxId") ;
+            lastId++;
+
+            String query =
+                    "INSERT INTO TABLE tag (item_id , type, score , tagName) VALUES ("
+                            + itemId +",'"+ type + "'," + score +",'" + tagName + "')";
+
+            int res = stat.executeUpdate(query);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+
+    }
 }
 
