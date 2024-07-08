@@ -9,9 +9,9 @@ public class VideoInfo {
     String title_body ;
     String duration ;
     String creation_time ;
-    String total_view ;
-    String total_likes ;
-    String total_dislikes ;
+    int total_view ;
+    int total_likes ;
+    int total_dislikes ;
 
     int partCount;
 
@@ -27,15 +27,15 @@ public class VideoInfo {
         return creation_time;
     }
 
-    public String getTotal_view() {
+    public int getTotal_view() {
         return total_view;
     }
 
-    public String getTotal_likes() {
+    public int getTotal_likes() {
         return total_likes;
     }
 
-    public String getTotal_dislikes() {
+    public int getTotal_dislikes() {
         return total_dislikes;
     }
 
@@ -65,9 +65,9 @@ public class VideoInfo {
         title_body = (String) response.get("title_body");
         duration = (String) response.get("duration");
         creation_time = (String) response.get("creation_time");
-        total_view = (String) response.get("total_view");
-        total_likes = (String) response.get("total_likes");
-        total_dislikes = (String) response.get("total_dislikes");
+        total_view =  response.getInt("total_view");
+        total_likes =  response.getInt("total_likes");
+        total_dislikes =  response.getInt("total_dislikes");
 
         channel_id = (int) response.get("channel_id");
         channel_name = (String) response.get("channel_name");

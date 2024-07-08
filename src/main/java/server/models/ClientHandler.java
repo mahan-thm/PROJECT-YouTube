@@ -241,7 +241,8 @@ public class ClientHandler implements Runnable {
         ArrayList<Integer> subscribedChannels = Dbm.getSubscribedChannels(user_id);
 
         for (int i = 1; i <= videoCount/3; i++) {
-            int channel_id = subscribedChannels.get(Dbm.getRandomNumber(0,subscribedChannels.size()));
+            int num = Dbm.getRandomNumber(0,subscribedChannels.size());
+            int channel_id = subscribedChannels.get(num);
             List<Integer> channelVideos = Dbm.getChannelVideoList(channel_id);
 
             int video_id = channelVideos.get(Dbm.getRandomNumber(0,channelVideos.size()));
@@ -338,27 +339,30 @@ public class ClientHandler implements Runnable {
 
         int id = (int) request.get("video_id");
 
-//        String title = Dbm.getVideo_Title(id);
-//        String title_body = Dbm.getVideo_description(id);
-//        String duration = Dbm.getVideo_duration(id);
-//        String creation_time = Dbm.getVideo_creationTime(id);
-//        String total_view = Dbm.getVideo_totalView(id);
-//        String total_likes = Dbm.getVideo_totalLikes(id);
-//        String total_dislikes = Dbm.getVideo_totalDislikes(id);
-
-//        int channel_id = Dbm.getchannel_id(id);
-//        String channel_name = Dbm.getchannel_name(channel_id);
 
 
-        String title = "habibPoor";
-        String title_body = "cs is good";
-        String duration = "60";
-        String creation_time = "tomorrow";
-        String total_view = "1k";
-        String total_likes = "7";
-        String total_dislikes = "993";
-        int channel_id = 1;
-        String channel_name = "channel o  the basterds";
+
+//        String title = "habibPoor";
+//        String title_body = "cs is good";
+//        String duration = "60";
+//        String creation_time = "tomorrow";
+//        String total_view = "1k";
+//        String total_likes = "7";
+//        String total_dislikes = "993";
+//        int channel_id = 1;
+//        String channel_name = "channel o  the basterds";
+
+
+        String title = Dbm.getVideo_Title(id);
+        String title_body = Dbm.getVideo_description(id);
+        String duration = Dbm.getVideo_duration(id);
+        String creation_time = Dbm.getVideo_creationTime(id);
+        int total_view = Dbm.getVideo_totalView(id);
+        int total_likes = Dbm.getVideo_totalLikes(id);
+        int total_dislikes = Dbm.getVideo_totalDislikes(id);
+
+        int channel_id = Dbm.getchannel_id(id);
+        String channel_name = Dbm.getchannel_name(channel_id);
 
         response.put("responseType", "/video_accepted");
         response.put("title", title);
@@ -371,9 +375,6 @@ public class ClientHandler implements Runnable {
 
         response.put("channel_id", channel_id);
         response.put("channel_name", channel_name);
-
-//        String imageLink = "D:\\Fainal_Project\\ROJECT-YouTube\\src\\main\\resources\\server\\image_examples\\" + id + ".jpg";
-//        File fileToSend = new File(imageLink);
 
 
         write(response);

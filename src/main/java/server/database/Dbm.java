@@ -214,8 +214,10 @@ public class Dbm {
         try{
             ResultSet rs = stat.executeQuery(query);
             rs.next();
-            String str= rs.getString("creation_date");
-            close();
+            String str = rs.getString("creation_date");
+            if (str == null){
+                str = "";
+            }
             return str;
         }
         catch (SQLException e){
@@ -247,16 +249,17 @@ public class Dbm {
         return "";
     }
 
-    public static String getVideo_totalView(int id) {
+    public static int getVideo_totalView(int id) {
         open();
         String query = "SELECT *  FROM videos " +
                 "WHERE id =  " +id ;
         try{
+            int total = 0;
             ResultSet rs = stat.executeQuery(query);
-            rs.next();
-            String str= rs.getString("total_view");
-            close();
-            return str;
+            if (rs.next()){
+                total = rs.getInt("total_view");
+            }
+            return total;
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -264,26 +267,27 @@ public class Dbm {
         finally {
             close();
         }
-        return "";
+        return 0;
     }
 
-    public static String getVideo_totalLikes(int id) {
+    public static int getVideo_totalLikes(int video_id) {
         open();
-        String query = "SELECT *  FROM videos " +
-                "WHERE id =  " +id ;
-        try{
+        String query = "SELECT COUNT(video_id) AS total FROM saved_videos " +
+                "WHERE type = 'liked' AND video_id = " + video_id;
+        int totalLikes = 0;
+        try {
             ResultSet rs = stat.executeQuery(query);
-            close();
-            rs.next();
-            return rs.getString("total_likes");
-        }
-        catch (SQLException e){
+            if(rs.next()){
+
+                totalLikes = rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
-        return "";
+        return totalLikes;
     }
     public static List<Integer> getRandomVideoId(int videoCount) {
         String maxId = "SELECT MAX(id) AS maxId FROM videos";
@@ -337,22 +341,24 @@ public class Dbm {
 
     }
 
-    public static String getVideo_totalDislikes(int id) {
+    public static int getVideo_totalDislikes(int video_id) {
         open();
-        String query = "SELECT *  FROM videos " +
-                "WHERE id =  " +id ;
-        try{
+        String query = "SELECT COUNT(video_id) AS total FROM saved_videos " +
+                "WHERE type = 'disliked' AND video_id = " + video_id;
+        int totalDisLikes = 0;
+        try {
             ResultSet rs = stat.executeQuery(query);
-            close();
-            return rs.getString("total_dislikes");
-        }
-        catch (SQLException e){
+            if(rs.next()){
+
+                totalDisLikes = rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
-        return "";
+        return totalDisLikes;
     }
 
 
@@ -694,12 +700,13 @@ public class Dbm {
 
     public static String getVideo_description(int id) {
         open();
-        String query = "SELECT *  FROM videos" +
+        String query = "SELECT *  FROM videos " +
                 "WHERE id =  " +id ;
         try{
             ResultSet rs = stat.executeQuery(query);
-            close();
-            return rs.getString("video_description");
+            if(rs.next()) {
+                return rs.getString("video_description");
+            }
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -709,6 +716,7 @@ public class Dbm {
         }
         return "";
     }
+
 
     public static String getVideo_link(int videoId) {
         return videoPath +"/"+ videoId+".mp4";
@@ -853,7 +861,7 @@ public class Dbm {
             for (int i = 1; i < videoTagScores.size(); i++) {
                 boolean x = true;
                 for (int j = 0; j < sortedVideoTagScores.size(); j++) {
-                    if(videoTagScores.get(i).totalScore>sortedVideoTagScores.get(j).totalScore){
+                    if(videoTagScores.get(i).totalScore>sortedVideoTagScores.get(j).totalScore && x){
                         sortedVideoTagScores.add(j,videoTagScores.get(i));
                         x= false;
                     }
@@ -1012,6 +1020,40 @@ public class Dbm {
 
     public static int getCommentSender_id(int commentId) {
         return commentId;
+    }
+
+    public static int getchannel_id(int video_id) {
+        open();
+        String query = "SELECT * FROM uploaded_videos " +
+                "WHERE video_id = '" + video_id + "'";
+        int id = 0;
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            id = rs.getInt("channel_id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return id;
+    }
+
+    public static String getchannel_name(int channelId) {
+        open();
+        String query = "SELECT * FROM channels " +
+                "WHERE id = '" + channelId + "'";
+        String title = "demo";
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            title = rs.getString("title");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return title;
     }
 }
 

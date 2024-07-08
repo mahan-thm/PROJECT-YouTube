@@ -34,10 +34,10 @@ public class PostInHomeController {
     private int video_id;
     private String channel;
     private String topic;
-    private String view;
+    private int view;
     private String timeUpload;
 
-    public void define(byte[] thumbnailByte, int video_id, String topic, String chanel, String view, String timeUpload) {
+    public void define(byte[] thumbnailByte, int video_id, String topic, String chanel, int view, String timeUpload) {
         this.thumbnailByte = thumbnailByte;
         this.video_id = video_id;
         this.topic = topic;
