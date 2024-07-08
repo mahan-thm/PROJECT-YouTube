@@ -6,10 +6,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <GridPane fx:id="newComment_gridPane" minHeight="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.newCommentController">
@@ -22,37 +19,11 @@
     <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="profile_button" maxHeight="45.0" maxWidth="45.0" minHeight="45.0" minWidth="45.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" GridPane.rowSpan="2">
+      <Circle fx:id="cmntProffile_circle" fill="DODGERBLUE" radius="22.5" stroke="BLACK" strokeType="INSIDE" GridPane.rowSpan="2">
          <GridPane.margin>
-            <Insets left="10.0" top="5.0" />
+            <Insets left="10.0" top="10.0" />
          </GridPane.margin>
-      </Button>
-      <Rectangle height="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="45.0" GridPane.rowSpan="2">
-         <fill>
-            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.9664511046187179">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.003039536764845252" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color green="1.0" blue="0.2666666805744171" />
-                     </color>
-                  </Stop>
-               </stops>
-            </RadialGradient>
-         </fill>
-         <GridPane.margin>
-            <Insets left="10.0" top="5.0" />
-         </GridPane.margin>
-      </Rectangle>
+      </Circle>
       <TextArea fx:id="newComment_textArea" prefColumnCount="0" prefRowCount="1" promptText="Add a comment" scrollTop="5.0" wrapText="true" GridPane.columnIndex="1">
          <font>
             <Font name="Gadugi" size="13.0" />

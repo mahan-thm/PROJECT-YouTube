@@ -16,6 +16,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -106,10 +108,10 @@ public class VideoPlayerController {
     @FXML
     private VBox videoPlayer_vBox;
     @FXML
-    private TextArea test;
-
+    private Circle videoProf_circle;
 
     public void setup() {
+
 
         for (int i = 0; i < 6; i++) {
             try {
@@ -124,20 +126,30 @@ public class VideoPlayerController {
                 commentController.setup();
 
                 videoComments_vBox.getChildren().add(anchorPane);
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
 
+        try {
+            //TODO set prof
+
+            Image image = new Image(Objects.requireNonNull(getClass().getResource("../../CACHE/imageCache/img3.jpg")).openStream());
+            videoProf_circle.setFill(new ImagePattern(image));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //TODO to show recommended videos add PostInHome.fxml to "recommendVideo_vBox"
 
         //______________________________________________________________________________
-
 
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newComment.fxml")));
             GridPane gridPane = fxmlLoader.load();
-            gridPane.getChildren().remove(((GridPane)gridPane.getChildren().get(3)).getChildren().remove(1));
+            gridPane.getChildren().remove(((GridPane) gridPane.getChildren().get(2)).getChildren().remove(1));
             gridPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newCommentStyle.css")).toExternalForm());
             videoPlayer_vBox.getChildren().add(5, gridPane);
         } catch (IOException e) {

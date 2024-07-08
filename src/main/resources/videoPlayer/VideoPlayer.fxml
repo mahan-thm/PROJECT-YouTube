@@ -21,16 +21,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="546.0" minWidth="960.0" prefHeight="575.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.VideoPlayerController">
+<BorderPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.VideoPlayerController">
    <center>
-      <ScrollPane fx:id="videoPlayer_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="490.0" minWidth="908.0" prefHeight="871.0" prefWidth="910.0">
+      <ScrollPane fx:id="videoPlayer_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="480.0" minWidth="905.0" prefHeight="480.0" prefWidth="905.0">
          <content>
             <HBox spacing="10.0">
                <children>
@@ -100,6 +97,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
+                              <Circle fx:id="videoProf_circle" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
                               <Button fx:id="subscribe_button" maxHeight="35.0" maxWidth="1.7976931348623157E308" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" text="subscribe" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
@@ -142,35 +140,6 @@
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin></Button>
-                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                              <Rectangle height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0">
-                                 <fill>
-                                    <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                       <stops>
-                                          <Stop>
-                                             <color>
-                                                <Color opacity="0.0" />
-                                             </color>
-                                          </Stop>
-                                          <Stop offset="0.006729475100942127">
-                                             <color>
-                                                <Color opacity="0.0" />
-                                             </color>
-                                          </Stop>
-                                          <Stop offset="0.9725798509667464">
-                                             <color>
-                                                <Color opacity="0.0" />
-                                             </color>
-                                          </Stop>
-                                          <Stop offset="1.0">
-                                             <color>
-                                                <Color red="0.28333333134651184" blue="1.0" />
-                                             </color>
-                                          </Stop>
-                                       </stops>
-                                    </RadialGradient>
-                                 </fill>
-                              </Rectangle>
                               <Label maxWidth="1.7976931348623157E308" text="Channel name" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="25.0" left="10.0" />
