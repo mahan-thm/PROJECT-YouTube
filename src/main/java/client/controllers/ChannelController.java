@@ -4,6 +4,7 @@ import client.models.VideoInfo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -22,7 +23,8 @@ import java.util.Objects;
 import static client.models.Main.*;
 
 public class ChannelController {
-
+    String channel_username ;
+    private boolean is_subscribed ;
     public void define(VideoInfo videoinfo) {
         request.channel(videoinfo.channel_username);
         JSONObject response = read();
@@ -32,6 +34,12 @@ public class ChannelController {
                 +" • "+response.getInt("totalSubscribers")
                 +" subscribers • "+response.getInt("totalSubscribers")+" video");
         aboutChannel_hyperLink.setText(response.getString("channelDescription"));
+        channel_username = response.getString("channel_username");
+        is_subscribed = response.getBoolean("is_subscribed");
+
+        if (is_subscribed){
+            subscribe_button.setText("subscribed");
+        }
 
 
         request.ChannelVideoList(userAccount.channel_username);
@@ -93,6 +101,10 @@ public class ChannelController {
     private Tab videos_tab;
     @FXML
     private VBox video_vBox;
+    @FXML
+    private Button subscribe_button ;
+
+
 
     public void setup() {
         //TODO setup the scene
@@ -105,7 +117,27 @@ public class ChannelController {
 
     @FXML
     public void subscribe_action(){
-        //TODO client will subscribe the channel by pressing this button
+
+        if (!is_subscribed) {
+            request.subscribeChannel(channel_username);
+            JSONObject response = read();
+            if (response.getString("responseType").equals("/subscribeChannel_accepted")) ;
+            {
+                System.out.println("/subscribeChannel_accepted");
+                subscribe_button.setText("subscribed");
+                is_subscribed = true;
+            }
+        }
+        else {
+            request.unsubscribeChannel(channel_username);
+            JSONObject response = read();
+            if (response.getString("responseType").equals("/unsubscribeChannel_accepted")) ;
+            {
+                System.out.println("/unsubscribeChannel_accepted");
+                subscribe_button.setText("subscribe");
+                is_subscribed = false;
+            }
+        }
     }
 
     public void toolBar_action(ActionEvent actionEvent) {

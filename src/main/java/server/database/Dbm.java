@@ -574,7 +574,7 @@ public class Dbm {
 
 
     public static int addVideo(int channelId, String title , String videoDescription,String duration , String creationDate , JSONArray tags) {
-        // todo mmd hosain we don't need channel id
+
         open();
         String maxId = "SELECT MAX(id) AS maxId FROM videos";
         int lastId=0;
@@ -927,8 +927,8 @@ public class Dbm {
 
     public static void addUserSubscribedChannels(int channelId, int userId , String add_date) {
         open();
-        String query = "INSERT INTO subscribed_channels (channel_id , user_id , is_notif_on , add_date"
-                +"VALUES ( " + channelId +","+ userId +","+ false +",'"+ add_date+"')";
+        String query = "INSERT INTO subscribed_channels (channel_id , user_id , is_notif_on , add_date "
+                +") VALUES ( " + channelId +","+ userId +","+ false +",'"+ add_date+"')";
         try{
             int rs = stat.executeUpdate(query);
         }
@@ -940,14 +940,12 @@ public class Dbm {
         }
     }
 
-    public static void addChannelTotalSubscribers(int channelId) {
-        // todo
-    }
 
     public static void removeUserSubscribedChannels(int channelId, int userId) {
         open();
         try {
-            String query = "DELETE FROM subscribed_channels WHERE id = " + channelId ;
+            String query = "DELETE FROM subscribed_channels WHERE channel_id = " + channelId
+                    +" AND user_id = "+userId ;
             int rs = stat.executeUpdate(query);
         }catch(SQLException e){
             e.printStackTrace();
@@ -957,8 +955,6 @@ public class Dbm {
         }
     }
 
-    public static void reduceChannelTotalSubscribers(int channelId) {
-    }
 
     public static void addSavedVideo(int userId, String playlistType, int videoId) {
         open();
@@ -1088,6 +1084,51 @@ public class Dbm {
             close();
         }
         return id;
+    }
+
+    public static boolean is_subscribed(int channel_id,int user_id) {
+        open();
+
+        String query = "SELECT * FROM subscribed_channels " +
+                "WHERE channel_id = " + channel_id
+                + " AND user_id = " + user_id;
+
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            return rs.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return false;
+    }
+
+
+    public static void addTag(int itemId, String type, String tagName, int score) {
+        open();
+        String maxId = "SELECT MAX(id) AS maxId FROM videos";
+        int lastId=0;
+        try {
+            ResultSet rs = stat.executeQuery(maxId);
+            // bug probablity
+            lastId =rs.getInt("maxId") ;
+            lastId++;
+
+            String query =
+                    "INSERT INTO TABLE tag (item_id , type, score , tagName) VALUES ("
+                            + itemId +",'"+ type + "'," + score +",'" + tagName + "')";
+
+            int res = stat.executeUpdate(query);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+
     }
 }
 
