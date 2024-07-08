@@ -145,6 +145,16 @@ public class VideoPlayerController {
         mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
             if (!videoTimeline_slider.isValueChanging()) {
                 videoTimeline_slider.setValue(newTime.toSeconds());
+
+                String totalTimeStr = mediaPlayer.getTotalDuration().toString();
+                String currentTimeStr = mediaPlayer.getCurrentTime().toString();
+                double totalDuration = Double.parseDouble(totalTimeStr.substring(0,totalTimeStr.length() - 3));
+                System.out.println(media.getDuration());
+                double currentDuration = Double.parseDouble(currentTimeStr.substring(0,currentTimeStr.length() - 3));
+                System.out.println(mediaPlayer.getCurrentTime());
+                double percent = currentDuration / totalDuration * 100;
+                System.out.println(percent);
+                videoTimeline_slider.setStyle("-fx-background-color: linear-gradient(to right, green 0%, green " + percent + "%, gray " + percent + "%, gray 100%);");
             }
         });
 
@@ -162,7 +172,6 @@ public class VideoPlayerController {
 
 
         mediaPlayer.setOnReady(() -> {
-            System.out.println("Duration: " + media.getDuration());
             Duration totalDuration = media.getDuration();
             Duration currentDuration = mediaPlayer.getCurrentTime();
             String totalDurationStr = formatTime(totalDuration);
@@ -177,6 +186,8 @@ public class VideoPlayerController {
             timeline.setCycleCount(Timeline.INDEFINITE);
             timeline.play();
         });
+
+
 
     }
 
@@ -428,6 +439,10 @@ public class VideoPlayerController {
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
+    }
+    @FXML
+    public void other_action(){
+
     }
 
 }

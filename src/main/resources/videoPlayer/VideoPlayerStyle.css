@@ -82,6 +82,30 @@
 
 
 /*________________________________________________PRIVET____________________________________________________*/
+#videoTimeline_slider{
+
+
+}
+#videoTimeline_slider .track{
+    -fx-background-color: #F2F2F2CA;
+    -fx-pref-height: 2;
+
+
+}
+#videoTimeline_slider .thumb{
+    -fx-pref-height: 8;
+    -fx-pref-width: 18;
+}
+#videoTimeline_slider .animated-thumb {
+    -fx-background-color: red;
+}
+#volume_slider .track{
+    -fx-background-color: #F2F2F2CA;
+    -fx-pref-height: 1;
+}
+#volume_slider .thumb{
+
+}
 #playAndPause_button {
     -fx-shape: "M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z";
     -fx-background-color: #f2f2f2f2;
@@ -184,5 +208,12 @@
     -fx-background-radius: 30;
 }
 #subscribe_button:hover{
+    -fx-background-color: #cccccc;
+}
+#other_button{
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 30;
+}
+#other_button:hover{
     -fx-background-color: #cccccc;
 }

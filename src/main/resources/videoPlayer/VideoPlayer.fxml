@@ -44,7 +44,7 @@
                                     <Insets bottom="-71.0" />
                                  </VBox.margin>
                               </MediaView>
-                              <VBox fx:id="videoController_vBox" maxHeight="70.0" minHeight="70.0" onMouseMoved="#showVideoController_action" prefHeight="70.0" spacing="20.0" visible="false">
+                              <VBox fx:id="videoController_vBox" maxHeight="70.0" minHeight="70.0" onMouseMoved="#showVideoController_action" prefHeight="70.0" spacing="20.0">
                                  <children>
                                     <Slider fx:id="videoTimeline_slider" prefHeight="14.0" prefWidth="528.0">
                                        <padding>
@@ -58,7 +58,7 @@
                                           <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="177.60001373291016" minWidth="10.0" prefWidth="30.0" />
                                           <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="177.60001373291016" minWidth="10.0" prefWidth="55.5999755859375" />
                                           <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="221.60006713867188" minWidth="8.599984741210932" prefWidth="102.99996337890624" />
-                                          <ColumnConstraints hgrow="ALWAYS" maxWidth="309.8000030517578" minWidth="10.0" prefWidth="164.0" />
+                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                                           <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="116.80000000000001" minWidth="10.0" prefWidth="40.0" />
                                         <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="40.0" />
                                       </columnConstraints>
@@ -90,11 +90,11 @@
                         <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="507.0">
                           <columnConstraints>
                               <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0" />
-                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" />
-                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="150.0" minWidth="10.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="160.0" minWidth="10.0" />
                               <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                               <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" minWidth="10.0" />
-                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" />
+                            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="160.0" minWidth="10.0" />
                               <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" />
                           </columnConstraints>
                           <rowConstraints>
@@ -103,8 +103,11 @@
                            <children>
                               <Button fx:id="subscribe_button" maxHeight="35.0" maxWidth="1.7976931348623157E308" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" text="subscribe" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                  <font>
-                                    <Font size="13.0" />
-                                 </font></Button>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin></Button>
                               <Button fx:id="like_button" alignment="BASELINE_LEFT" maxHeight="35.0" maxWidth="81.0" minHeight="35.0" minWidth="81.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="81.0" text="20k" GridPane.columnIndex="4">
                                  <graphic>
                                     <Button fx:id="likeIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
@@ -113,7 +116,7 @@
                                     <Insets right="49.0" />
                                  </GridPane.margin>
                                  <font>
-                                    <Font size="13.0" />
+                                    <Font name="System Bold" size="13.0" />
                                  </font></Button>
                               <Button fx:id="dislike_button" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" maxHeight="35.0" maxWidth="50.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" text="  " GridPane.columnIndex="4">
                                  <graphic>
@@ -123,9 +126,9 @@
                                     <Insets left="80.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button fx:id="share_button" alignment="BASELINE_LEFT" maxHeight="35.0" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" text="share" GridPane.columnIndex="5">
+                              <Button fx:id="share_button" alignment="BASELINE_CENTER" maxHeight="35.0" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" text="share" GridPane.columnIndex="5">
                                  <font>
-                                    <Font size="13.0" />
+                                    <Font name="System Bold" size="13.0" />
                                  </font>
                                  <graphic>
                                     <Button fx:id="shareIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
@@ -133,7 +136,7 @@
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin></Button>
-                              <Button maxHeight="35.0" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" text="..." GridPane.columnIndex="6">
+                              <Button fx:id="other_button" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="..." GridPane.columnIndex="6">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
@@ -169,17 +172,17 @@
                                     </RadialGradient>
                                  </fill>
                               </Rectangle>
-                              <Label text="Channel name" GridPane.columnIndex="1">
+                              <Label maxWidth="1.7976931348623157E308" text="Channel name" GridPane.columnIndex="1">
                                  <GridPane.margin>
-                                    <Insets bottom="25.0" />
+                                    <Insets bottom="25.0" left="10.0" />
                                  </GridPane.margin>
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label text="20k subscribers" GridPane.columnIndex="1">
+                              <Label maxWidth="1.7976931348623157E308" text="20k subscribers" GridPane.columnIndex="1">
                                  <GridPane.margin>
-                                    <Insets top="25.0" />
+                                    <Insets left="10.0" top="25.0" />
                                  </GridPane.margin>
                               </Label>
                               <Line endX="30.0" rotate="90.0" GridPane.columnIndex="4">
