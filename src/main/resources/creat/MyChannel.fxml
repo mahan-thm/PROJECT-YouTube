@@ -78,7 +78,7 @@
                            <content>
                               <ScrollPane fitToHeight="true" fitToWidth="true">
                                  <content>
-                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                    <VBox fx:id="video_vBox" prefHeight="200.0" prefWidth="100.0">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="905.0" spacing="10.0">
                                              <children>

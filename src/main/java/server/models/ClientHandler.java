@@ -118,8 +118,8 @@ public class ClientHandler implements Runnable {
 
 
 //        user_id = 1;
-//        String channelUsername = Dbm.getChannelUsername(user_id);
-        String channelUsername = "demo";
+        String channelUsername = Dbm.getChannelUsername(user_id);
+//        String channelUsername = "demo";
         response.put("channel_username",channelUsername);
 
         write(response);
@@ -363,7 +363,7 @@ public class ClientHandler implements Runnable {
 
         int channel_id = Dbm.getchannel_id(id);
         String channel_name = Dbm.getchannel_name(channel_id);
-
+        String channel_username = Dbm.getChannelUsername(channel_id);
         response.put("responseType", "/video_accepted");
         response.put("title", title);
         response.put("title_body", title_body);
@@ -375,6 +375,7 @@ public class ClientHandler implements Runnable {
 
         response.put("channel_id", channel_id);
         response.put("channel_name", channel_name);
+        response.put("channel_username", channel_username);
 
 
         write(response);
@@ -430,16 +431,16 @@ public class ClientHandler implements Runnable {
     private void channel(JSONObject request) {
         JSONObject response = new JSONObject();
         String channel_username =  request.getString("channel_username");
-//        int channel_id = Dbm.getChannel_id(channel_username);
-        int channel_id = 1;
+        int channel_id = Dbm.getChannel_id(channel_username);
+//        int channel_id = 1;
         int totalVideos = Dbm.getChannelTotalVideoes(channel_id);
         int totalViews = Dbm.getChannelTotalViews(channel_id);
         int totalSubscribers = Dbm.getChannelTotalSubscribers(channel_id);
         String description = Dbm.getChannelDescription(channel_id);
-//        String title = Dbm.getChanneltitle(channel_id);
-        String title = "my channel title";
+        String title = Dbm.getchannel_name(channel_id);
+//        String title = "my channel title";
 
-        response.put("responseType", "/comment_accepted");
+        response.put("responseType", "/channel_accepted");
         response.put("totalVideos", totalVideos);
         response.put("channel_username", channel_username);
         response.put("totalViews", totalViews);

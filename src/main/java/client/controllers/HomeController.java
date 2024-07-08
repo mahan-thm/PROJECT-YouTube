@@ -141,22 +141,19 @@ public class HomeController implements Initializable {
 
 
                     File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (i * 3 + j) + ".jpg");
-                    // to resize image
+
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
                     fileOutputStream.write(imageBytes);
 
-//                  imageBytes = resize(file);
                     //to load fxml file
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = fxmlLoader.load();
                     pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
 
                     pane.setId(String.valueOf(pointer));
+
                     PostInHomeController postInHomeController = fxmlLoader.getController();
-
-
-                    postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
-//                    postInHomeController.define(imageBytes,"Ai Girl", "My Channel", "2k", "12 july");
+                    postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(),video);
                     postInHomeController.setup();
 
 

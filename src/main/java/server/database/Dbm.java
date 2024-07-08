@@ -1055,5 +1055,39 @@ public class Dbm {
         }
         return title;
     }
+
+    public static String getChannelUsername(int channel_id) {
+        open();
+        String query = "SELECT * FROM channels " +
+                "WHERE id = '" + channel_id + "'";
+        String title = "demo";
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            title = rs.getString("channel_username");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return title;
+    }
+
+    public static int getChannel_id(String channelUsername) {
+        open();
+        String query = "SELECT * FROM channels " +
+                "WHERE channel_username = '" + channelUsername + "'";
+        int id = 0;
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            id = rs.getInt("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return id;
+    }
 }
 

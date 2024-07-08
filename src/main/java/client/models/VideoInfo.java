@@ -57,6 +57,7 @@ public class VideoInfo {
 
     int channel_id ;
     String channel_name ;
+    public String channel_username ;
 
     public VideoInfo(int video_id, JSONObject response){
         id = video_id;
@@ -71,6 +72,7 @@ public class VideoInfo {
 
         channel_id = (int) response.get("channel_id");
         channel_name = (String) response.get("channel_name");
+        channel_username = (String) response.get("channel_username");
 
     }
 

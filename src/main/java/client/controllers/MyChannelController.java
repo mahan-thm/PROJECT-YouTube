@@ -67,9 +67,12 @@ public class MyChannelController implements Initializable {
     private Hyperlink aboutChennel_hyperLink;
     @FXML
     private Tab videos_tab;
+    @FXML
+    private VBox video_vBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         request.channel(userAccount.channel_username);
         JSONObject response = read();
         channelName_label.setText(response.getString("channel_username"));
@@ -87,33 +90,36 @@ public class MyChannelController implements Initializable {
             videoInfoList.add(new VideoInfo(video_id, response2));
         }
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 3; j++) {
 
-                try {
-                    VideoInfo video = videoInfoList.get(0);
-                    request.imageFile(video.id);
-                    byte[] imageBytes = readFile();
-                    File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (i * 3 + j) + ".jpg");
-                    // to resize image
-                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    fileOutputStream.write(imageBytes);
+        for (int i = 0; i < videoInfoList.size(); i++) {
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
-                    AnchorPane pane = null;
-                    pane = fxmlLoader.load();
-                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+            try {
+                VideoInfo video = videoInfoList.get(i);
+                request.imageFile(video.id);
+                byte[] imageBytes = readFile();
 
-                    pane.setId(String.valueOf(i * 3 + j));
-                    PostInHomeController postInHomeController = fxmlLoader.getController();
 
-                    //TODO
-                    //to set up PostInHome fxml file
-                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time());
+                File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (i) + ".jpg");
+
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(imageBytes);
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+                AnchorPane pane = fxmlLoader.load();
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+                pane.setId(String.valueOf(video.id));
+
+
+
+                PostInHomeController postInHomeController = fxmlLoader.getController();
+                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(),video);
                 postInHomeController.setup();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+
+                video_vBox.getChildren().add(pane);
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }

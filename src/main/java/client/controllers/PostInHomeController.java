@@ -1,5 +1,6 @@
 package client.controllers;
 
+import client.models.VideoInfo;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
@@ -36,14 +37,16 @@ public class PostInHomeController {
     private String topic;
     private int view;
     private String timeUpload;
+    private VideoInfo video;
 
-    public void define(byte[] thumbnailByte, int video_id, String topic, String chanel, int view, String timeUpload) {
+    public void define(byte[] thumbnailByte, int video_id, String topic, String chanel, int view, String timeUpload,VideoInfo video) {
         this.thumbnailByte = thumbnailByte;
         this.video_id = video_id;
         this.topic = topic;
         this.channel = chanel;
         this.view = view;
         this.timeUpload = timeUpload;
+        this.video = video;
     }
 
     @FXML
@@ -168,7 +171,7 @@ public class PostInHomeController {
 
 
             //TODO get to channel scene
-            channelController.define();
+            channelController.define(video);
 
 
 
