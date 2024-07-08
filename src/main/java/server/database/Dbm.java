@@ -927,8 +927,8 @@ public class Dbm {
 
     public static void addUserSubscribedChannels(int channelId, int userId , String add_date) {
         open();
-        String query = "INSERT INTO subscribed_channels (channel_id , user_id , is_notif_on , add_date"
-                +"VALUES ( " + channelId +","+ userId +","+ false +",'"+ add_date+"')";
+        String query = "INSERT INTO subscribed_channels (channel_id , user_id , is_notif_on , add_date "
+                +") VALUES ( " + channelId +","+ userId +","+ false +",'"+ add_date+"')";
         try{
             int rs = stat.executeUpdate(query);
         }
@@ -1089,5 +1089,25 @@ public class Dbm {
         }
         return id;
     }
+
+    public static boolean is_subscribed(int channel_id,int user_id) {
+        open();
+
+        String query = "SELECT * FROM channels " +
+                "WHERE channel_username = '" + channelUsername + "'";
+        int id = 0;
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            id = rs.getInt("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return false;
+    }
+
+
 }
 

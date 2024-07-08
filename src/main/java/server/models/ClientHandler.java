@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -432,14 +433,13 @@ public class ClientHandler implements Runnable {
         JSONObject response = new JSONObject();
         String channel_username =  request.getString("channel_username");
         int channel_id = Dbm.getChannel_id(channel_username);
-//        int channel_id = 1;
+//        int channel_id = 1;66
         int totalVideos = Dbm.getChannelTotalVideoes(channel_id);
         int totalViews = Dbm.getChannelTotalViews(channel_id);
         int totalSubscribers = Dbm.getChannelTotalSubscribers(channel_id);
         String description = Dbm.getChannelDescription(channel_id);
         String title = Dbm.getchannel_name(channel_id);
-//        String title = "my channel title";
-
+        boolean is_subscribed = Dbm.is_subscribed(channel_id,user_id);
         response.put("responseType", "/channel_accepted");
         response.put("totalVideos", totalVideos);
         response.put("channel_username", channel_username);
@@ -601,12 +601,14 @@ public class ClientHandler implements Runnable {
     private void subscribeChannel(JSONObject request) {
         JSONObject response = new JSONObject();
 
-        int channel_id = (int) request.get("channel_id");
-
-        Dbm.addUserSubscribedChannels(channel_id, user_id,"");
+        String channel_username =  request.getString("channel_username");
+        int channel_id = Dbm.getChannel_id(channel_username);
+        String add_date = String.valueOf(LocalDateTime.now());
+        Dbm.addUserSubscribedChannels(channel_id, user_id,add_date);
         Dbm.addChannelTotalSubscribers(channel_id);
 
         response.put("responseType", "/subscribeChannel_accepted");
+        write(response);
     }
 
     private void unsubscribeChannel(JSONObject request) {
