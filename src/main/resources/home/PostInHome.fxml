@@ -64,7 +64,7 @@
                   <Insets left="3.0" />
                </VBox.margin>
             </Label>
-            <Hyperlink fx:id="chanel_hyperlink" text="Hyperlink" textFill="#5b5b5b" />
+            <Hyperlink fx:id="chanel_hyperlink" onAction="#channel_action" text="Hyperlink" textFill="#5b5b5b" />
             <Label fx:id="timeAndView_label" text="view • time upload" textFill="#5b5b5b">
                <VBox.margin>
                   <Insets left="3.0" />
