@@ -422,30 +422,64 @@ public class VideoPlayerController {
     }
 
     @FXML
-    public void on_dislike(ActionEvent actionEvent) {
-    }
-    @FXML
     public void on_like(ActionEvent actionEvent) {
         if (!is_liked) {
-            request.likeVideo(videoInfo.channel_username);
+            request.likeVideo(videoInfo.id);
             JSONObject response = read();
 
 
-            if (response.getString("responseType").equals("/subscribeChannel_accepted")) ;
+            if (response.getString("responseType").equals("/likeVideo_accepted"))
             {
-                System.out.println("/subscribeChannel_accepted");
-                subscribe_button.setText("subscribed");
-                is_subscribed = true;
+                System.out.println("/likeVideo_accepted");
+                //todo show video is liked
+                is_liked = true;
+            }
+            else{
+                System.out.println(response.getString("responseType"));
             }
         }
         else {
-            request.unsubscribeChannel(videoInfo.channel_username);
+            request.remove_likedVideo(videoInfo.id);
             JSONObject response = read();
-            if (response.getString("responseType").equals("/unsubscribeChannel_accepted")) ;
+            if (response.getString("responseType").equals("/remove_likedVideo_rejected"))
             {
-                System.out.println("/unsubscribeChannel_accepted");
-                subscribe_button.setText("subscribe");
-                is_subscribed = false;
+                System.out.println("/remove_likedVideo");
+                //todo show video is not liked
+                is_liked = false;
+            }
+            else {
+                System.out.println(response.getString("responseType"));
+            }
+        }
+    }
+    @FXML
+    public void on_dislike(ActionEvent actionEvent) {
+        if (!is_disliked) {
+            request.dislikeVideo(videoInfo.id);
+            JSONObject response = read();
+
+
+            if (response.getString("responseType").equals("/dislikeVideo_accepted"))
+            {
+                System.out.println("/dislikeVideo_accepted");
+                //todo show video is disliked
+                is_disliked = true;
+            }
+            else{
+                System.out.println(response.getString("responseType"));
+            }
+        }
+        else {
+            request.remove_dislikedVideo(videoInfo.id);
+            JSONObject response = read();
+            if (response.getString("responseType").equals("/remove_dislikedVideo_rejected"))
+            {
+                System.out.println("/remove_dislikedVideo");
+                //todo show video is not disliked
+                is_disliked = false;
+            }
+            else {
+                System.out.println(response.getString("responseType"));
             }
         }
     }

@@ -278,7 +278,7 @@ public class Request {
 
         write(request);
     }
-    public void likeVideo(String video_id){
+    public void likeVideo(int video_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/likeVideo");
         request.put("video_id",video_id);
@@ -286,7 +286,7 @@ public class Request {
 
         write(request);
     }
-    static void remove_likedVideo(String video_id){
+    public void remove_likedVideo(int video_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/remove_likedVideo");
         request.put("video_id",video_id);
@@ -294,14 +294,14 @@ public class Request {
 
         write(request);
     }
-    static void add_dislikedVideo(String video_id){
+    public void dislikeVideo(int video_id){
         JSONObject request = new JSONObject();
-        request.put("requestType","/add_dislikedVideo");
+        request.put("requestType","/dislikeVideo");
         request.put("video_id",video_id);
 
         write(request);
     }
-    static void remove_dislikedVideo(String video_id){
+    public void remove_dislikedVideo(int video_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/remove_dislikedVideo");
         request.put("video_id",video_id);

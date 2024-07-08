@@ -939,6 +939,34 @@ public class Dbm {
             close();
         }
     }
+    public static void addUserLike(int videoId, int userId, String addDate) {
+        open();
+        String query = "INSERT INTO saved_videos (video_id , user_id , type , add_date "
+                +") VALUES ( " + videoId +","+ userId +",'"+ "liked" +"','"+ addDate+"')";
+        try{
+            int rs = stat.executeUpdate(query);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+    }
+    public static void removeUserLike(int videoId, int userId, String addDate) {
+        open();
+        try {
+            String query = "DELETE FROM saved_videos WHERE videoId = " + videoId
+                    +" AND user_id = "+userId
+                    +" AND type = liked" ;
+            int rs = stat.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+    }
 
 
     public static void removeUserSubscribedChannels(int channelId, int userId) {
@@ -1104,7 +1132,45 @@ public class Dbm {
         }
         return false;
     }
+    public static boolean is_liked(int videoId, int userId) {
+        open();
 
+        String query = "SELECT * FROM saved_videos " +
+                "WHERE video_id = " + videoId
+                + " AND user_id = " + userId
+                + " AND type = 'liked'" ;
+
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            return rs.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return false;
+    }
+
+    public static boolean is_disliked(int videoId, int userId) {
+        open();
+
+        String query = "SELECT * FROM saved_videos " +
+                "WHERE video_id = " + videoId
+                + " AND user_id = " + userId
+                + " AND type = 'disliked'" ;
+
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            return rs.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return false;
+    }
 
     public static void addTag(int itemId, String type, String tagName, int score) {
         open();
@@ -1130,5 +1196,6 @@ public class Dbm {
         }
 
     }
+
 }
 
