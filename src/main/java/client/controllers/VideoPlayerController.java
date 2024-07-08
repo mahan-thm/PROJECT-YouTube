@@ -111,25 +111,23 @@ public class VideoPlayerController {
 
     public void setup() {
 
-//        for (int i = 0; i < 6; i++) {
-//            try {
-//                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/Comment.fxml")));
-//                AnchorPane anchorPane = fxmlLoader.load();
-//
-//                anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/CommentStyle.css")).toExternalForm());
-//                CommentController commentController = fxmlLoader.getController();
-//
-//                //TODO
-////                commentController.define(); //defining the prof image, comment text, when commented & ...
-////
-////
-////                commentController.setup();
-//
-//                videoComments_vBox.getChildren().add(anchorPane);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+        for (int i = 0; i < 6; i++) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/Comment.fxml")));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/CommentStyle.css")).toExternalForm());
+                CommentController commentController = fxmlLoader.getController();
+
+                //TODO video comments
+                commentController.define(); //defining the prof image, comment text, when commented & ...
+                commentController.setup();
+
+                videoComments_vBox.getChildren().add(anchorPane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
 
         //______________________________________________________________________________
@@ -139,6 +137,7 @@ public class VideoPlayerController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newComment.fxml")));
             GridPane gridPane = fxmlLoader.load();
+            gridPane.getChildren().remove(((GridPane)gridPane.getChildren().get(3)).getChildren().remove(1));
             gridPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newCommentStyle.css")).toExternalForm());
             videoPlayer_vBox.getChildren().add(5, gridPane);
         } catch (IOException e) {

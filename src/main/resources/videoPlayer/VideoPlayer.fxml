@@ -223,7 +223,7 @@
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox fx:id="recommendVideo_vBox" prefWidth="350.0" HBox.hgrow="NEVER">
+                  <VBox fx:id="recommendVideo_vBox" prefWidth="350.0" spacing="10.0" HBox.hgrow="NEVER">
                      <HBox.margin>
                         <Insets right="20.0" top="20.0" />
                      </HBox.margin></VBox>
