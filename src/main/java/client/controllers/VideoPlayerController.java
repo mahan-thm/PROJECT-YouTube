@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -20,6 +17,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -105,35 +103,49 @@ public class VideoPlayerController {
     private Label duration_label;
     @FXML
     private VBox video_vBox;
+    @FXML
+    private VBox videoPlayer_vBox;
+    @FXML
+    private TextArea test;
+
 
     public void setup() {
 
-        for (int i = 0; i < 6; i++) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/Comment.fxml")));
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/CommentStyle.css")).toExternalForm());
-                CommentController commentController = fxmlLoader.getController();
-
-                //TODO
-//                commentController.define(); //defining the prof image, comment text, when commented & ...
+//        for (int i = 0; i < 6; i++) {
+//            try {
+//                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/Comment.fxml")));
+//                AnchorPane anchorPane = fxmlLoader.load();
 //
+//                anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/CommentStyle.css")).toExternalForm());
+//                CommentController commentController = fxmlLoader.getController();
 //
-//                commentController.setup();
-
-                videoComments_vBox.getChildren().add(anchorPane);
-
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-
+//                //TODO
+////                commentController.define(); //defining the prof image, comment text, when commented & ...
+////
+////
+////                commentController.setup();
+//
+//                videoComments_vBox.getChildren().add(anchorPane);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
 
 
         //______________________________________________________________________________
+
+
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newComment.fxml")));
+            GridPane gridPane = fxmlLoader.load();
+            gridPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newCommentStyle.css")).toExternalForm());
+            videoPlayer_vBox.getChildren().add(5, gridPane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
         Media media = new Media(file.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         video_mediaView.setMediaPlayer(mediaPlayer);
@@ -151,9 +163,9 @@ public class VideoPlayerController {
 
                 String totalTimeStr = mediaPlayer.getTotalDuration().toString();
                 String currentTimeStr = mediaPlayer.getCurrentTime().toString();
-                double totalDuration = Double.parseDouble(totalTimeStr.substring(0,totalTimeStr.length() - 3));
+                double totalDuration = Double.parseDouble(totalTimeStr.substring(0, totalTimeStr.length() - 3));
                 System.out.println(media.getDuration());
-                double currentDuration = Double.parseDouble(currentTimeStr.substring(0,currentTimeStr.length() - 3));
+                double currentDuration = Double.parseDouble(currentTimeStr.substring(0, currentTimeStr.length() - 3));
                 System.out.println(mediaPlayer.getCurrentTime());
                 double percent = currentDuration / totalDuration * 100;
                 System.out.println(percent);
@@ -189,7 +201,6 @@ public class VideoPlayerController {
             timeline.setCycleCount(Timeline.INDEFINITE);
             timeline.play();
         });
-
 
 
     }
@@ -443,8 +454,9 @@ public class VideoPlayerController {
         stage.setFullScreen(true);
         stage.show();
     }
+
     @FXML
-    public void other_action(){
+    public void other_action() {
 
     }
 

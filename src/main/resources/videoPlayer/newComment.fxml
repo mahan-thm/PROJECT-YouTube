@@ -1,14 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="videoPlayer.NewComment"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<GridPane minHeight="-Infinity" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="client.controllers.newCommentController">
+  <columnConstraints>
+      <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="66.39996337890625" minWidth="50.0" prefWidth="66.39996337890625" />
+    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" valignment="TOP" vgrow="ALWAYS" />
+    <RowConstraints minHeight="8.800018310546875" valignment="TOP" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Button maxHeight="45.0" maxWidth="45.0" minHeight="45.0" minWidth="45.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" GridPane.rowSpan="2">
+         <GridPane.margin>
+            <Insets left="10.0" top="5.0" />
+         </GridPane.margin>
+      </Button>
+      <Rectangle height="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="45.0" GridPane.rowSpan="2">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.9664511046187179">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.003039536764845252" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color green="1.0" blue="0.2666666805744171" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+         <GridPane.margin>
+            <Insets left="10.0" top="5.0" />
+         </GridPane.margin>
+      </Rectangle>
+      <TextArea fx:id="newComment_textArea" prefColumnCount="0" prefRowCount="1" promptText="Add a comment" scrollTop="5.0" wrapText="true" GridPane.columnIndex="1">
+         <font>
+            <Font name="Gadugi" size="13.0" />
+         </font>
+      </TextArea>
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
+            <Button mnemonicParsing="false" text="cancel" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" text="comment" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+   </children>
+</GridPane>
