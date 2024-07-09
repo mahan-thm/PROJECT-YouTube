@@ -1,5 +1,6 @@
 package client.controllers;
 
+import client.models.VideoInfo;
 import javafx.animation.*;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.event.ActionEvent;
@@ -23,39 +24,68 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
-import static client.models.Main.readFile;
-import static client.models.Main.request;
+import static client.models.Main.*;
 
 public class VideoPlayerController {
     private File file;
+    private VideoInfo videoInfo;
 
+    private int commentNumber ;
+    private boolean is_subscribed;
+    private boolean is_liked;
+    private boolean is_disliked;
 
     public void define(int video_id) { //like a constructor
         request.videoFile(video_id);
         byte[] videoBytes = readFile();
 
         File file = new File("src/main/resources/CACHE/videoCache" + "/video" + video_id + ".mp4");
-//        File file = new File("src/main/resources/imageCache" + "/video" + video_id + ".mkv");
         try {
-
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(videoBytes);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         this.file = file;
+        request.video(video_id);
+        JSONObject response2 = read();
+        videoInfo = new VideoInfo(video_id, response2);
+        is_liked = videoInfo.is_liked;
+        is_disliked = videoInfo.is_disliked;
+        like_button.setText(String.valueOf(videoInfo.getTotal_likes()));
 
-//        this.file = new File(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoTest.mp4")).getFile());
+
+        request.channel(videoInfo.channel_username);
+        JSONObject response = read();
+
+        channelName_label.setText(response.getString("channelTitle"));
+        totalSubscribers_label.setText(response.getInt("totalSubscribers") +" subscribers");
+        video_lable.setText(videoInfo.getTitle());
+        videoDiscription_label.setText(videoInfo.getTitle_body());
+        is_subscribed = response.getBoolean("is_subscribed");
+        if (is_subscribed){
+            subscribe_button.setText("subscribed");
+        }
     }
-
+    @FXML
+    private Label videoDiscription_label;
+    @FXML
+    public Label totalSubscribers_label;
+    @FXML
+    public Label commentCount;
+    @FXML
+    private Label channelName_label;
+    @FXML
     private MediaPlayer mediaPlayer;
     @FXML
     private Pane toolBar_pane;
@@ -109,20 +139,44 @@ public class VideoPlayerController {
     private VBox videoPlayer_vBox;
     @FXML
     private Circle videoProf_circle;
+    @FXML
+    public Button next_button;
+    @FXML
+    public Button fullScream_button;
+    @FXML
+    public Slider volume_slider;
+    @FXML
+    public Button speed_button;
+    @FXML
+    public Label video_lable;
+    @FXML
+    public Button subscribe_button;
+    @FXML
+    public Button like_button;
+    @FXML
+    public Button dislike_button;
 
-    public void setup() {
 
+    public void setup() throws IOException {
 
-        for (int i = 0; i < 6; i++) {
+        request.commentList(videoInfo.id);
+        JSONObject CLresponse = read();
+        JSONArray commentIdList = CLresponse.getJSONArray("commentIdList");
+        commentNumber = CLresponse.getInt("commentCount");
+        commentCount.setText(commentNumber + " comments");
+        ArrayList<VideoInfo> commentList = new ArrayList<>();
+        for (int i = 0; i < commentNumber; i++) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/Comment.fxml")));
                 AnchorPane anchorPane = fxmlLoader.load();
-
                 anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/CommentStyle.css")).toExternalForm());
+
                 CommentController commentController = fxmlLoader.getController();
 
-                //TODO video comments
-                commentController.define(); //defining the prof image, comment text, when commented & ...
+                int comment_id = commentIdList.getInt(i);
+
+
+                commentController.define(comment_id);
                 commentController.setup();
 
                 videoComments_vBox.getChildren().add(anchorPane);
@@ -130,12 +184,22 @@ public class VideoPlayerController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
         }
 
         try {
-            //TODO set prof
+            request.channelProfileImg(videoInfo.channel_username);
+            JSONObject response = read();
+            byte[] videoBytes = readFile();
 
-            Image image = new Image(Objects.requireNonNull(getClass().getResource("../../CACHE/imageCache/img3.jpg")).openStream());
+            File file = new File("src/main/resources/CACHE/imageCache/channelProf0.jpg");
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(videoBytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Image image = new Image(Objects.requireNonNull(getClass().getResource("../../CACHE/imageCache/channelProf0.jpg")).openStream());
             videoProf_circle.setFill(new ImagePattern(image));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -151,7 +215,10 @@ public class VideoPlayerController {
             GridPane gridPane = fxmlLoader.load();
             gridPane.getChildren().remove(((GridPane) gridPane.getChildren().get(2)).getChildren().remove(1));
             gridPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newCommentStyle.css")).toExternalForm());
+            newCommentController newCommentController = fxmlLoader.getController();
             videoPlayer_vBox.getChildren().add(5, gridPane);
+
+            newCommentController.define(videoInfo);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -375,6 +442,92 @@ public class VideoPlayerController {
         }
     }
 
+    @FXML
+    public void on_like(ActionEvent actionEvent) {
+        if (!is_liked) {
+            request.likeVideo(videoInfo.id);
+            JSONObject response = read();
+
+
+            if (response.getString("responseType").equals("/likeVideo_accepted"))
+            {
+                System.out.println("/likeVideo_accepted");
+                //todo show video is liked
+                is_liked = true;
+            }
+            else{
+                System.out.println(response.getString("responseType"));
+            }
+        }
+        else {
+            request.remove_likedVideo(videoInfo.id);
+            JSONObject response = read();
+            if (response.getString("responseType").equals("/remove_likedVideo_rejected"))
+            {
+                System.out.println("/remove_likedVideo");
+                //todo show video is not liked
+                is_liked = false;
+            }
+            else {
+                System.out.println(response.getString("responseType"));
+            }
+        }
+    }
+    @FXML
+    public void on_dislike(ActionEvent actionEvent) {
+        if (!is_disliked) {
+            request.dislikeVideo(videoInfo.id);
+            JSONObject response = read();
+
+
+            if (response.getString("responseType").equals("/dislikeVideo_accepted"))
+            {
+                System.out.println("/dislikeVideo_accepted");
+                //todo show video is disliked
+                is_disliked = true;
+            }
+            else{
+                System.out.println(response.getString("responseType"));
+            }
+        }
+        else {
+            request.remove_dislikedVideo(videoInfo.id);
+            JSONObject response = read();
+            if (response.getString("responseType").equals("/remove_dislikedVideo_rejected"))
+            {
+                System.out.println("/remove_dislikedVideo");
+                //todo show video is not disliked
+                is_disliked = false;
+            }
+            else {
+                System.out.println(response.getString("responseType"));
+            }
+        }
+    }
+    @FXML
+    public void on_subscribe(ActionEvent actionEvent) {
+
+        if (!is_subscribed) {
+            request.subscribeChannel(videoInfo.channel_username);
+            JSONObject response = read();
+            if (response.getString("responseType").equals("/subscribeChannel_accepted")) ;
+            {
+                System.out.println("/subscribeChannel_accepted");
+                subscribe_button.setText("subscribed");
+                is_subscribed = true;
+            }
+        }
+        else {
+            request.unsubscribeChannel(videoInfo.channel_username);
+            JSONObject response = read();
+            if (response.getString("responseType").equals("/unsubscribeChannel_accepted")) ;
+            {
+                System.out.println("/unsubscribeChannel_accepted");
+                subscribe_button.setText("subscribe");
+                is_subscribed = false;
+            }
+        }
+    }
     //__________________________________________________________________________________________________________
     //________________________________________________PRIVET____________________________________________________
     //__________________________________________________________________________________________________________
@@ -464,11 +617,6 @@ public class VideoPlayerController {
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
-    }
-
-    @FXML
-    public void other_action() {
-
     }
 
 }

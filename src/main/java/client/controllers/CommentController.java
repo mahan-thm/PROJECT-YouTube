@@ -6,20 +6,30 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import static client.models.Main.read;
+import static client.models.Main.request;
+
 public class CommentController {
 
-    public void define() {
-        //TODO
+    public void define(int comment_id) {
+        request.comment(comment_id);
+        JSONObject response = read();
+        if (response.getInt("repliedTo")==-1){
+
+            cmntChannelUsername_hyperLink.setText(response.getString("senderName"));
+            cmntText_label.setText(response.getString("text"));
+            whenCommented_label.setText(response.getString("senderName"));
+            cmntChannelUsername_hyperLink.setText(response.getString("creationTime"));
+        }
     }
 
     @FXML
@@ -70,7 +80,7 @@ public class CommentController {
             GridPane gridPane = fxmlLoader.load();
             ((Button)((GridPane) gridPane.getChildren().get(3)).getChildren().get(2)).setText("Reply");
             gridPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newCommentStyle.css")).toExternalForm());
-            videoCmment_vBox.getChildren().add(3, gridPane);
+            videoComment_vBox.getChildren().add(3, gridPane);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
