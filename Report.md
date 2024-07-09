@@ -17,7 +17,7 @@ we check the similarity of two users or check the
 
 if user doesn't like a tag , score will be !under zero!
 # presquities
-![image](https://github.com/mahan-thm/PROJECT-YouTube/srs/main/resources/DATA/Report_Images/javaFX_Guide)
+![image](https://github.com/mahan-thm/PROJECT-YouTube/srs/main/resources/Report_Images/javaFX_Guide.png)
 ## <span style="color: #00CED1">how the tags of the vide will be assigned?
 when you upload a video , you assign some tags to it
 <span style="color:red"> if the similarity of the user and video was more than a number . we increase the similarity of both a little . </span> <span style="color:green"> for example when user have good score on action</span>
