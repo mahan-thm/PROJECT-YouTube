@@ -25,7 +25,7 @@
                   <Button fx:id="thumbnail_button" mnemonicParsing="false" onAction="#goToVideoPlayer_action" onMouseEntered="#hideLine_action" onMouseExited="#showLine_action" opacity="0.37" />
                </children>
             </AnchorPane>
-            <Line fx:id="lineOnThumbnail_line" endX="182.0" startX="-100.0" strokeWidth="4.0">
+            <Line fx:id="lineOnThumbnail_line" endX="282.0" strokeWidth="4.0">
                <VBox.margin>
                   <Insets top="-10.0" />
                </VBox.margin>

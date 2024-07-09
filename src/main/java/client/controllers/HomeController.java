@@ -12,12 +12,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -57,20 +61,32 @@ public class HomeController implements Initializable {
     @FXML
     private Pane creat_pane;
     @FXML
-    private Button accountProfHome_button;
+    private Circle accountProfHome_circle1;
     @FXML
     private ScrollPane toolBar_scrollPane;
     @FXML
     private Rectangle fadeRectangle_rectangle;
     @FXML
-    private Button accountProfHome_button1;
+    private Circle accountProfHome_circle;
     @FXML
     private HBox tags_hBox;
     @FXML
     private ScrollPane tags_scrollPane;
+    @FXML
+    private VBox searchResult_vBox;
+    @FXML
+    private TextField Search_textField;
+    @FXML
+    private Pane searchResult_pane;
+    @FXML
+    private GridPane tags_gridPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //****************************************** PUBLIC *********************************************
+        searchResult_vBox.prefWidthProperty().bind(Search_textField.widthProperty());
+
+
         toolBar_scrollPane.prefHeightProperty().bind(homeMain_borderPain.heightProperty());
         fadeRectangle_rectangle.widthProperty().bind(homeMain_borderPain.widthProperty());
         fadeRectangle_rectangle.heightProperty().bind(homeMain_borderPain.heightProperty());
@@ -82,7 +98,7 @@ public class HomeController implements Initializable {
             tags_hBox.getChildren().add(button);
         }
 
-        //____________________________________PROFILE PHOTO__________________________________________
+        //________________________PROFILE PHOTO__________________________
         request.profileImg();
         if (read().getString("responseType").equals("/profileImg_accepted")) {
 
@@ -101,14 +117,21 @@ public class HomeController implements Initializable {
                 throw new RuntimeException(e);
             }
 
-            String profPath = "-fx-background-image: url('CACHE/imageCache/profImg0.jpg')";
-
-            accountProfHome_button.setStyle(profPath);
-            accountProfHome_button1.setStyle(profPath);
+            try {
+                //TODO set profile of who commenting
+                Image image = new Image(Objects.requireNonNull(getClass().getResource("../../CACHE/imageCache/profImg0.jpg")).openStream());
+                accountProfHome_circle.setFill(new ImagePattern(image));
+                accountProfHome_circle1.setFill(new ImagePattern(image));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
 //            accountProfHome_button1.
         }
-        //_________________________________________VIDEO THUMBNAIL___________________________________________
+
+        //****************************************** PRIVET *********************************************
+
+        //_______________________VIDEO THUMBNAIL__________________
         request.videoList(9, new JSONArray());
         JSONObject response1 = read();
         JSONArray video_idList = response1.getJSONArray("videoIdList");
@@ -133,7 +156,7 @@ public class HomeController implements Initializable {
 
             for (int j = 0; j < 3; j++) {
                 try {
-                    int pointer = i * 3 + j ;
+                    int pointer = i * 3 + j;
 
                     VideoInfo video = videoList.get(pointer);
                     request.imageFile(video.id);
@@ -153,21 +176,13 @@ public class HomeController implements Initializable {
                     pane.setId(String.valueOf(pointer));
 
                     PostInHomeController postInHomeController = fxmlLoader.getController();
-                    postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(),video);
+                    postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
                     postInHomeController.setup();
 
 
-                    pane.prefWidthProperty().bind(post_scrollPane.widthProperty());
-                    pane.prefHeightProperty().bind(post_scrollPane.widthProperty());
-//                    ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).maxWidthProperty().bind(post_scrollPane.widthProperty().subtract(200));
-//                    ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).maxHeightProperty().bind(post_scrollPane.widthProperty().subtract(200));
                     ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
                     ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
-//                    ((MediaView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(1)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
-//                    ((MediaView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(1)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
-//                    ((Button) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(2)).prefWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
-//                    ((Button) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(2)).prefHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
-                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(120));
+                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(30));
 
 
                     hBox.getChildren().add(pane);
@@ -328,7 +343,8 @@ public class HomeController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();e.getCause();
+            e.printStackTrace();
+            e.getCause();
         }
     }
 
@@ -343,6 +359,77 @@ public class HomeController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void search_action() {
+        boolean status = searchResult_pane.isVisible();
+        searchResult_pane.setVisible(!status);
+        searchResult_pane.setDisable(status);
+        tags_gridPane.setVisible(status);
+        tags_gridPane.setDisable(!status);
+    }
+
+    @FXML
+    public void searchRecommend_action() {
+        //TODO add recommended searches to searchResult_vBox by REGEX
+        searchResult_vBox.getChildren().clear();
+        for (int i = 0; i < 10; i++) {
+            Hyperlink hyperlink = new Hyperlink("result test");
+            hyperlink.setStyle("-fx-padding: 0 10 0 10; -fx-text-fill: red; -fx-font-size: 14");
+            searchResult_vBox.getChildren().add(hyperlink);
+        }
+    }
+
+    @FXML
+    public void searchResult_action() {
+        postInHome_vBox.getChildren().clear();
+        //TODO add related channels
+        for (int i = 0; i < 3; i++) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearch.fxml")));
+                GridPane pane = fxmlLoader.load();
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+
+//                pane.setId(String.valueOf(pointer));
+
+                ChannelSearchController channelSearchController = fxmlLoader.getController();
+                channelSearchController.define();
+                channelSearchController.setup();
+                postInHome_vBox.getChildren().add(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //TODO add related videos
+        for (int i = 0; i < 3; i++) {
+            HBox hBox = new HBox();
+            hBox.setSpacing(10);
+            for (int j = 0; j < 4; j++) {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+                    AnchorPane pane = fxmlLoader.load();
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+//                pane.setId(String.valueOf(pointer));
+
+                    PostInHomeController postInHomeController = fxmlLoader.getController();
+//                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+//                postInHomeController.setup();
+
+                    ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                    ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                    ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+
+
+                    hBox.getChildren().add(pane);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            postInHome_vBox.getChildren().add(hBox);
         }
     }
 
