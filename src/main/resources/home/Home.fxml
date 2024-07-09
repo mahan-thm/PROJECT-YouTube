@@ -73,7 +73,7 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </AnchorPane>
-                  <TextField fx:id="Search_textField" maxHeight="40.0" minHeight="40.0" onKeyTyped="#searchRecommend_action" onMouseClicked="#search_action" prefHeight="40.0" prefWidth="573.0" promptText="Search" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                  <TextField fx:id="Search_textField" maxHeight="40.0" minHeight="40.0" onAction="#searchResult_action" onKeyTyped="#searchRecommend_action" onMouseClicked="#search_action" prefHeight="40.0" prefWidth="573.0" promptText="Search" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -104,7 +104,7 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </AnchorPane>
-                  <Button fx:id="search_button" maxHeight="39.0" maxWidth="60.0" minHeight="39.0" minWidth="60.0" mnemonicParsing="false" onAction="#search_action" prefHeight="39.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.columnSpan="2">
+                  <Button fx:id="search_button" maxHeight="39.0" maxWidth="60.0" minHeight="39.0" minWidth="60.0" mnemonicParsing="false" onAction="#searchResult_action" prefHeight="39.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.columnSpan="2">
                      <font>
                         <Font size="19.0" />
                      </font>
