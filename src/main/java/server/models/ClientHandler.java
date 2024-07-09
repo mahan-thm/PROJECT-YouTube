@@ -440,11 +440,11 @@ public class ClientHandler implements Runnable {
         String senderName = Dbm.getUsername(Dbm.getCommentSender_id(comment_id));
         String Text = Dbm.getCommentText(comment_id);
         int repliedTo = Dbm.getcommentRepliedTo(comment_id);
-        Timestamp creationTime = Dbm.getcommentCreationTime(comment_id);
+        String creationTime = Dbm.getcommentCreationTime(comment_id);
 
         response.put("responseType", "/comment_accepted");
         response.put("senderName", senderName);
-        response.put("Text", Text);
+        response.put("text", Text);
         response.put("repliedTo", repliedTo);
         response.put("creationTime", creationTime);
 
@@ -607,7 +607,7 @@ public class ClientHandler implements Runnable {
         int repliedTo_id = (int) request.get("repliedTo_id");
 
 
-        Dbm.addComment(video_id, user_id, text, repliedTo_id, "");
+        Dbm.addComment(video_id, user_id, text, repliedTo_id, String.valueOf(LocalDateTime.now()));
         response.put("responseType", "/addComment_accepted");
 
 

@@ -157,7 +157,7 @@ public class VideoPlayerController {
     public Button dislike_button;
 
 
-    public void setup() {
+    public void setup() throws IOException {
 
         request.commentList(videoInfo.id);
         JSONObject CLresponse = read();
@@ -169,17 +169,14 @@ public class VideoPlayerController {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/Comment.fxml")));
                 AnchorPane anchorPane = fxmlLoader.load();
-
                 anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/CommentStyle.css")).toExternalForm());
+
                 CommentController commentController = fxmlLoader.getController();
 
                 int comment_id = commentIdList.getInt(i);
-                request.comment(comment_id);
-                JSONObject comment_response = read();
 
 
-
-                commentController.define(comment_response); //defining the prof image, comment text, when commented & ...
+                commentController.define(comment_id);
                 commentController.setup();
 
                 videoComments_vBox.getChildren().add(anchorPane);
@@ -187,6 +184,7 @@ public class VideoPlayerController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
         }
 
         try {
@@ -217,7 +215,10 @@ public class VideoPlayerController {
             GridPane gridPane = fxmlLoader.load();
             gridPane.getChildren().remove(((GridPane) gridPane.getChildren().get(2)).getChildren().remove(1));
             gridPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newCommentStyle.css")).toExternalForm());
+            newCommentController newCommentController = fxmlLoader.getController();
             videoPlayer_vBox.getChildren().add(5, gridPane);
+
+            newCommentController.define(videoInfo);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

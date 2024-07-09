@@ -210,7 +210,7 @@ public class Request {
 
         write(request);
     }
-    static void addComment(String video_id,String text ,String repliedTo_id){
+    public void addComment(int video_id,String text ,int repliedTo_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/addComment");
 
@@ -220,7 +220,7 @@ public class Request {
 
         write(request);
     }
-    static void removeComment(String comment_id,String repliedTo_id){
+    public void removeComment(int comment_id,int repliedTo_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/removeComment");
         request.put("comment_id",comment_id);

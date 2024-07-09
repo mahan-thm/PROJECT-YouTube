@@ -15,9 +15,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Objects;
 
+import static client.models.Main.read;
+import static client.models.Main.request;
+
 public class CommentController {
 
-    public void define(JSONObject response) {
+    public void define(int comment_id) {
+        request.comment(comment_id);
+        JSONObject response = read();
         if (response.getInt("repliedTo")==-1){
 
             cmntChannelUsername_hyperLink.setText(response.getString("senderName"));

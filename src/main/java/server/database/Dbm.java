@@ -435,7 +435,9 @@ public class Dbm {
         String body="";
         try {
             ResultSet rs = stat.executeQuery(query);
-            body =rs.getString("body");
+            if (rs.next()){
+                body = rs.getString("body");
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -445,21 +447,23 @@ public class Dbm {
         return body;
     }
 
-    public static Timestamp getcommentCreationTime(int commentId) {
+    public static String getcommentCreationTime(int commentId) {
         open();
         String query = "SELECT * FROM comments" +
                 " WHERE id =" + commentId;
         String creation_time="";
         try {
             ResultSet rs = stat.executeQuery(query);
-            creation_time =rs.getString("creation_date");
+            if(rs.next()){
+                creation_time =rs.getString("creation_date");
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
         finally {
             close();
         }
-        return Timestamp.valueOf(creation_time);
+        return creation_time;
     }
 
 
@@ -616,13 +620,15 @@ public class Dbm {
         try {
             ResultSet rs = stat.executeQuery(maxId);
             // bug probablity
-            lastId =rs.getInt("maxId") ;
-            lastId++;
+            if (rs.next()){
+                lastId = rs.getInt("maxId");
+                lastId++;
 
-            String query =
-                    "INSERT INTO TABLE comments (id ,user_id, video_id,creation_date, body, repliedTo) VALUES ("
-                            + lastId +","+ user_id + "," + video_id +",'" + creationDate + "','" + text + "',"+ repliedToId+")";
-            int res = stat.executeUpdate(query);
+                String query =
+                        "INSERT INTO comments (id ,user_id, video_id,creation_date, body, reply_to) VALUES ("
+                                + lastId + "," + user_id + "," + video_id + ",'" + creationDate + "','" + text + "'," + repliedToId + ")";
+                int res = stat.executeUpdate(query);
+            }
             close();
             return lastId;
 
@@ -725,12 +731,13 @@ public class Dbm {
 
     public static String getUsername(int userId) {
         open();
-        String query = "SELECT *  FROM users" +
+        String query = "SELECT *  FROM users " +
                 "WHERE id =  " +userId ;
         try{
             ResultSet rs = stat.executeQuery(query);
-            close();
-            return rs.getString("username");
+            if(rs.next()){
+                return rs.getString("username");
+            }
         }
         catch (SQLException e){
             e.printStackTrace();

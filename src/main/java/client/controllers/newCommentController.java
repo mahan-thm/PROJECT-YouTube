@@ -1,5 +1,6 @@
 package client.controllers;
 
+import client.models.VideoInfo;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,10 +12,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static client.models.Main.*;
 
 public class newCommentController implements Initializable {
     @FXML
@@ -23,6 +29,8 @@ public class newCommentController implements Initializable {
     private GridPane newComment_gridPane;
     @FXML
     private Circle cmntProffile_circle;
+
+    VideoInfo videoInfo ;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,12 +50,32 @@ public class newCommentController implements Initializable {
         });
 
         try {
-            //TODO set profile of who commenting
-            Image image = new Image(Objects.requireNonNull(getClass().getResource("../../CACHE/imageCache/img3.jpg")).openStream());
+            request.profileImg();
+            if (read().getString("responseType").equals("/profileImg_accepted")) {
+
+                byte[] profImgBytes = readFile();
+
+
+                File file = new File("src/main/resources/CACHE/imageCache/profImg0.jpg");
+
+                try {
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(profImgBytes);
+
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            Image image = new Image(Objects.requireNonNull(getClass().getResource("../../CACHE/imageCache/profImg0.jpg")).openStream());
             cmntProffile_circle.setFill(new ImagePattern(image));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void define(VideoInfo videoInfo){
+        this.videoInfo = videoInfo;
     }
 
     @FXML
@@ -57,7 +85,9 @@ public class newCommentController implements Initializable {
 
     @FXML
     public void comment_action() {
-        //TODO
-        String comment = newComment_textArea.getText();
+
+        String comment_text = newComment_textArea.getText();
+        request.addComment(videoInfo.id,comment_text,-1);
+        newComment_textArea.clear();
     }
 }
