@@ -19,8 +19,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
@@ -82,41 +82,7 @@
                   </TextField>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <Button fx:id="accountProfHome_button" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#account_action" prefHeight="40.0" prefWidth="40.0" text="M" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <graphic>
-                              <Rectangle fx:id="circleOnProf_rectangle" disable="true" height="42.0" smooth="false" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="42.0">
-                                 <fill>
-                                    <RadialGradient centerX="0.5" centerY="0.5" radius="0.49541283091273874">
-                                       <stops>
-                                          <Stop>
-                                             <color>
-                                                <Color red="1.0" opacity="0.0" />
-                                             </color>
-                                          </Stop>
-                                          <Stop offset="0.006729475100942127">
-                                             <color>
-                                                <Color red="1.0" opacity="0.0" />
-                                             </color>
-                                          </Stop>
-                                          <Stop offset="0.9460657190690345">
-                                             <color>
-                                                <Color red="1.0" opacity="0.0" />
-                                             </color>
-                                          </Stop>
-                                          <Stop offset="1.0">
-                                             <color>
-                                                <Color red="1.0" />
-                                             </color>
-                                          </Stop>
-                                       </stops>
-                                    </RadialGradient>
-                                 </fill>
-                              </Rectangle>
-                           </graphic>
-                        </Button>
+                        <Circle fx:id="accountProfHome_circle" fill="#ff1f1f" layoutX="162.0" layoutY="26.0" onMouseClicked="#account_action" radius="21.0" stroke="BLACK" strokeType="INSIDE" />
                         <Button alignment="CENTER" layoutX="89.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
                            <graphic>
                               <Button fx:id="notification_button" maxHeight="22.0" maxWidth="16.0" minHeight="22.0" minWidth="16.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="16.0" />
@@ -281,7 +247,7 @@
             </Pane>
             <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0" visible="false">
                <children>
-                  <ScrollPane fx:id="toolBar_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="300.0" vbarPolicy="ALWAYS">
+                  <ScrollPane fx:id="toolBar_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="250.0" vbarPolicy="ALWAYS">
                      <content>
                         <VBox prefHeight="285.0" prefWidth="300.0" spacing="10.0">
                            <children>
@@ -301,24 +267,102 @@
                                     </Button>
                                  </children>
                               </Group>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="278.0" text="   Home">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Home">
                                  <graphic>
                                     <Button fx:id="homeTollBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="278.0" text="   Shotrs">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Shotrs">
                                  <graphic>
                                     <Button fx:id="shortsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="278.0" text="   Subscribtions">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Subscribtions">
                                  <graphic>
                                     <Button fx:id="subscriptionsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="278.0" text="   You">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   You">
                                  <graphic>
                                     <Button fx:id="youToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Line endX="200.0" stroke="#818181" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Line>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Your channel">
+                                 <graphic>
+                                    <Button fx:id="yourChannelIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   History">
+                                 <graphic>
+                                    <Button fx:id="historyIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Playlists">
+                                 <graphic>
+                                    <Button fx:id="playlistIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Watch later">
+                                 <graphic>
+                                    <Button fx:id="watchLaterIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Liked videos">
+                                 <graphic>
+                                    <Button fx:id="likedVideosIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Line endX="200.0" stroke="#818181">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Line>
+                              <Label text="Subscribtion">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <VBox fx:id="subscribtion_vBox">
+                                 <VBox.margin>
+                                    <Insets right="10.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <Hyperlink text="All subscribtions" textFill="#818181">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Hyperlink>
+                              <Line endX="200.0" stroke="#818181">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Line>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Settings">
+                                 <graphic>
+                                    <Button fx:id="settingsIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Report history">
+                                 <graphic>
+                                    <Button fx:id="reportHistoryIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Help">
+                                 <graphic>
+                                    <Button fx:id="helpIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Send feedback">
+                                 <graphic>
+                                    <Button fx:id="sendFeedbackIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
                            </children>
@@ -361,41 +405,7 @@
                                     </Hyperlink>
                                  </children>
                               </VBox>
-                              <Button fx:id="accountProfHome_button1" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="10.0" maxHeight="48.0" maxWidth="48.0" minHeight="48.0" minWidth="48.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" text="M" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Arial Bold" size="21.0" />
-                                 </font>
-                                 <graphic>
-                                    <Rectangle fx:id="circleOnProf_rectangle1" disable="true" height="50.0" smooth="false" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="50.0">
-                                       <fill>
-                                          <RadialGradient centerX="0.5" centerY="0.5" radius="0.49541283091273874">
-                                             <stops>
-                                                <Stop>
-                                                   <color>
-                                                      <Color red="1.0" opacity="0.0" />
-                                                   </color>
-                                                </Stop>
-                                                <Stop offset="0.006729475100942127">
-                                                   <color>
-                                                      <Color red="1.0" opacity="0.0" />
-                                                   </color>
-                                                </Stop>
-                                                <Stop offset="0.9460657190690345">
-                                                   <color>
-                                                      <Color red="1.0" opacity="0.0" />
-                                                   </color>
-                                                </Stop>
-                                                <Stop offset="1.0">
-                                                   <color>
-                                                      <Color red="1.0" />
-                                                   </color>
-                                                </Stop>
-                                             </stops>
-                                          </RadialGradient>
-                                       </fill>
-                                    </Rectangle>
-                                 </graphic>
-                              </Button>
+                              <Circle fx:id="accountProfHome_circle1" fill="#ff1f1f" layoutX="28.0" layoutY="34.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
                            </children>
                         </AnchorPane>
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />

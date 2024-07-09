@@ -18,6 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -57,13 +59,13 @@ public class HomeController implements Initializable {
     @FXML
     private Pane creat_pane;
     @FXML
-    private Button accountProfHome_button;
+    private Circle accountProfHome_circle1;
     @FXML
     private ScrollPane toolBar_scrollPane;
     @FXML
     private Rectangle fadeRectangle_rectangle;
     @FXML
-    private Button accountProfHome_button1;
+    private Circle accountProfHome_circle;
     @FXML
     private HBox tags_hBox;
     @FXML
@@ -101,10 +103,14 @@ public class HomeController implements Initializable {
                 throw new RuntimeException(e);
             }
 
-            String profPath = "-fx-background-image: url('CACHE/imageCache/profImg0.jpg')";
-
-            accountProfHome_button.setStyle(profPath);
-            accountProfHome_button1.setStyle(profPath);
+            try {
+                //TODO set profile of who commenting
+                Image image = new Image(Objects.requireNonNull(getClass().getResource("../../CACHE/imageCache/profImg0.jpg")).openStream());
+                accountProfHome_circle.setFill(new ImagePattern(image));
+                accountProfHome_circle1.setFill(new ImagePattern(image));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
 //            accountProfHome_button1.
         }

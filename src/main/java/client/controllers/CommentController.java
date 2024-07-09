@@ -70,7 +70,7 @@ public class CommentController {
             GridPane gridPane = fxmlLoader.load();
             ((Button)((GridPane) gridPane.getChildren().get(3)).getChildren().get(2)).setText("Reply");
             gridPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/newCommentStyle.css")).toExternalForm());
-            videoCmment_vBox.getChildren().add(3, gridPane);
+            videoComment_vBox.getChildren().add(3, gridPane);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
