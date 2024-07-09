@@ -1,6 +1,7 @@
 package server.database;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import server.models.TagScore;
 import server.models.tag;
 
@@ -45,22 +46,28 @@ public class Dbm {
         }
     }
 
-    public static List<String> searchBarList(String toSearch) {
+    public static JSONObject searchBarList(String toSearch) {
         List<String> searchBarList = new ArrayList<>();
+        ArrayList<JSONObject> videos = new ArrayList<>();
+        ArrayList<JSONObject> channels = new ArrayList<>();
+        ArrayList<JSONObject> playlists = new ArrayList<>();
         open();
 
-        String videoQuery = "SELECT title FROM videos";
-        String channelQuery = "SELECT title FROM channels";
-        String playlistQuery = "SELECT title FROM channels";
+        String videoQuery = "SELECT * FROM videos";
+        String channelQuery = "SELECT * FROM channels";
+//        String playlistQuery = "SELECT * FROM playlists";
 
 
         try {
             ResultSet videoResultSet = stat.executeQuery(videoQuery);
             while (videoResultSet.next()) {
                 String title = videoResultSet.getString("title");
-                searchBarList.add(title);
+                int id = videoResultSet.getInt("id");
+                JSONObject video = new JSONObject();
+                video.put("title",title);
+                video.put("id",id);
+                videos.add(video);
             }
-            searchBarList.add("videos :");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,58 +76,84 @@ public class Dbm {
             ResultSet channelResultSet = stat.executeQuery(channelQuery);
             while (channelResultSet.next()) {
                 String title = channelResultSet.getString("title");
-                searchBarList.add(title);
+                int id = channelResultSet.getInt("id");
+                JSONObject channel = new JSONObject();
+                channel.put("title",title);
+                channel.put("id",id);
+                channels.add(channel);
             }
-            searchBarList.add("channels :");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try {
-            ResultSet playlistResultSet = stat.executeQuery(playlistQuery);
-            while (playlistResultSet.next()) {
-                String title = playlistResultSet.getString("title");
-                searchBarList.add(title);
-            }
-            searchBarList.add("playLists :");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
+//        try {
+//            ResultSet playlistResultSet = stat.executeQuery(playlistQuery);
+//            while (playlistResultSet.next()) {
+//                String title = playlistResultSet.getString("title");
+//                searchBarList.add(title);
+//            }
+//            searchBarList.add("playLists :");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        finally {
             close();
         }
-        searchBarList = findSimilarTitles(toSearch ,searchBarList);
-        return searchBarList;
+
+        JSONArray videoResult = findSimilarTitles(toSearch ,videos);
+        JSONArray channelResult = findSimilarTitles(toSearch ,channels);
+        JSONObject result = new JSONObject();
+        result.put("videoResult",videoResult);
+        result.put("channelResult",channelResult);
+        return result;
     }
     public static void showSearchedContent (){
         // todo bayad age moshabehate esmi kamel mikardam
     }
-    public static List<String> findSimilarTitles(String toSearch, List<String> titles) {
+
+    public static JSONArray findSimilarTitles(String toSearch, ArrayList<JSONObject> titles) {
+
+        // title
+        // id
+        // distance
+
         // Step 1: Use regex to filter out titles that contain the search term
         Pattern pattern = Pattern.compile(".*" + Pattern.quote(toSearch) + ".*", Pattern.CASE_INSENSITIVE);
-        List<String> filteredTitles = new ArrayList<>();
-        for (String title : titles) {
-            Matcher matcher = pattern.matcher(title);
-            if (matcher.matches()) {
-                filteredTitles.add(title);
-            }
-        }
+
 
         // Step 2: Calculate Levenshtein distance for filtered titles
-        Map<String, Integer> titleDistances = new HashMap<>();
-        for (String title : filteredTitles) {
+        Map<JSONObject, Integer> titleDistances = new HashMap<>();
+        for (JSONObject result : titles) {
+            String title = result.getString("title");
+
             int distance = levenshteinDistance(toSearch, title);
-            titleDistances.put(title, distance);
+
+            Matcher matcher = pattern.matcher(title);
+            if (!matcher.matches()) {
+                distance += 4;
+            }
+
+            result.put("distance",distance);
+
+            titleDistances.put(result, distance);
         }
+
+
 
         // Step 3: Sort titles by their distance
-        List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(titleDistances.entrySet());
+        List<Map.Entry<JSONObject, Integer>> sortedEntries = new ArrayList<>(titleDistances.entrySet());
         sortedEntries.sort(Map.Entry.comparingByValue());
 
-        List<String> sortedTitles = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : sortedEntries) {
+        ArrayList<JSONObject> sortedTitles = new ArrayList<>();
+
+        for (Map.Entry<JSONObject, Integer> entry : sortedEntries) {
             sortedTitles.add(entry.getKey());
         }
-
-        return sortedTitles;
+        JSONArray finalResult= new JSONArray();
+        for (JSONObject a : sortedTitles ){
+            finalResult.put(a);
+        }
+        return finalResult;
     }
 
     public static int levenshteinDistance(String a, String b) {
@@ -1219,4 +1252,3 @@ public class Dbm {
     }
 
 }
-
