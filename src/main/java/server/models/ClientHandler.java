@@ -108,10 +108,22 @@ public class ClientHandler implements Runnable {
                 case "/dislikeVideo"      -> dislikeVideo(request);
                 case "/remove_dislikedVideo"   -> remove_dislikedVideo(request);
                 case "/edit_commentLike" -> edit_commentLike(request);
+                case "/search" -> search(request);
+
+
+
                 //todo profile picture
 
             }
         }
+    }
+
+    private void search(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        response =  Dbm.searchBarList(request.getString("text"));
+
+        write(response);
     }
 
 

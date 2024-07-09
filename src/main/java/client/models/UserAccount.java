@@ -20,9 +20,10 @@ public class UserAccount {
     public UserAccount(String username,String password){
         this.username = username;
         this.password = password;
-        request.getChannelUsername(username);
-        JSONObject response = read();
-        this.channel_username = response.getString("channel_username");
+//        request.getChannelUsername(username);
+//        JSONObject response = read();
+//        this.channel_username = response.getString("channel_username");
+          this.channel_username = "channel_1";
     }
     public UserAccount(){
         username = "";

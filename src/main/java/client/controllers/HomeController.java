@@ -385,7 +385,9 @@ public class HomeController implements Initializable {
     @FXML
     public void searchResult_action() {
         postInHome_vBox.getChildren().clear();
-        //TODO add related channels
+        request.search(Search_textField.getText());
+        JSONObject response = read();
+
         for (int i = 0; i < 3; i++) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearch.fxml")));
