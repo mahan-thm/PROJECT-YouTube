@@ -80,6 +80,7 @@ public class ClientHandler implements Runnable {
                 case "/signUp" -> signUp(request);
                 case "/getChannelUsername" -> getChannelUsername(request);
                 case "/profileImg" -> profileImg(request);
+                case "/channelProfileImg" -> channelProfileImg(request);
                 case "/videoList" -> videoList(request);
                 case "/ChannelVideoList" -> ChannelVideoList(request);
                 case "/channelList" -> channelList(request);
@@ -102,15 +103,31 @@ public class ClientHandler implements Runnable {
 //                case "/remove_WatchedVideo"    -> remove_WatchedVideo(request);
 //                case "/add_WatchLaterVideo"    -> add_WatchLaterVideo(request);
 //                case "/remove_WatchLaterVideo" -> remove_WatchLaterVideo(request);
-//                case "/add_likedVideo"         -> add_likedVideo(request);
-//                case "/remove_likedVideo"      -> remove_likedVideo(request);
-//                case "/add_dislikedVideo"      -> add_dislikedVideo(request);
-//                case "/remove_dislikedVideo"   -> remove_dislikedVideo(request);
+                case "/likeVideo"         -> likeVideo(request);
+                case "/remove_likedVideo"      -> remove_likedVideo(request);
+                case "/dislikeVideo"      -> dislikeVideo(request);
+                case "/remove_dislikedVideo"   -> remove_dislikedVideo(request);
                 case "/edit_commentLike" -> edit_commentLike(request);
                 //todo profile picture
 
             }
         }
+    }
+
+
+    private void channelProfileImg(JSONObject request) {
+
+        JSONObject response = new JSONObject();
+
+        String channel_username = request.getString("channel_username");
+        int channel_id = Dbm.getChannel_id(channel_username);
+
+        response.put("responseType", "/profileImg_accepted");
+
+        File fileToSend = new File("src/main/resources/DATA/channelProfileImage/"+ channel_id+".jpg");
+
+        write(response);
+        sendFile(fileToSend);
     }
 
     private void getChannelUsername(JSONObject request) {
@@ -126,6 +143,7 @@ public class ClientHandler implements Runnable {
         write(response);
 
     }
+
     private void ChannelVideoList(JSONObject request) {
 
         JSONObject response = new JSONObject();
@@ -151,7 +169,6 @@ public class ClientHandler implements Runnable {
         write(response);
 
     }
-
 
     private void login(JSONObject request) {
         JSONObject response = new JSONObject();
@@ -222,6 +239,7 @@ public class ClientHandler implements Runnable {
         write(response);
         sendFile(fileToSend);
     }
+
 
     private void videoList(JSONObject request) {
 
@@ -327,7 +345,7 @@ public class ClientHandler implements Runnable {
             commentIdList.put(id);
         }
         response.put("responseType", "/commentList_accepted");
-        response.put("videoIdList", commentIdList);
+        response.put("commentIdList", commentIdList);
         response.put("commentCount", commentCount);
 
 
@@ -361,6 +379,8 @@ public class ClientHandler implements Runnable {
         int total_view = Dbm.getVideo_totalView(id);
         int total_likes = Dbm.getVideo_totalLikes(id);
         int total_dislikes = Dbm.getVideo_totalDislikes(id);
+        boolean is_liked = Dbm.is_liked(id,user_id);
+        boolean is_disliked = Dbm.is_disliked(id,user_id);
 
         int channel_id = Dbm.getchannel_id(id);
         String channel_name = Dbm.getchannel_name(channel_id);
@@ -377,9 +397,12 @@ public class ClientHandler implements Runnable {
         response.put("channel_id", channel_id);
         response.put("channel_name", channel_name);
         response.put("channel_username", channel_username);
+        response.put("is_liked", is_liked);
+        response.put("is_disliked", is_disliked);
 
 
         write(response);
+
 
     }
 
@@ -416,12 +439,12 @@ public class ClientHandler implements Runnable {
         int comment_id = (int) request.get("comment_id");
         String senderName = Dbm.getUsername(Dbm.getCommentSender_id(comment_id));
         String Text = Dbm.getCommentText(comment_id);
-        String repliedTo = Dbm.getcommentRepliedTo(comment_id);
-        Timestamp creationTime = Dbm.getcommentCreationTime(comment_id);
+        int repliedTo = Dbm.getcommentRepliedTo(comment_id);
+        String creationTime = Dbm.getcommentCreationTime(comment_id);
 
         response.put("responseType", "/comment_accepted");
-        response.put("senderName", "/senderName");
-        response.put("Text", Text);
+        response.put("senderName", senderName);
+        response.put("text", Text);
         response.put("repliedTo", repliedTo);
         response.put("creationTime", creationTime);
 
@@ -522,6 +545,7 @@ public class ClientHandler implements Runnable {
             saveFile(fileBytes,"src/main/resources/DATA/video_examples/"+ video_id + ".mp4");
         }
     }
+
     public static void saveFile(byte[] bytes,String path){
 
         try {
@@ -535,7 +559,6 @@ public class ClientHandler implements Runnable {
         }
 
     }
-
     private void uploadVideoFile(JSONObject request) {
         JSONObject response = new JSONObject();
 
@@ -584,7 +607,7 @@ public class ClientHandler implements Runnable {
         int repliedTo_id = (int) request.get("repliedTo_id");
 
 
-        Dbm.addComment(video_id, user_id, text, repliedTo_id, "");
+        Dbm.addComment(video_id, user_id, text, repliedTo_id, String.valueOf(LocalDateTime.now()));
         response.put("responseType", "/addComment_accepted");
 
 
@@ -644,6 +667,104 @@ public class ClientHandler implements Runnable {
         write(response);
     }
 
+    private void likeVideo(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        int video_id =  request.getInt("video_id");
+
+        if (!Dbm.is_liked(video_id,user_id)){
+            String add_date = String.valueOf(LocalDateTime.now());
+            Dbm.addUserLike(video_id, user_id,add_date);
+            response.put("responseType", "/likeVideo_accepted");
+            System.out.println("/likeVideo_accepted");
+            ArrayList<tag> userTagList= Dbm.tagList(user_id,"user");
+            for(tag tag:userTagList ){
+               Dbm.addTag(video_id,"video",tag.tagName,100);
+
+            }
+            ArrayList<tag> videoTagList= Dbm.tagList(user_id,"user");
+            for(tag tag:videoTagList ){
+                Dbm.addTag(user_id,"user",tag.tagName,100);
+
+            }
+        }
+        else {
+            response.put("responseType", "/likeVideo_rejected");
+            System.out.println("/likeVideo_rejected");
+
+        }
+
+
+        write(response);
+    }
+    private void remove_likedVideo(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        int video_id =  request.getInt("video_id");
+
+        if (Dbm.is_liked(video_id,user_id)){
+            String add_date = String.valueOf(LocalDateTime.now());
+            Dbm.removeUserLike(video_id, user_id,add_date);
+            response.put("responseType", "/remove_likedVideo_accepted");
+            System.out.println("/remove_likedVideo_accepted");
+//            Dbm.addTag(user_id,"user","channel_" + channel_username,100);
+            // todo edit recommendation
+        }
+        else {
+            response.put("responseType", "/remove_likedVideo_rejected");
+            System.out.println("/remove_likedVideo_rejected");
+
+        }
+
+
+        write(response);
+    }
+
+    private void dislikeVideo(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        int video_id =  request.getInt("video_id");
+
+        if (!Dbm.is_disliked(video_id,user_id)){
+            String add_date = String.valueOf(LocalDateTime.now());
+            Dbm.addUserLike(video_id, user_id,add_date);
+            response.put("responseType", "/dislikeVideo_accepted");
+            System.out.println("/dislikeVideo_accepted");
+//            Dbm.addTag(user_id,"user","channel_" + channel_username,100);
+            // todo edit recommendation
+        }
+        else {
+            response.put("responseType", "/dislikeVideo_rejected");
+            System.out.println("/dislikeVideo_rejected");
+
+        }
+
+
+        write(response);
+    }
+
+
+    private void remove_dislikedVideo(JSONObject request) {
+        JSONObject response = new JSONObject();
+        int video_id =  request.getInt("video_id");
+
+        if (Dbm.is_disliked(video_id,user_id)){
+            String add_date = String.valueOf(LocalDateTime.now());
+            Dbm.removeUserLike(video_id, user_id,add_date);
+            response.put("responseType", "/remove_dislikedVideo_accepted");
+            System.out.println("/remove_dislikedVideo_accepted");
+//            Dbm.addTag(user_id,"user","channel_" + channel_username,100);
+            // todo edit recommendation
+        }
+        else {
+            response.put("responseType", "/remove_dislikedVideo_rejected");
+            System.out.println("/remove_dislikedVideo_rejected");
+
+        }
+
+
+        write(response);
+    }
     private void add_savedVideo(JSONObject request) {
 
         JSONObject response = new JSONObject();

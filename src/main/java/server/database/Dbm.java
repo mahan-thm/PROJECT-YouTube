@@ -435,7 +435,9 @@ public class Dbm {
         String body="";
         try {
             ResultSet rs = stat.executeQuery(query);
-            body =rs.getString("body");
+            if (rs.next()){
+                body = rs.getString("body");
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -445,21 +447,23 @@ public class Dbm {
         return body;
     }
 
-    public static Timestamp getcommentCreationTime(int commentId) {
+    public static String getcommentCreationTime(int commentId) {
         open();
         String query = "SELECT * FROM comments" +
                 " WHERE id =" + commentId;
         String creation_time="";
         try {
             ResultSet rs = stat.executeQuery(query);
-            creation_time =rs.getString("creation_date");
+            if(rs.next()){
+                creation_time =rs.getString("creation_date");
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
         finally {
             close();
         }
-        return Timestamp.valueOf(creation_time);
+        return creation_time;
     }
 
 
@@ -616,13 +620,15 @@ public class Dbm {
         try {
             ResultSet rs = stat.executeQuery(maxId);
             // bug probablity
-            lastId =rs.getInt("maxId") ;
-            lastId++;
+            if (rs.next()){
+                lastId = rs.getInt("maxId");
+                lastId++;
 
-            String query =
-                    "INSERT INTO TABLE comments (id ,user_id, video_id,creation_date, body, repliedTo) VALUES ("
-                            + lastId +","+ user_id + "," + video_id +",'" + creationDate + "','" + text + "',"+ repliedToId+")";
-            int res = stat.executeUpdate(query);
+                String query =
+                        "INSERT INTO comments (id ,user_id, video_id,creation_date, body, reply_to) VALUES ("
+                                + lastId + "," + user_id + "," + video_id + ",'" + creationDate + "','" + text + "'," + repliedToId + ")";
+                int res = stat.executeUpdate(query);
+            }
             close();
             return lastId;
 
@@ -725,12 +731,13 @@ public class Dbm {
 
     public static String getUsername(int userId) {
         open();
-        String query = "SELECT *  FROM users" +
+        String query = "SELECT *  FROM users " +
                 "WHERE id =  " +userId ;
         try{
             ResultSet rs = stat.executeQuery(query);
-            close();
-            return rs.getString("username");
+            if(rs.next()){
+                return rs.getString("username");
+            }
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -805,6 +812,26 @@ public class Dbm {
         return null;
     }
 
+    public static ArrayList<tag> tagList(int item_id,String type){
+        open();
+        try{
+
+            String videoTagQuery = "SELECT * FROM tag where type = '"+type+"' AND item_id = " + item_id;
+            ResultSet videoTagsRs = stat.executeQuery(videoTagQuery);
+            ArrayList<tag> tags = new ArrayList<>();
+            while (videoTagsRs.next()){
+                String tagName = videoTagsRs.getString("tag_name");
+                int score = videoTagsRs.getInt("score");
+                tags.add(new tag(tagName,score));
+            }
+            return tags;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            close();
+        }
+        return null;
+    }
     public static ArrayList<Integer> getRecommendedVideos(int userId) {
         open();
         ArrayList <Integer> videoIdList = new ArrayList<>();
@@ -844,6 +871,7 @@ public class Dbm {
                 }
                 videoTagScores.add(new TagScore(video_id,tags));
             }
+
             close();
 
             for (int i = 0; i < userTags.size(); i++) {
@@ -939,6 +967,34 @@ public class Dbm {
             close();
         }
     }
+    public static void addUserLike(int videoId, int userId, String addDate) {
+        open();
+        String query = "INSERT INTO saved_videos (video_id , user_id , type , add_date "
+                +") VALUES ( " + videoId +","+ userId +",'"+ "liked" +"','"+ addDate+"')";
+        try{
+            int rs = stat.executeUpdate(query);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+    }
+    public static void removeUserLike(int videoId, int userId, String addDate) {
+        open();
+        try {
+            String query = "DELETE FROM saved_videos WHERE videoId = " + videoId
+                    +" AND user_id = "+userId
+                    +" AND type = liked" ;
+            int rs = stat.executeUpdate(query);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+    }
 
 
     public static void removeUserSubscribedChannels(int channelId, int userId) {
@@ -983,7 +1039,7 @@ public class Dbm {
     }
     public static void removeSavedVideo(int userId, String playlistType, int videoId) {
     }
-    public static String getcommentRepliedTo(int commentId) {
+    public static int getcommentRepliedTo(int commentId) {
         // todo is it to understand that this comment is replied to which comment?
 //        String query = "SELECT * FROM comments" +
 //                " WHERE id =" + commentId;
@@ -994,7 +1050,7 @@ public class Dbm {
 //        }catch (SQLException e){
 //            e.printStackTrace();
 //        }
-        return "";
+        return -1;
     }
 
     public static int getCommentTotalLikes(int commentId){
@@ -1104,20 +1160,51 @@ public class Dbm {
         }
         return false;
     }
+    public static boolean is_liked(int videoId, int userId) {
+        open();
 
+        String query = "SELECT * FROM saved_videos " +
+                "WHERE video_id = " + videoId
+                + " AND user_id = " + userId
+                + " AND type = 'liked'" ;
+
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            return rs.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return false;
+    }
+
+    public static boolean is_disliked(int videoId, int userId) {
+        open();
+
+        String query = "SELECT * FROM saved_videos " +
+                "WHERE video_id = " + videoId
+                + " AND user_id = " + userId
+                + " AND type = 'disliked'" ;
+
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            return rs.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return false;
+    }
 
     public static void addTag(int itemId, String type, String tagName, int score) {
         open();
-        String maxId = "SELECT MAX(id) AS maxId FROM videos";
-        int lastId=0;
         try {
-            ResultSet rs = stat.executeQuery(maxId);
-            // bug probablity
-            lastId =rs.getInt("maxId") ;
-            lastId++;
-
             String query =
-                    "INSERT INTO TABLE tag (item_id , type, score , tagName) VALUES ("
+                    "INSERT INTO tag (item_id , type, score , tag_name) VALUES ("
                             + itemId +",'"+ type + "'," + score +",'" + tagName + "')";
 
             int res = stat.executeUpdate(query);
@@ -1130,5 +1217,6 @@ public class Dbm {
         }
 
     }
+
 }
 
