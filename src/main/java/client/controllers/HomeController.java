@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -70,9 +71,21 @@ public class HomeController implements Initializable {
     private HBox tags_hBox;
     @FXML
     private ScrollPane tags_scrollPane;
+    @FXML
+    private VBox searchResult_vBox;
+    @FXML
+    private TextField Search_textField;
+    @FXML
+    private Pane searchResult_pane;
+    @FXML
+    private GridPane tags_gridPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //****************************************** PUBLIC *********************************************
+        searchResult_vBox.prefWidthProperty().bind(Search_textField.widthProperty());
+
+
         toolBar_scrollPane.prefHeightProperty().bind(homeMain_borderPain.heightProperty());
         fadeRectangle_rectangle.widthProperty().bind(homeMain_borderPain.widthProperty());
         fadeRectangle_rectangle.heightProperty().bind(homeMain_borderPain.heightProperty());
@@ -84,7 +97,7 @@ public class HomeController implements Initializable {
             tags_hBox.getChildren().add(button);
         }
 
-        //____________________________________PROFILE PHOTO__________________________________________
+        //________________________PROFILE PHOTO__________________________
         request.profileImg();
         if (read().getString("responseType").equals("/profileImg_accepted")) {
 
@@ -114,7 +127,10 @@ public class HomeController implements Initializable {
 
 //            accountProfHome_button1.
         }
-        //_________________________________________VIDEO THUMBNAIL___________________________________________
+
+        //****************************************** PRIVET *********************************************
+
+        //_______________________VIDEO THUMBNAIL__________________
         request.videoList(9, new JSONArray());
         JSONObject response1 = read();
         JSONArray video_idList = response1.getJSONArray("videoIdList");
@@ -350,6 +366,19 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void search_action(){
+        boolean status = searchResult_pane.isVisible();
+        searchResult_pane.setVisible(!status);
+        searchResult_pane.setDisable(status);
+        tags_gridPane.setVisible(status);
+        tags_gridPane.setDisable(!status);
+    }
+    @FXML
+    public void searchResult_action(){
+
     }
 
     //________________________________________PRIVET______________________________________________

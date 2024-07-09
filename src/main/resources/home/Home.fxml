@@ -45,9 +45,10 @@
          <children>
             <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="960.0">
                <columnConstraints>
-                  <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="250.0" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1000.0" minWidth="200.0" />
-                  <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="250.0" />
+                  <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" minWidth="250.0" />
+                  <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1000.0" />
+                  <ColumnConstraints fillWidth="false" halignment="LEFT" />
+                  <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="ALWAYS" minWidth="307.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -72,7 +73,7 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </AnchorPane>
-                  <TextField fx:id="Search_textField" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" prefWidth="573.0" promptText="Search" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                  <TextField fx:id="Search_textField" maxHeight="40.0" minHeight="40.0" onMouseClicked="#search_action" prefHeight="40.0" prefWidth="573.0" promptText="Search" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -80,7 +81,7 @@
                         <Insets bottom="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                      <children>
                         <Circle fx:id="accountProfHome_circle" fill="#ff1f1f" layoutX="162.0" layoutY="26.0" onMouseClicked="#account_action" radius="21.0" stroke="BLACK" strokeType="INSIDE" />
                         <Button alignment="CENTER" layoutX="89.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
@@ -103,7 +104,7 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </AnchorPane>
-                  <Button fx:id="search_button" maxHeight="38.0" maxWidth="60.0" minHeight="38.0" minWidth="60.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="60.0" GridPane.columnIndex="1">
+                  <Button fx:id="search_button" maxHeight="39.0" maxWidth="60.0" minHeight="39.0" minWidth="60.0" mnemonicParsing="false" onAction="#search_action" prefHeight="39.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.columnSpan="2">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -115,12 +116,28 @@
                         </ImageView>
                      </graphic>
                      <GridPane.margin>
-                        <Insets bottom="5.0" />
+                        <Insets bottom="5.0" left="-3.0" />
                      </GridPane.margin>
                   </Button>
+                  <Pane fx:id="searchResult_pane" maxHeight="5.0" maxWidth="100.0" minHeight="5.0" minWidth="100.0" prefHeight="5.0" prefWidth="100.0" visible="false" GridPane.columnIndex="1">
+                     <children>
+                        <VBox fx:id="searchResult_vBox" layoutY="1.0" prefHeight="200.0" prefWidth="398.0">
+                           <children>
+                              <Button fx:id="closeSearchResult_button" maxHeight="10.0" maxWidth="10.0" minHeight="10.0" minWidth="10.0" mnemonicParsing="false" onAction="#search_action" prefHeight="10.0" prefWidth="10.0">
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                     <GridPane.margin>
+                        <Insets top="50.0" />
+                     </GridPane.margin>
+                  </Pane>
                </children>
             </GridPane>
-            <GridPane>
+            <GridPane fx:id="tags_gridPane">
                <VBox.margin>
                   <Insets left="50.0" />
                </VBox.margin>
@@ -247,7 +264,7 @@
             </Pane>
             <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0" visible="false">
                <children>
-                  <ScrollPane fx:id="toolBar_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="250.0" vbarPolicy="ALWAYS">
+                  <ScrollPane fx:id="toolBar_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="240.0" vbarPolicy="ALWAYS">
                      <content>
                         <VBox prefHeight="285.0" prefWidth="300.0" spacing="10.0">
                            <children>
