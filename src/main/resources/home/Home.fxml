@@ -73,7 +73,7 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </AnchorPane>
-                  <TextField fx:id="Search_textField" maxHeight="40.0" minHeight="40.0" onMouseClicked="#search_action" prefHeight="40.0" prefWidth="573.0" promptText="Search" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                  <TextField fx:id="Search_textField" maxHeight="40.0" minHeight="40.0" onKeyTyped="#searchRecommend_action" onMouseClicked="#search_action" prefHeight="40.0" prefWidth="573.0" promptText="Search" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -121,15 +121,12 @@
                   </Button>
                   <Pane fx:id="searchResult_pane" maxHeight="5.0" maxWidth="100.0" minHeight="5.0" minWidth="100.0" prefHeight="5.0" prefWidth="100.0" visible="false" GridPane.columnIndex="1">
                      <children>
-                        <VBox fx:id="searchResult_vBox" layoutY="1.0" prefHeight="200.0" prefWidth="398.0">
-                           <children>
-                              <Button fx:id="closeSearchResult_button" maxHeight="10.0" maxWidth="10.0" minHeight="10.0" minWidth="10.0" mnemonicParsing="false" onAction="#search_action" prefHeight="10.0" prefWidth="10.0">
-                                 <VBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
+                        <VBox fx:id="searchResult_vBox" layoutY="1.0" prefHeight="31.0" prefWidth="398.0" spacing="10.0">
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
                         </VBox>
+                        <Button fx:id="closeSearchResult_button" layoutX="6.0" layoutY="6.0" maxHeight="10.0" maxWidth="10.0" minHeight="10.0" minWidth="10.0" mnemonicParsing="false" onAction="#search_action" prefHeight="10.0" prefWidth="10.0" />
                      </children>
                      <GridPane.margin>
                         <Insets top="50.0" />

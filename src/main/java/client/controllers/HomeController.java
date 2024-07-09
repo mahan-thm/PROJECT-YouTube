@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -375,6 +376,16 @@ public class HomeController implements Initializable {
         searchResult_pane.setDisable(status);
         tags_gridPane.setVisible(status);
         tags_gridPane.setDisable(!status);
+    }
+    @FXML
+    public void searchRecommend_action(){
+        //TODO add recommended searches to searchResult_vBox by REGEX
+        searchResult_vBox.getChildren().clear();
+        for(int i = 0; i < 10 ; i++){
+            Hyperlink hyperlink = new Hyperlink("result test");
+            hyperlink.setStyle("-fx-padding: 0 10 0 10; -fx-text-fill: red; -fx-font-size: 14");
+            searchResult_vBox.getChildren().add(hyperlink);
+        }
     }
     @FXML
     public void searchResult_action(){
