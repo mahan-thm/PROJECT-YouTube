@@ -24,11 +24,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,6 +40,7 @@ public class VideoPlayerController {
     private File file;
     private VideoInfo videoInfo;
 
+    private int commentNumber ;
     private boolean is_subscribed;
     private boolean is_liked;
     private boolean is_disliked;
@@ -57,6 +60,10 @@ public class VideoPlayerController {
         request.video(video_id);
         JSONObject response2 = read();
         videoInfo = new VideoInfo(video_id, response2);
+        is_liked = videoInfo.is_liked;
+        is_disliked = videoInfo.is_disliked;
+        like_button.setText(String.valueOf(videoInfo.getTotal_likes()));
+
 
         request.channel(videoInfo.channel_username);
         JSONObject response = read();
@@ -65,6 +72,10 @@ public class VideoPlayerController {
         totalSubscribers_label.setText(response.getInt("totalSubscribers") +" subscribers");
         video_lable.setText(videoInfo.getTitle());
         videoDiscription_label.setText(videoInfo.getTitle_body());
+        is_subscribed = response.getBoolean("is_subscribed");
+        if (is_subscribed){
+            subscribe_button.setText("subscribed");
+        }
     }
     @FXML
     private Label videoDiscription_label;
@@ -148,8 +159,13 @@ public class VideoPlayerController {
 
     public void setup() {
 
-
-        for (int i = 0; i < 6; i++) {
+        request.commentList(videoInfo.id);
+        JSONObject CLresponse = read();
+        JSONArray commentIdList = CLresponse.getJSONArray("commentIdList");
+        commentNumber = CLresponse.getInt("commentCount");
+        commentCount.setText(commentNumber + " comments");
+        ArrayList<VideoInfo> commentList = new ArrayList<>();
+        for (int i = 0; i < commentNumber; i++) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/Comment.fxml")));
                 AnchorPane anchorPane = fxmlLoader.load();
@@ -157,8 +173,13 @@ public class VideoPlayerController {
                 anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/CommentStyle.css")).toExternalForm());
                 CommentController commentController = fxmlLoader.getController();
 
-                //TODO video comments
-                commentController.define(); //defining the prof image, comment text, when commented & ...
+                int comment_id = commentIdList.getInt(i);
+                request.comment(comment_id);
+                JSONObject comment_response = read();
+
+
+
+                commentController.define(comment_response); //defining the prof image, comment text, when commented & ...
                 commentController.setup();
 
                 videoComments_vBox.getChildren().add(anchorPane);
@@ -169,7 +190,6 @@ public class VideoPlayerController {
         }
 
         try {
-            //TODO set prof
             request.channelProfileImg(videoInfo.channel_username);
             JSONObject response = read();
             byte[] videoBytes = readFile();

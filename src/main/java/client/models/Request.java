@@ -99,7 +99,7 @@ public class Request {
 
         write(request);
     }
-    public void commentList(String video_id){
+    public void commentList(int video_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/commentList");
         request.put("video_id",video_id);
@@ -131,7 +131,7 @@ public class Request {
 
         write(request);
     }
-    public void comment(String comment_id){
+    public void comment(int comment_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/comment");
         request.put("comment_id",comment_id);

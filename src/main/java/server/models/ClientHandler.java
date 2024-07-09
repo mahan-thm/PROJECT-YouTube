@@ -240,6 +240,7 @@ public class ClientHandler implements Runnable {
         sendFile(fileToSend);
     }
 
+
     private void videoList(JSONObject request) {
 
         JSONObject response = new JSONObject();
@@ -344,7 +345,7 @@ public class ClientHandler implements Runnable {
             commentIdList.put(id);
         }
         response.put("responseType", "/commentList_accepted");
-        response.put("videoIdList", commentIdList);
+        response.put("commentIdList", commentIdList);
         response.put("commentCount", commentCount);
 
 
@@ -378,6 +379,8 @@ public class ClientHandler implements Runnable {
         int total_view = Dbm.getVideo_totalView(id);
         int total_likes = Dbm.getVideo_totalLikes(id);
         int total_dislikes = Dbm.getVideo_totalDislikes(id);
+        boolean is_liked = Dbm.is_liked(id,user_id);
+        boolean is_disliked = Dbm.is_disliked(id,user_id);
 
         int channel_id = Dbm.getchannel_id(id);
         String channel_name = Dbm.getchannel_name(channel_id);
@@ -394,9 +397,12 @@ public class ClientHandler implements Runnable {
         response.put("channel_id", channel_id);
         response.put("channel_name", channel_name);
         response.put("channel_username", channel_username);
+        response.put("is_liked", is_liked);
+        response.put("is_disliked", is_disliked);
 
 
         write(response);
+
 
     }
 
@@ -433,11 +439,11 @@ public class ClientHandler implements Runnable {
         int comment_id = (int) request.get("comment_id");
         String senderName = Dbm.getUsername(Dbm.getCommentSender_id(comment_id));
         String Text = Dbm.getCommentText(comment_id);
-        String repliedTo = Dbm.getcommentRepliedTo(comment_id);
+        int repliedTo = Dbm.getcommentRepliedTo(comment_id);
         Timestamp creationTime = Dbm.getcommentCreationTime(comment_id);
 
         response.put("responseType", "/comment_accepted");
-        response.put("senderName", "/senderName");
+        response.put("senderName", senderName);
         response.put("Text", Text);
         response.put("repliedTo", repliedTo);
         response.put("creationTime", creationTime);
@@ -671,8 +677,16 @@ public class ClientHandler implements Runnable {
             Dbm.addUserLike(video_id, user_id,add_date);
             response.put("responseType", "/likeVideo_accepted");
             System.out.println("/likeVideo_accepted");
-//            Dbm.addTag(user_id,"user","channel_" + channel_username,100);
-            // todo edit recommendation
+            ArrayList<tag> userTagList= Dbm.tagList(user_id,"user");
+            for(tag tag:userTagList ){
+               Dbm.addTag(video_id,"video",tag.tagName,100);
+
+            }
+            ArrayList<tag> videoTagList= Dbm.tagList(user_id,"user");
+            for(tag tag:videoTagList ){
+                Dbm.addTag(user_id,"user",tag.tagName,100);
+
+            }
         }
         else {
             response.put("responseType", "/likeVideo_rejected");

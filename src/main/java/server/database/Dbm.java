@@ -805,6 +805,26 @@ public class Dbm {
         return null;
     }
 
+    public static ArrayList<tag> tagList(int item_id,String type){
+        open();
+        try{
+
+            String videoTagQuery = "SELECT * FROM tag where type = '"+type+"' AND item_id = " + item_id;
+            ResultSet videoTagsRs = stat.executeQuery(videoTagQuery);
+            ArrayList<tag> tags = new ArrayList<>();
+            while (videoTagsRs.next()){
+                String tagName = videoTagsRs.getString("tag_name");
+                int score = videoTagsRs.getInt("score");
+                tags.add(new tag(tagName,score));
+            }
+            return tags;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            close();
+        }
+        return null;
+    }
     public static ArrayList<Integer> getRecommendedVideos(int userId) {
         open();
         ArrayList <Integer> videoIdList = new ArrayList<>();
@@ -844,6 +864,7 @@ public class Dbm {
                 }
                 videoTagScores.add(new TagScore(video_id,tags));
             }
+
             close();
 
             for (int i = 0; i < userTags.size(); i++) {
@@ -1011,7 +1032,7 @@ public class Dbm {
     }
     public static void removeSavedVideo(int userId, String playlistType, int videoId) {
     }
-    public static String getcommentRepliedTo(int commentId) {
+    public static int getcommentRepliedTo(int commentId) {
         // todo is it to understand that this comment is replied to which comment?
 //        String query = "SELECT * FROM comments" +
 //                " WHERE id =" + commentId;
@@ -1022,7 +1043,7 @@ public class Dbm {
 //        }catch (SQLException e){
 //            e.printStackTrace();
 //        }
-        return "";
+        return -1;
     }
 
     public static int getCommentTotalLikes(int commentId){
@@ -1174,16 +1195,9 @@ public class Dbm {
 
     public static void addTag(int itemId, String type, String tagName, int score) {
         open();
-        String maxId = "SELECT MAX(id) AS maxId FROM videos";
-        int lastId=0;
         try {
-            ResultSet rs = stat.executeQuery(maxId);
-            // bug probablity
-            lastId =rs.getInt("maxId") ;
-            lastId++;
-
             String query =
-                    "INSERT INTO TABLE tag (item_id , type, score , tagName) VALUES ("
+                    "INSERT INTO tag (item_id , type, score , tag_name) VALUES ("
                             + itemId +",'"+ type + "'," + score +",'" + tagName + "')";
 
             int res = stat.executeUpdate(query);

@@ -6,20 +6,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
 public class CommentController {
 
-    public void define() {
-        //TODO
+    public void define(JSONObject response) {
+        if (response.getInt("repliedTo")==-1){
+
+            cmntChannelUsername_hyperLink.setText(response.getString("senderName"));
+            cmntText_label.setText(response.getString("text"));
+            whenCommented_label.setText(response.getString("senderName"));
+            cmntChannelUsername_hyperLink.setText(response.getString("creationTime"));
+        }
     }
 
     @FXML
