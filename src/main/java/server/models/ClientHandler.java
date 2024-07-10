@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
 
@@ -108,10 +109,22 @@ public class ClientHandler implements Runnable {
                 case "/dislikeVideo"      -> dislikeVideo(request);
                 case "/remove_dislikedVideo"   -> remove_dislikedVideo(request);
                 case "/edit_commentLike" -> edit_commentLike(request);
+                case "/search" -> search(request);
+
+
+
                 //todo profile picture
 
             }
         }
+    }
+
+    private void search(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        response =  Dbm.searchBarList(request.getString("text"));
+
+        write(response);
     }
 
 
@@ -153,8 +166,8 @@ public class ClientHandler implements Runnable {
 
         response.put("responseType", "/ChannelVideoList_accepted");
 
-//        int channel_id = Dbm.getChannel_id(channel_username);
-        int channel_id = 1;
+        int channel_id = Dbm.getChannel_id(channel_username);
+//        int channel_id = 1;
 
         List<Integer> channelVideoList = Dbm.getChannelVideoList(channel_id);
         assert channelVideoList != null;
@@ -446,8 +459,9 @@ public class ClientHandler implements Runnable {
         response.put("senderName", senderName);
         response.put("text", Text);
         response.put("repliedTo", repliedTo);
-        response.put("creationTime", creationTime);
 
+        if(creationTime == null){creationTime = "";}
+        response.put("creationTime", creationTime);
 
         write(response);
     }
@@ -456,7 +470,7 @@ public class ClientHandler implements Runnable {
         JSONObject response = new JSONObject();
         String channel_username =  request.getString("channel_username");
         int channel_id = Dbm.getChannel_id(channel_username);
-//        int channel_id = 1;66
+//        int channel_id = 1;
         int totalVideos = Dbm.getChannelTotalVideoes(channel_id);
         int totalViews = Dbm.getChannelTotalViews(channel_id);
         int totalSubscribers = Dbm.getChannelTotalSubscribers(channel_id);

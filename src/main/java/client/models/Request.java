@@ -320,6 +320,15 @@ public class Request {
         write(request);
     }
 
+    public void search(String text) {
+        JSONObject request = new JSONObject();
+
+        request.put("requestType","/search");
+        request.put("text",text);
+
+        write(request);
+    }
+
     //-----------------------------------------------------------------------------------------------------
 
 }
