@@ -158,22 +158,22 @@
                                     <CubicCurve controlX1="340.8000183105469" controlX2="345.6000061035156" controlY1="257.5999450683594" controlY2="122.13330841064453" disable="true" endX="289.73333740234375" endY="106.86661529541016" fill="#e4e4e4" layoutX="-307.0" layoutY="-144.0" startX="289.73333740234375" startY="-4.066703796386719" stroke="BLACK" strokeWidth="0.2" />
                                     <VBox fx:id="other_vBox" layoutX="-137.0" layoutY="-163.0" prefWidth="120.0" spacing="10.0">
                                        <children>
-                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="  Download">
+                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#download_action" text="  Download">
                                              <graphic>
                                                 <Button fx:id="downloadIcon_button" maxHeight="16.0" maxWidth="12.0" minHeight="16.0" minWidth="12.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="12.0" text="Button" />
                                              </graphic>
                                           </Button>
-                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="  Clip">
+                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clip_action" text="  Clip">
                                              <graphic>
                                                 <Button fx:id="clipIcon_button" maxHeight="16.0" maxWidth="10.0" minHeight="16.0" minWidth="10.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="10.0" text="clipIcon_button" />
                                              </graphic>
                                           </Button>
-                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="  Save">
+                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save_action" text="  Save">
                                              <graphic>
                                                 <Button fx:id="saveIcon_button" maxHeight="16.0" maxWidth="12.0" minHeight="16.0" minWidth="12.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="12.0" text="Button" />
                                              </graphic>
                                           </Button>
-                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="  Report">
+                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#report_action" text="  Report">
                                              <graphic>
                                                 <Button fx:id="reportIcon_button" maxHeight="16.0" maxWidth="12.0" minHeight="16.0" minWidth="12.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="12.0" text="Button" />
                                              </graphic>

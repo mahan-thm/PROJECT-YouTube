@@ -627,4 +627,30 @@ public class VideoPlayerController {
         other_pane.setDisable(status);
     }
 
+    @FXML
+    public void download_action(){
+        //TODO
+
+        other_action();
+    }
+    @FXML
+    public void clip_action(){
+        //TODO
+
+        other_action();
+
+    }
+    @FXML
+    public void save_action(){
+        //TODO
+
+        other_action();
+
+    }
+    @FXML
+    public void report_action(){
+        //TODO
+
+        other_action();
+    }
 }
