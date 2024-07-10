@@ -23,7 +23,7 @@ public class UserAccount {
 //        request.getChannelUsername(username);
 //        JSONObject response = read();
 //        this.channel_username = response.getString("channel_username");
-          this.channel_username = "channel_1";
+          this.channel_username = "channel1";
     }
     public UserAccount(){
         username = "";
