@@ -44,8 +44,6 @@ public class ChannelSearchController {
     private Label channelInfo_label;
 
     public void setup() throws IOException {
-        //TODO set text for subscribe_button
-        subscribe_button.setText("Subscribe");
 
         request.channelProfileImg(channel_username);
         JSONObject response = read();

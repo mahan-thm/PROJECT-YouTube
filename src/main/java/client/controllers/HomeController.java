@@ -75,6 +75,14 @@ public class HomeController implements Initializable {
     private Pane searchResult_pane;
     @FXML
     private GridPane tags_gridPane;
+    @FXML
+    private Pane notification_pane;
+    @FXML
+    private VBox notification_vBox;
+    @FXML
+    private Circle notification_circle;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -259,6 +267,23 @@ public class HomeController implements Initializable {
     }
 
     @FXML
+    public void notification_action() {
+        fadeRectangle_pane.setVisible(true);
+        notification_pane.setVisible(true);
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), notification_pane);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), fadeRectangle_pane);
+        fadeTransition1.setFromValue(0);
+        fadeTransition1.setToValue(1);
+
+        fadeTransition.play();
+        fadeTransition1.play();
+    }
+
+    @FXML
     public void create_action() {
         fadeRectangle_pane.setVisible(true);
         creat_pane.setVisible(true);
@@ -295,6 +320,7 @@ public class HomeController implements Initializable {
 
         account_pane.setVisible(false);
         creat_pane.setVisible(false);
+        notification_pane.setVisible(false);
     }
 
     @FXML
@@ -326,7 +352,18 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    public void home_action(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void myChannel_action(ActionEvent actionEvent) {
         try {
@@ -529,7 +566,6 @@ public class HomeController implements Initializable {
             ChannelSearchController channelSearchController = fxmlLoader.getController();
 
 
-
             channelSearchController.define(read());
             channelSearchController.setup();
             postInHome_vBox.getChildren().add(pane);
@@ -546,7 +582,7 @@ public class HomeController implements Initializable {
         postInHome_vBox.getChildren().add(label);
 
         try {
-        //TODO show history
+            //TODO show history
 
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
             AnchorPane pane = fxmlLoader.load();
@@ -561,20 +597,21 @@ public class HomeController implements Initializable {
             ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
             ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
             ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    @FXML
-    public void watchLater_action(){
 
-            postInHome_vBox.getChildren().clear();
-            Label label = new Label("Your watch later list:");
-            label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
-            postInHome_vBox.getChildren().add(label);
+    @FXML
+    public void watchLater_action() {
+
+        postInHome_vBox.getChildren().clear();
+        Label label = new Label("Your watch later list:");
+        label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
+        postInHome_vBox.getChildren().add(label);
 
         try {
-        //TODO show watch later
+            //TODO show watch later
 
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
             AnchorPane pane = fxmlLoader.load();
@@ -589,21 +626,20 @@ public class HomeController implements Initializable {
             ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
             ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
             ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    public void likedVideos_action(){
+    public void likedVideos_action() {
 
         postInHome_vBox.getChildren().clear();
         Label label = new Label("Your watch later list:");
         label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
         postInHome_vBox.getChildren().add(label);
         try {
-        //TODO liked videos
-
+            //TODO liked videos
 
 
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
@@ -619,14 +655,16 @@ public class HomeController implements Initializable {
             ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
             ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
             ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @FXML
-    public void settings_action(){
+    public void settings_action() {
 
     }
+
     //****************************************** PRIVET *********************************************
     @FXML
     public void moveRight_action() {
