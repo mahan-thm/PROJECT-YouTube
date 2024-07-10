@@ -446,7 +446,7 @@
                            </font>
                         </Button>
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Appearance: What?       &gt;">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#theme_action" prefHeight="40.0" prefWidth="180.0" text=" Appearance: What?       &gt;">
                            <graphic>
                               <Button fx:id="appearanceIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                            </graphic>
