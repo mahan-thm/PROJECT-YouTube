@@ -66,7 +66,6 @@ public class VideoInfo {
 
         title = (String) response.get("title");
         title_body = (String) response.get("title_body");
-        duration = (String) response.get("duration");
         creation_time = (String) response.get("creation_time");
         total_view =  response.getInt("total_view");
         total_likes =  response.getInt("total_likes");

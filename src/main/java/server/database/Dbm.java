@@ -624,8 +624,8 @@ public class Dbm {
             lastId++;
 
             String query =
-                    "INSERT INTO videos (id , title, video_description ,creation_date) VALUES ("
-                            + lastId +",'"+ title + "','" + videoDescription +"','" + LocalDateTime.now() + "' )";
+                    "INSERT INTO videos (id , title, video_description ,creation_date,duration) VALUES ("
+                            + lastId +",'"+ title + "','" + videoDescription +"','" + LocalDateTime.now() + "',"+0+ ")";
             int res = stat.executeUpdate(query);
             close();
             return lastId;
@@ -1327,5 +1327,22 @@ public class Dbm {
             close();
         }
         return id;
+    }
+
+    public static void addVideotoChannel(int videoId, int channelId) {
+        open();
+        try {
+            String query =
+                    "INSERT INTO uploaded_videos (video_id , channel_id) VALUES ("
+                            + videoId +","+ channelId + " )";
+
+            int res = stat.executeUpdate(query);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
     }
 }

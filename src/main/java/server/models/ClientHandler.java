@@ -577,6 +577,10 @@ public class ClientHandler implements Runnable {
             byte[] fileBytes = getUploadedFile();
             saveFile(fileBytes,"src/main/resources/DATA/video_examples/"+ 39 + ".mp4");
         }
+        if (response.getString("responseType").equals("/addVideo_accepted")){
+            Dbm.addVideotoChannel(video_id,channel_id);
+        }
+
         if (!response.getString("playlist").isEmpty()){
             Dbm.addVideotoPlaylist(video_id,response.getString("playlist"));
         }
