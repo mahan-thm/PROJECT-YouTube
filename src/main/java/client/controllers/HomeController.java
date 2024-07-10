@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -383,42 +381,124 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    public void searchResult_action() {
+    public void searchResult_action() throws IOException {
+        searchResult_vBox.setVisible(false);
         postInHome_vBox.getChildren().clear();
         request.search(Search_textField.getText());
         JSONObject response = read();
+        JSONArray videoResult = response.getJSONArray("videoResult");
+        JSONArray channelResult = response.getJSONArray("channelResult");
+        JSONObject topChannel = channelResult.getJSONObject(0);
 
-        for (int i = 0; i < 3; i++) {
+        ArrayList<JSONObject> videoList = new ArrayList<>();
+        ArrayList<VideoInfo> videoInfoList = new ArrayList<>();
+        for (int i = 0; i < videoResult.length(); i++) {
+            videoList.add(videoResult.getJSONObject(i));
+            int video_id = videoList.get(i).getInt("id");
+            request.video(video_id);
+            JSONObject response2 = read();
+            videoInfoList.add(new VideoInfo(video_id, response2));
+        }
+        if (topChannel.getInt("distance")<2){
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearch.fxml")));
+            GridPane pane = fxmlLoader.load();
+            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+
+            ChannelSearchController channelSearchController = fxmlLoader.getController();
+            request.channel(topChannel.getString("channel_username"));
+
+            channelSearchController.define(read());
+            channelSearchController.setup();
+            postInHome_vBox.getChildren().add(pane);
+
+        }
+
+
+        HBox hBox0 = new HBox();
+        hBox0.setSpacing(10);
+        for (int j = 0; j < 4; j++) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearch.fxml")));
-                GridPane pane = fxmlLoader.load();
-                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+                int pointer = j;
+                request.ChannelVideoList(topChannel.getString("channel_username"));
+                response = read();
+                JSONArray video_idList = response.getJSONArray("videoIdList");
+                ArrayList<VideoInfo> videoInfoList1 = new ArrayList<>();
+                for (int k = 0; k < video_idList.length(); k++) {
+                    int video_id = video_idList.getInt(k);
+                    request.video(video_id);
+                    JSONObject response2 = read();
+                    videoInfoList1.add(new VideoInfo(video_id, response2));
+                }
 
-//                pane.setId(String.valueOf(pointer));
 
-                ChannelSearchController channelSearchController = fxmlLoader.getController();
-                channelSearchController.define();
-                channelSearchController.setup();
-                postInHome_vBox.getChildren().add(pane);
+                VideoInfo video = videoInfoList1.get(pointer);
+                request.imageFile(video.id);
+                byte[] imageBytes = readFile();
+
+
+                File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (j) + ".jpg");
+
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(imageBytes);
+
+
+
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+                AnchorPane pane = fxmlLoader.load();
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+                pane.setId(String.valueOf(pointer));
+
+                PostInHomeController postInHomeController = fxmlLoader.getController();
+                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+                postInHomeController.setup();
+
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+
+
+                hBox0.getChildren().add(pane);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        //TODO add related videos
-        for (int i = 0; i < 3; i++) {
+        postInHome_vBox.getChildren().add(hBox0);
+
+
+
+
+        for (int i = 1; i < 3; i++) {
             HBox hBox = new HBox();
             hBox.setSpacing(10);
             for (int j = 0; j < 4; j++) {
                 try {
+                    int pointer = i * 4 + j;
+
+                    VideoInfo video = videoInfoList.get(pointer);
+                    request.imageFile(video.id);
+                    byte[] imageBytes = readFile();
+
+
+                    File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (pointer) + ".jpg");
+
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(imageBytes);
+
+
+
+
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = fxmlLoader.load();
                     pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
 
-//                pane.setId(String.valueOf(pointer));
+                    pane.setId(String.valueOf(pointer));
 
                     PostInHomeController postInHomeController = fxmlLoader.getController();
-//                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
-//                postInHomeController.setup();
+                    postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+                    postInHomeController.setup();
 
                     ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
                     ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
