@@ -179,7 +179,7 @@ public class Request {
 
         write(request);
     }
-    public void addVideo(String channel_username, String videoName, String videoCaption, JSONArray tags, File fileToUpload){
+    public void addVideo(String channel_username, String videoName, String videoCaption, JSONArray tags, File fileToUpload, String chosenPlaylist){
 
         JSONObject request = new JSONObject();
         request.put("requestType","/addVideo");
@@ -187,19 +187,21 @@ public class Request {
         request.put("videoName",videoName);
         request.put("videoDescription",videoCaption);
         request.put("tags",tags);
+        request.put("playlist",chosenPlaylist);
 
 
         write(request);
         JSONObject response = read();
 
         if (response.getString("responseType").equals("/addVideo_accepted")){
-//            uploadFile(fileToUpload);
+            uploadFile(fileToUpload);
             System.out.println("upload successful");
         }
         else {
             System.out.println("upload unsuccessful");
         }
     }
+
     public void removeVideo(int video_id){
 
         JSONObject request = new JSONObject();
@@ -228,7 +230,22 @@ public class Request {
 
         write(request);
     }
+    public void createPlaylist(String title,String description,String channel_username){
+        JSONObject request = new JSONObject();
+        request.put("requestType","/createPlaylist");
+        request.put("title",title);
+        request.put("description",description);
+        request.put("channel_username",channel_username);
 
+        write(request);
+    }
+    public void getPlaylistList(String channel_username){
+        JSONObject request = new JSONObject();
+        request.put("requestType","/getPlaylistList");
+        request.put("channel_username",channel_username);
+
+        write(request);
+    }
     //------------------------------------------------------------------------------------------------------
     // tiny action request----------------------------------------------------------------------------------
     public void subscribeChannel(String channel_username){

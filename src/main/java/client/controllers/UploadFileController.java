@@ -46,6 +46,7 @@ public class UploadFileController implements Initializable {
     private String filePath;
     private File fileToUpload ;
     private boolean childAbuse;
+    public static String chosenPlaylist;
     @FXML
     private AnchorPane uploadVideo_anchorPain;
     @FXML
@@ -107,9 +108,12 @@ public class UploadFileController implements Initializable {
         }
 
         //_________________________________________
-        //TODO
-        //here you should set the name of play lists to this combo box
-//        selectPlaylist_comboBox.setButtonCell();
+        request.getPlaylistList(userAccount.channel_username);
+        JSONObject response = read();
+        JSONArray list = response.getJSONArray("playlistList");
+        for (int i = 0; i < list.length(); i++) {
+            selectPlaylist_comboBox.getItems().add(list.getString(i));
+        }
     }
 
     @FXML
@@ -252,7 +256,6 @@ public class UploadFileController implements Initializable {
     @FXML
     public void upload_action(ActionEvent actionEvent) {
         boolean okayToUpload = true;
-        //TODO
 
         String videoTitle = videoTitle_textField.getText();
         if (videoTitle == null) {
@@ -290,7 +293,7 @@ public class UploadFileController implements Initializable {
             for (String hashtag : hashtags) {
                 tags.put(hashtag);
             }
-            request.addVideo(userAccount.channel_username,videoTitle,videoDescription,tags,fileToUpload);
+            request.addVideo(userAccount.channel_username,videoTitle,videoDescription,tags,fileToUpload,chosenPlaylist);
 
 
             //________________________________
@@ -315,6 +318,7 @@ public class UploadFileController implements Initializable {
 
             scaleTransition.play();
             fadeTransition.play();
+
         }
 
 

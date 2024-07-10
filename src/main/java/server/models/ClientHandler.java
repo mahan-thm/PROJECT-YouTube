@@ -110,17 +110,36 @@ public class ClientHandler implements Runnable {
                 case "/remove_dislikedVideo"   -> remove_dislikedVideo(request);
                 case "/edit_commentLike" -> edit_commentLike(request);
                 case "/search" -> search(request);
+                case "/createPlaylist" -> createPlaylist(request);
+                case "/getPlaylistList" -> getPlaylistList(request);
 
-
-
-                //todo profile picture
 
             }
         }
     }
 
-    private void search(JSONObject request) {
+    private void getPlaylistList(JSONObject request) {
         JSONObject response = new JSONObject();
+        int channel_id = Dbm.getChannel_id(request.getString("channel_username"));
+        response.put("playlistList",Dbm.getPlaylistList(channel_id));
+        write(response);
+    }
+
+    private void createPlaylist(JSONObject request) {
+        JSONObject response = new JSONObject();
+        String title = request.getString("title");
+        String description = request.getString("description");
+        String channel_username = request.getString("channel_username");
+        int playlist_id = Dbm.addPlaylist(title,description,channel_username);
+        response.put("responseType","/createPlaylist_accepted");
+        response.put("playlist_id",playlist_id);
+        response.put("title",title);
+
+        write(response);
+    }
+
+    private void search(JSONObject request) {
+        JSONObject response ;
 
         response =  Dbm.searchBarList(request.getString("text"));
 
@@ -547,17 +566,26 @@ public class ClientHandler implements Runnable {
         String videoName = (String) request.get("videoName");
         String videoDescription = (String) request.get("videoDescription");
         JSONArray tags = (JSONArray) request.get("tags");
-//        int channel_id = Dbm.getChannel_id(); //todo
-        int channel_id = 1;
-//        int video_id = Dbm.addVideo(channel_id, videoName, videoDescription, "", "", tags);
-        int video_id =  5001;
+        int channel_id = Dbm.getChannel_id(channel_username);
+//        int channel_id = 1;
+        int video_id = Dbm.addVideo(channel_id, videoName, videoDescription, "", tags);
+//        int video_id =  5001;
         response.put("responseType", "/addVideo_accepted");
-
         write(response);
+
         if (response.getString("responseType").equals("/addVideo_accepted")){
             byte[] fileBytes = getUploadedFile();
-            saveFile(fileBytes,"src/main/resources/DATA/video_examples/"+ video_id + ".mp4");
+            saveFile(fileBytes,"src/main/resources/DATA/video_examples/"+ 39 + ".mp4");
         }
+        if (!response.getString("playlist").isEmpty()){
+            Dbm.addVideotoPlaylist(video_id,response.getString("playlist"));
+        }
+        for (int i = 0; i < tags.length(); i++) {
+            Dbm.addTag(video_id,"video",tags.getString(i),10);
+        }
+        Dbm.addTag(video_id,"video","channel_"+ channel_username,10);
+
+
     }
 
     public static void saveFile(byte[] bytes,String path){

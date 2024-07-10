@@ -7,9 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static client.models.Main.*;
 
 public class NewPlaylistController implements Initializable {
     @FXML
@@ -36,6 +39,8 @@ public class NewPlaylistController implements Initializable {
         String title = title_textArea.getText();
         String description = description_textArea.getText();
 
-        //TODO creat playlist
+        request.createPlaylist(title,description,userAccount.channel_username);
+        JSONObject response = read();
+        UploadFileController.chosenPlaylist = response.getString("title");
     }
 }
