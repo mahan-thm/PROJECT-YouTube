@@ -1,16 +1,13 @@
 
-**bold**   
-*itialic* 
-###### dggverfve
-
  # YouTube Project
-This is a youtube_like  java project at course Advanced progrmming on Faculty of Computer Science
-in Shahid Beheshti Uiversity , Tehran, Iran.
+This is a YouTube_like  java project at course Advanced programming on Faculty of Computer Science
+in Shahid Beheshti University , Tehran, Iran.
 ## Main Tasks
-The server is designed to handle multiple clients (using multy threading) . we used OOP(Object Oriented Programming)
-the videos 
+The server is designed to handle multiple clients (using multi threading) . we used OOP(Object-Oriented Programming)
 The hardest part of the project was sending and streaming video for the user.
-frf
+filie strea sizesh ro byte 4 klo byte package  ya besoorate byte array baraye aksa.  mire too file vaye ja khonde mishe.
+levenestein 
+user video upload 
 ## UML Design
 ### Client 
 * Controllers <br>
@@ -26,9 +23,10 @@ frf
     <img src="src/main/resources/Report_images/ModelsFields.png" alt="finalDiagram" width="1500">
 [//]: # (todo) dashtam 
 ### server 
-* DBM  
+* DBM Methods <br> <br>
+  <img src="src/main/resources/Report_images/DBM_Methods1.png" alt="finalDiagram" width="1500">
+  <img src="src/main/resources/Report_images/DBM_Methods2.png" alt="finalDiagram" width="1500">
  
-* models
 ## GUI 
 The main tool for designing graphical user interface for this project is JavaFX.
 The stages ,scenes an all other javafx stuffs created by [Scene Builder](https://www.oracle.com/java/technologies/javase/javafxscenebuilder-info.html).
@@ -81,8 +79,13 @@ recently_frequent tag shows that what is user's recent preferrence based on the 
 when user 1 shas subscrobed 3 channels , and user 2 subscribed 
 we check the similarity of two users or check the 
 ##  Recommendation
-
-if user doesn't like a tag , score will be !under zero!
+our recommendation algorithm has designed to reach the most compatibility between user preferences and its home feed. We tried to personalize user's home feed based on
+which contents has watched more before and which videos were liked by the user.To reach this goal we assign every user and every video some tags such as "action" , "romance"
+, "nature", "tech" ,etc.For each tag we have a score between 0 and 100. The more you like and watch videos with "action" tag, your score on "action" tag get nearer to 100. And you 
+will get more videos with this tag in your home feed.More score on "action" tag  of a video means the video have more related action scenes in there.  . very tag has  , when a user
+likes a video or watch it, the user's tags increase based on the scores of the user's tag.
+when subscribes a channel , it means there is a more powerful relation between the user preferences and the channel's video's content. So it must affect  o the user's tags score 
+more than the time user just likes a video .
 ## Pre Requirements
 you need to make your javaFX sdk directory on Project Structure like the image below  
 <img src="src/main/resources/Report_images/javaFX_Guide.png" alt="javaFxGuide" width="800">   
