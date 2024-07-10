@@ -1,13 +1,10 @@
 package client.controllers;
 
 import client.models.VideoInfo;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -16,12 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -67,6 +64,10 @@ public class PostInHomeController {
     private Button thumbnail_button;
     @FXML
     private AnchorPane thumbnail_anchorPane;
+    @FXML
+    private Pane other_pane;
+    @FXML
+    private Button other_button;
 
 
     public void setup() {
@@ -91,6 +92,12 @@ public class PostInHomeController {
 //        thumbnail_anchorPane.maxWidthProperty().bind(thumbnail_imageView.fitWidthProperty().subtract(200));
 //        thumbnail_anchorPane.maxHeightProperty().bind(thumbnail_imageView.fitHeightProperty().subtract(200));
 
+    }
+    public void showOther(boolean status){
+        other_pane.setVisible(status);
+        other_pane.setDisable(!status);
+        other_button.setVisible(status);
+        other_button.setDisable(!status);
     }
 
     @FXML
@@ -184,5 +191,17 @@ public class PostInHomeController {
             throw new RuntimeException(e);
         }
 
+    }
+    @FXML
+    public void other_action(){
+        boolean status = other_pane.isVisible();
+        other_pane.setVisible(!status);
+        other_pane.setDisable(status);
+    }
+
+    @FXML
+    public void delete_action(){
+        //TODO delete post
+        other_action();
     }
 }

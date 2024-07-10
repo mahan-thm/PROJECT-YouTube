@@ -35,7 +35,7 @@
             <Insets top="10.0" />
          </padding>
       </VBox>
-      <Button fx:id="subscribe_button" mnemonicParsing="false" onAction="#subscribe_acrion" text="subscribe" GridPane.columnIndex="2">
+      <Button fx:id="subscribe_button" mnemonicParsing="false" onAction="#subscribe_action" text="subscribe" GridPane.columnIndex="2">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

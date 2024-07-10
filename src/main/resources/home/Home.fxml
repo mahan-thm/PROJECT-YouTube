@@ -259,9 +259,9 @@
                   <Rectangle fx:id="fadeRectangle_rectangle" height="540.0" layoutY="-48.0" onMouseClicked="#closeBars" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="960.0" />
                </children>
             </Pane>
-            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0" visible="false">
+            <Pane fx:id="toolBar_pane" maxHeight="490.0" maxWidth="50.0" prefHeight="432.0" prefWidth="50.0">
                <children>
-                  <ScrollPane fx:id="toolBar_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="-48.0" prefHeight="540.0" prefWidth="240.0" vbarPolicy="ALWAYS">
+                  <ScrollPane fx:id="toolBar_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="-48.0" prefHeight="854.0" prefWidth="240.0" vbarPolicy="ALWAYS">
                      <content>
                         <VBox prefHeight="285.0" prefWidth="300.0" spacing="10.0">
                            <children>
@@ -291,12 +291,12 @@
                                     <Button fx:id="shortsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Subscribtions">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#subscriptions_action" prefHeight="40.0" prefWidth="220.0" text="   Subscriptions">
                                  <graphic>
                                     <Button fx:id="subscriptionsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   You">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#myChannel_action" prefHeight="40.0" prefWidth="220.0" text="   You">
                                  <graphic>
                                     <Button fx:id="youToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -306,12 +306,12 @@
                                     <Insets left="10.0" />
                                  </VBox.margin>
                               </Line>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Your channel">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#myChannel_action" prefHeight="40.0" prefWidth="220.0" text="   Your channel">
                                  <graphic>
                                     <Button fx:id="yourChannelIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   History">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#history_action" prefHeight="40.0" prefWidth="220.0" text="   History">
                                  <graphic>
                                     <Button fx:id="historyIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -321,12 +321,12 @@
                                     <Button fx:id="playlistIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Watch later">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#watchLater_action" prefHeight="40.0" prefWidth="220.0" text="   Watch later">
                                  <graphic>
                                     <Button fx:id="watchLaterIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Liked videos">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#likedVideos_action" prefHeight="40.0" prefWidth="220.0" text="   Liked videos">
                                  <graphic>
                                     <Button fx:id="likedVideosIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -359,7 +359,7 @@
                                     <Insets left="10.0" />
                                  </VBox.margin>
                               </Line>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Settings">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#settings_action" prefHeight="40.0" prefWidth="220.0" text="   Settings">
                                  <graphic>
                                     <Button fx:id="settingsIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
