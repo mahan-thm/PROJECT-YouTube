@@ -413,6 +413,7 @@ public class HomeController implements Initializable {
             label.setStyle("-fx-padding: 0 10 0 10; -fx-text-fill: #f36666; -fx-font-size: 14");
             searchResult_vBox.getChildren().add(label);
         }
+        searchResult_vBox.setVisible(false);
     }
 
     @FXML
@@ -581,24 +582,48 @@ public class HomeController implements Initializable {
         label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
         postInHome_vBox.getChildren().add(label);
 
-        try {
-            //TODO show history
+        request.historyVideoList();
+        JSONObject response = read();
+        JSONArray video_idList = response.getJSONArray("videoIdList");
+        ArrayList<VideoInfo> videoInfoList = new ArrayList<>();
+        for (int k = 0; k < video_idList.length(); k++) {
+            int video_id = video_idList.getInt(k);
+            request.video(video_id);
+            JSONObject response2 = read();
+            videoInfoList.add(new VideoInfo(video_id, response2));
+        }
+        for (int i = 0; i < videoInfoList.size(); i++) {
 
-            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
-            AnchorPane pane = fxmlLoader.load();
-            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+            try {
+                VideoInfo video = videoInfoList.get(i);
+                request.imageFile(video.id);
+                byte[] imageBytes = readFile();
 
-//        pane.setId(String.valueOf(pointer));
 
-            PostInHomeController postInHomeController = fxmlLoader.getController();
-//        postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
-            postInHomeController.setup();
-            postInHomeController.showOther(false);
-            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-            ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-        } catch (IOException e) {
-            e.printStackTrace();
+                File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (i) + ".jpg");
+
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(imageBytes);
+
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+                AnchorPane pane = fxmlLoader.load();
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+//
+
+                PostInHomeController postInHomeController = fxmlLoader.getController();
+                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+                postInHomeController.setup();
+
+                postInHomeController.showOther(false);
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                postInHome_vBox.getChildren().add(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -610,24 +635,48 @@ public class HomeController implements Initializable {
         label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
         postInHome_vBox.getChildren().add(label);
 
-        try {
-            //TODO show watch later
+        request.watchLaterVideoList();
+        JSONObject response = read();
+        JSONArray video_idList = response.getJSONArray("videoIdList");
+        ArrayList<VideoInfo> videoInfoList = new ArrayList<>();
+        for (int k = 0; k < video_idList.length(); k++) {
+            int video_id = video_idList.getInt(k);
+            request.video(video_id);
+            JSONObject response2 = read();
+            videoInfoList.add(new VideoInfo(video_id, response2));
+        }
+        for (int i = 0; i < videoInfoList.size(); i++) {
 
-            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
-            AnchorPane pane = fxmlLoader.load();
-            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+            try {
+                VideoInfo video = videoInfoList.get(i);
+                request.imageFile(video.id);
+                byte[] imageBytes = readFile();
 
-//        pane.setId(String.valueOf(pointer));
 
-            PostInHomeController postInHomeController = fxmlLoader.getController();
-//        postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
-            postInHomeController.setup();
-            postInHomeController.showOther(false);
-            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-            ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-        } catch (IOException e) {
-            e.printStackTrace();
+                File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (i) + ".jpg");
+
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(imageBytes);
+
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+                AnchorPane pane = fxmlLoader.load();
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+//
+
+                PostInHomeController postInHomeController = fxmlLoader.getController();
+                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+                postInHomeController.setup();
+
+                postInHomeController.showOther(false);
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                postInHome_vBox.getChildren().add(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -635,28 +684,52 @@ public class HomeController implements Initializable {
     public void likedVideos_action() {
 
         postInHome_vBox.getChildren().clear();
-        Label label = new Label("Your watch later list:");
+        Label label = new Label("Your liked video list:");
         label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
         postInHome_vBox.getChildren().add(label);
-        try {
-            //TODO liked videos
+
+        request.likedVideoList();
+        JSONObject response = read();
+        JSONArray video_idList = response.getJSONArray("videoIdList");
+        ArrayList<VideoInfo> videoInfoList = new ArrayList<>();
+        for (int k = 0; k < video_idList.length(); k++) {
+            int video_id = video_idList.getInt(k);
+            request.video(video_id);
+            JSONObject response2 = read();
+            videoInfoList.add(new VideoInfo(video_id, response2));
+        }
+        for (int i = 0; i < videoInfoList.size(); i++) {
+
+            try {
+                VideoInfo video = videoInfoList.get(i);
+                request.imageFile(video.id);
+                byte[] imageBytes = readFile();
 
 
-            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
-            AnchorPane pane = fxmlLoader.load();
-            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (i) + ".jpg");
 
-//        pane.setId(String.valueOf(pointer));
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(imageBytes);
 
-            PostInHomeController postInHomeController = fxmlLoader.getController();
-//        postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
-            postInHomeController.setup();
-            postInHomeController.showOther(false);
-            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-            ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
-        } catch (IOException e) {
-            e.printStackTrace();
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+                AnchorPane pane = fxmlLoader.load();
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+//
+
+                PostInHomeController postInHomeController = fxmlLoader.getController();
+                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+                postInHomeController.setup();
+
+                postInHomeController.showOther(false);
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                postInHome_vBox.getChildren().add(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

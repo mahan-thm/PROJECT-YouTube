@@ -12,19 +12,23 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
-import static client.models.Main.read;
-import static client.models.Main.request;
+import static client.models.Main.*;
 
 public class CommentController {
-
+    int comment_id;
+    String username;
     public void define(int comment_id) {
+        this.comment_id = comment_id;
         request.comment(comment_id);
         JSONObject response = read();
         if (response.getInt("repliedTo")==-1){
 
+            username = response.getString("senderName");
             cmntChannelUsername_hyperLink.setText(response.getString("senderName"));
             cmntText_label.setText(response.getString("text"));
             whenCommented_label.setText(response.getString("senderName"));
@@ -46,15 +50,22 @@ public class CommentController {
     private Circle commentProf_circle;
 
     public void setup() {
-        //TODO
-        cmntChannelUsername_hyperLink.setText("@channel username");
-        cmntText_label.setText("hi there. this is test comment");
-        whenCommented_label.setText("2 months ago");
 
-        //TODO set comment profile
+
+
         try {
-            //TODO set profile of who commenting
-            Image image = new Image(Objects.requireNonNull(getClass().getResource("../../CACHE/imageCache/img3.jpg")).openStream());
+            request.channelProfileImg(username);
+            JSONObject response = read();
+            byte[] videoBytes = readFile();
+
+            File file = new File("src/main/resources/CACHE/imageCache/comment.jpg");
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(videoBytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Image image = new Image(Objects.requireNonNull(getClass().getResource("../../CACHE/imageCache/comment.jpg")).openStream());
             commentProf_circle.setFill(new ImagePattern(image));
         } catch (IOException e) {
             throw new RuntimeException(e);

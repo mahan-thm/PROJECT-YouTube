@@ -100,7 +100,9 @@ public class ClientHandler implements Runnable {
                 case "/removeComment" -> removeComment(request);
                 case "/subscribeChannel" -> subscribeChannel(request);
                 case "/unsubscribeChannel" -> unsubscribeChannel(request);
-//                case "/add_WatchedVideo"       -> add_WatchedVideo(request);
+                case "/add_WatchedVideo"       -> add_WatchedVideo(request);
+                case "/add_WatchLaterVideo"       -> add_WatchLaterVideo(request);
+                case "/watchLaterVideoList"       -> watchLaterVideoList(request);
 //                case "/remove_WatchedVideo"    -> remove_WatchedVideo(request);
 //                case "/add_WatchLaterVideo"    -> add_WatchLaterVideo(request);
 //                case "/remove_WatchLaterVideo" -> remove_WatchLaterVideo(request);
@@ -112,10 +114,93 @@ public class ClientHandler implements Runnable {
                 case "/search" -> search(request);
                 case "/createPlaylist" -> createPlaylist(request);
                 case "/getPlaylistList" -> getPlaylistList(request);
+                case "/historyVideoList" -> historyVideoList(request);
+                case "/likedVideoList" -> likedVideoList(request);
 
 
             }
         }
+    }
+
+    private void add_WatchLaterVideo(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        int video_id = request.getInt("video_id");
+        Dbm.WatchLaterVideo(video_id,user_id);
+
+        write(response);
+    }
+
+    private void add_WatchedVideo(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        int video_id = request.getInt("video_id");
+        Dbm.addView(video_id,user_id);
+
+        write(response);
+    }
+
+    private void likedVideoList(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        JSONArray videoIdList = new JSONArray();
+
+        response.put("responseType", "/likedVideoList_accepted");
+
+
+        List<Integer> channelVideoList = Dbm.likeVideoList(user_id);
+        assert channelVideoList != null;
+        for (Integer video_id : channelVideoList) {
+
+            videoIdList.put(video_id);
+
+        }
+        response.put("videoIdList", videoIdList);
+
+
+        write(response);
+    }
+
+    private void watchLaterVideoList(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        JSONArray videoIdList = new JSONArray();
+
+        response.put("responseType", "/watchLaterVideoList_accepted");
+
+
+        List<Integer> channelVideoList = Dbm.watchLaterVideoList(user_id);
+        assert channelVideoList != null;
+        for (Integer video_id : channelVideoList) {
+
+            videoIdList.put(video_id);
+
+        }
+        response.put("videoIdList", videoIdList);
+
+
+        write(response);
+    }
+
+    private void historyVideoList(JSONObject request) {
+        JSONObject response = new JSONObject();
+
+        JSONArray videoIdList = new JSONArray();
+
+        response.put("responseType", "/historyVideoList_accepted");
+
+
+        List<Integer> channelVideoList = Dbm.getHistoryVideoList(user_id);
+        assert channelVideoList != null;
+        for (Integer video_id : channelVideoList) {
+
+            videoIdList.put(video_id);
+
+        }
+        response.put("videoIdList", videoIdList);
+
+
+        write(response);
     }
 
     private void getPlaylistList(JSONObject request) {
@@ -329,7 +414,7 @@ public class ClientHandler implements Runnable {
         int channelCount = (int) request.get("count");
         JSONArray tags = (JSONArray) request.get("tags");
 
-        // todo recommendation
+
 
         JSONArray channelIdList = new JSONArray();
         List<Integer> idList = Dbm.getRandomChannelId(channelCount);  //todo temporary
@@ -469,7 +554,7 @@ public class ClientHandler implements Runnable {
     private void comment(JSONObject request) {
         JSONObject response = new JSONObject();
         int comment_id = (int) request.get("comment_id");
-        String senderName = Dbm.getUsername(Dbm.getCommentSender_id(comment_id));
+        String senderName = Dbm.getUsername(comment_id);
         String Text = Dbm.getCommentText(comment_id);
         int repliedTo = Dbm.getcommentRepliedTo(comment_id);
         String creationTime = Dbm.getcommentCreationTime(comment_id);
@@ -836,7 +921,6 @@ public class ClientHandler implements Runnable {
 
         response.put("responseType", "/remove_WatchedVideo_accepted");
     }
-
 // may be used fo recommendation system
 //    private void add_WatchLaterVideo(JSONObject request) {
 //        JSONObject response = new JSONObject();
@@ -903,7 +987,9 @@ public class ClientHandler implements Runnable {
 //        Dbm.removeFromPlaylist(video_id,dislikedVideo_id);
 //
 //        response.put("responseType","/remove_dislikedVideo_accepted");
+
 //    }
+
     private void edit_commentLike(JSONObject request) {
 
         JSONObject response = new JSONObject();
@@ -920,7 +1006,6 @@ public class ClientHandler implements Runnable {
 
         response.put("responseType", "/edit_commentLike_accepted");
     }
-
 
     private void sendFile(File file) {
 //        try {

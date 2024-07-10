@@ -27,6 +27,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
+import static client.models.Main.read;
+import static client.models.Main.request;
+
 
 public class PostInHomeController {
     private byte[] thumbnailByte;
@@ -45,6 +48,7 @@ public class PostInHomeController {
         this.view = view;
         this.timeUpload = timeUpload;
         this.video = video;
+
     }
 
     @FXML
@@ -104,7 +108,8 @@ public class PostInHomeController {
     @FXML
     public void goToVideoPlayer_action(ActionEvent actionEvent) {
 //        String anchorPaneID = ((AnchorPane)actionEvent.getSource()).getId();
-
+        request.add_WatchedVideo(video.id);
+        read();
         try {
 
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
