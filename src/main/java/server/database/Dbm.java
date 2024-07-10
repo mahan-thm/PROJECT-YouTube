@@ -766,12 +766,12 @@ public class Dbm {
 
     public static String getUsername(int userId) {
         open();
-        String query = "SELECT *  FROM users " +
+        String query = "SELECT *  FROM channels " +
                 "WHERE id =  " +userId ;
         try{
             ResultSet rs = stat.executeQuery(query);
             if(rs.next()){
-                return rs.getString("username");
+                return rs.getString("channel_username");
             }
         }
         catch (SQLException e){
@@ -846,26 +846,6 @@ public class Dbm {
         return null;
     }
 
-    public static List<Integer> getHistoryVideoList(int userId) {
-        open();
-        List <Integer> VideoList = new ArrayList<>();
-        String query = "SELECT video_id FROM saved_videos WHERE type = 'watched'";
-
-        try {
-            ResultSet rs = stat.executeQuery(query);
-            while (rs.next()){
-                VideoList .add (rs.getInt("video_id"));
-            }
-            return VideoList;
-        }catch (SQLException e){
-            e.printStackTrace();
-
-        }
-        finally {
-            close();
-        }
-        return null;
-    }
     public static ArrayList<tag> tagList(int item_id,String type){
         open();
         try{
@@ -886,7 +866,6 @@ public class Dbm {
         }
         return null;
     }
-
     public static ArrayList<Integer> getRecommendedVideos(int userId) {
         open();
         ArrayList <Integer> videoIdList = new ArrayList<>();
@@ -1006,6 +985,7 @@ public class Dbm {
     public static String getVideoPath() {
         return videoPath;
     }
+
     public static void addUserSubscribedChannels(int channelId, int userId , String add_date) {
         open();
         String query = "INSERT INTO subscribed_channels (channel_id , user_id , is_notif_on , add_date "
@@ -1034,7 +1014,6 @@ public class Dbm {
             close();
         }
     }
-
     public static void removeUserLike(int videoId, int userId, String addDate) {
         open();
         try {
@@ -1090,9 +1069,9 @@ public class Dbm {
 //        return -1;
 
     }
+
     public static void removeSavedVideo(int userId, String playlistType, int videoId) {
     }
-
     public static int getcommentRepliedTo(int commentId) {
         // todo is it to understand that this comment is replied to which comment?
 //        String query = "SELECT * FROM comments" +
@@ -1124,9 +1103,6 @@ public class Dbm {
         return 0;
     }
 
-    public static int getCommentSender_id(int commentId) {
-        return commentId;
-    }
 
     public static int getchannel_id(int video_id) {
         open();
@@ -1195,6 +1171,7 @@ public class Dbm {
         }
         return id;
     }
+
     public static boolean is_subscribed(int channel_id,int user_id) {
         open();
 
@@ -1213,7 +1190,6 @@ public class Dbm {
         }
         return false;
     }
-
     public static boolean is_liked(int videoId, int userId) {
         open();
 
@@ -1386,5 +1362,90 @@ public class Dbm {
         finally {
             close();
         }
+    }
+
+    public static List<Integer> getHistoryVideoList(int userId) {
+        open();
+        List <Integer> VideoList = new ArrayList<>();
+        String query = "SELECT video_id FROM saved_videos WHERE type = 'watched'";
+
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            while (rs.next()){
+                VideoList .add (rs.getInt("video_id"));
+            }
+            return VideoList;
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+        return null;
+    }
+
+    public static List<Integer> watchLaterVideoList(int userId) {
+        open();
+        List <Integer> VideoList = new ArrayList<>();
+        String query = "SELECT video_id FROM saved_videos WHERE type = 'watchLater'";
+
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            while (rs.next()){
+                VideoList .add (rs.getInt("video_id"));
+            }
+            return VideoList;
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+        return null;
+    }
+
+    public static void WatchLaterVideo(int videoId,int user_id) {
+        open();
+        try {
+            String query0 = "SELECT video_id FROM saved_videos WHERE type = 'watchLater'";
+            String query =
+                    "INSERT INTO saved_videos (video_id , user_id,type,add_date) VALUES ("
+                            + videoId +","+ user_id + ",'watchLater','"+  LocalDateTime.now()+ "')";
+            ResultSet rs0 = stat.executeQuery(query0);
+            if(!rs0.next()){
+
+                int res = stat.executeUpdate(query);
+            }
+
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+    }
+
+    public static List<Integer> likeVideoList(int userId) {
+        open();
+        List <Integer> VideoList = new ArrayList<>();
+        String query = "SELECT video_id FROM saved_videos WHERE type = 'liked'";
+
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            while (rs.next()){
+                VideoList .add (rs.getInt("video_id"));
+            }
+            return VideoList;
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+        return null;
     }
 }

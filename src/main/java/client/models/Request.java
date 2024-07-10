@@ -272,6 +272,13 @@ public class Request {
 
         write(request);
     }
+    public void add_WatchLaterVideo(int video_id){
+        JSONObject request = new JSONObject();
+        request.put("requestType","/add_WatchLaterVideo");
+        request.put("video_id",video_id);
+
+        write(request);
+    }
     static void remove_WatchedVideo(String video_id){
         JSONObject request = new JSONObject();
         request.put("requestType","/remove_WatchedVideo");
@@ -349,6 +356,21 @@ public class Request {
     public void historyVideoList() {
         JSONObject request = new JSONObject();
         request.put("requestType","/historyVideoList");
+
+
+        write(request);
+    }
+
+    public void watchLaterVideoList() {
+        JSONObject request = new JSONObject();
+        request.put("requestType","/watchLaterVideoList");
+
+
+        write(request);
+    }
+    public void likedVideoList() {
+        JSONObject request = new JSONObject();
+        request.put("requestType","/likedVideoList");
 
 
         write(request);

@@ -166,18 +166,20 @@ public class VideoPlayerController {
         JSONArray commentIdList = CLresponse.getJSONArray("commentIdList");
         commentNumber = CLresponse.getInt("commentCount");
         commentCount.setText(commentNumber + " comments");
-        ArrayList<VideoInfo> commentList = new ArrayList<>();
+
+
         for (int i = 0; i < commentNumber; i++) {
             try {
+
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/Comment.fxml")));
                 AnchorPane anchorPane = fxmlLoader.load();
                 anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/CommentStyle.css")).toExternalForm());
 
-                CommentController commentController = fxmlLoader.getController();
 
                 int comment_id = commentIdList.getInt(i);
 
 
+                CommentController commentController = fxmlLoader.getController();
                 commentController.define(comment_id);
                 commentController.setup();
 
@@ -206,9 +208,6 @@ public class VideoPlayerController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        //TODO to show recommended videos add PostInHome.fxml to "recommendVideo_vBox"
-
         //______________________________________________________________________________
 
 
@@ -642,8 +641,8 @@ public class VideoPlayerController {
     }
     @FXML
     public void save_action(){
-        //TODO
-
+        request.add_WatchLaterVideo(videoInfo.id);
+        read();
         other_action();
 
     }
