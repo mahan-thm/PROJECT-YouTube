@@ -27,6 +27,7 @@ frf
 [//]: # (todo) dashtam 
 ### server 
 * DBM  
+ 
 * models
 ## GUI 
 The main tool for designing graphical user interface for this project is JavaFX.
@@ -106,5 +107,10 @@ when
 when user ar admin sees the notif, the notif will be removed
 my inbox 
 # search
-we used levenstein distance which which takes into account the number of insertion, deletion and substitution operations needed to transform one string into the other. 
+we used levenstein distance which  takes into account the number of insertion, deletion and substitution operations needed to transform one string into the other. 
 the problem of levenstein distance of the words "hey" and "abc" is 3. but the distance of the words"hey" and "heyman" is 6. to solve this  first sort by  regex, then I went to levenstein distance
+## Contributers 
+Mentor [telegram](https://t.me/moodygr) || [GitHub](https://github.com/Grmamobin)
+Mahan Tahmasebi [telegram](https://t.me/mahan_thm) || [GitHub](https://github.com/mahan-thm)  
+Mohammad Hosain Jaafari [telegram](https://t.me/MmdHo3ain) || [GitHub](https://github.com/MmdHosain)  
+Kourosh Mojdehi[telegram](https://t.me/kouroshmojdehi) || [GitHub](https://github.com/kourosh-mojdehi)
