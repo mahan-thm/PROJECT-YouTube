@@ -115,7 +115,7 @@ public class MyChannelController implements Initializable {
                 PostInHomeController postInHomeController = fxmlLoader.getController();
                 postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(),video);
                 postInHomeController.setup();
-
+                postInHomeController.showOther(true);
                 video_vBox.getChildren().add(pane);
             }
             catch (IOException e) {

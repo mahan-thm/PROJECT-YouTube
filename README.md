@@ -42,10 +42,10 @@
 ### Additional Features:
 
 1. dynamic homepage (recommendation system)        mmd hosein
-2. notification                                    mahan
+2. notification                                    mahan                        ////////////
 3. dark and light theme                            mahan
-4. watch history                                   mmd hosein 
-5. public or private playlist                      mmd hosein, mahan
+4. watch history                                   mmd hosein                   ////////////
+5. public or private playlist                      mmd hosein, mahan            ////////////
 
 ### Bonus Features:
 

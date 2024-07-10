@@ -7,18 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -80,6 +75,14 @@ public class HomeController implements Initializable {
     private Pane searchResult_pane;
     @FXML
     private GridPane tags_gridPane;
+    @FXML
+    private Pane notification_pane;
+    @FXML
+    private VBox notification_vBox;
+    @FXML
+    private Circle notification_circle;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -129,7 +132,6 @@ public class HomeController implements Initializable {
 //            accountProfHome_button1.
         }
 
-        //****************************************** PRIVET *********************************************
 
         //_______________________VIDEO THUMBNAIL__________________
         request.videoList(9, new JSONArray());
@@ -178,7 +180,7 @@ public class HomeController implements Initializable {
                     PostInHomeController postInHomeController = fxmlLoader.getController();
                     postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
                     postInHomeController.setup();
-
+                    postInHomeController.showOther(false);
 
                     ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
                     ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(3).subtract(20));
@@ -265,6 +267,23 @@ public class HomeController implements Initializable {
     }
 
     @FXML
+    public void notification_action() {
+        fadeRectangle_pane.setVisible(true);
+        notification_pane.setVisible(true);
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), notification_pane);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), fadeRectangle_pane);
+        fadeTransition1.setFromValue(0);
+        fadeTransition1.setToValue(1);
+
+        fadeTransition.play();
+        fadeTransition1.play();
+    }
+
+    @FXML
     public void create_action() {
         fadeRectangle_pane.setVisible(true);
         creat_pane.setVisible(true);
@@ -301,20 +320,21 @@ public class HomeController implements Initializable {
 
         account_pane.setVisible(false);
         creat_pane.setVisible(false);
+        notification_pane.setVisible(false);
     }
 
     @FXML
     public void uploadVideo_action() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../create/UploadFile.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/UploadFile.fxml")));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
-        String css = Objects.requireNonNull(this.getClass().getResource("../../create/UploadFileStyle.css")).toExternalForm();
+        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle.css")).toExternalForm();
         scene.getStylesheets().add(css);
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Upload file");
         stage.setScene(scene);
-        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../create/uploadImage.jpg")));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../../creat/uploadImage.jpg")));
         stage.getIcons().add(icon);
         stage.show();
     }
@@ -332,7 +352,18 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    public void home_action(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void myChannel_action(ActionEvent actionEvent) {
         try {
@@ -374,49 +405,134 @@ public class HomeController implements Initializable {
     @FXML
     public void searchRecommend_action() {
         //TODO add recommended searches to searchResult_vBox by REGEX
+
+
         searchResult_vBox.getChildren().clear();
-        for (int i = 0; i < 10; i++) {
-            Hyperlink hyperlink = new Hyperlink("result test");
-            hyperlink.setStyle("-fx-padding: 0 10 0 10; -fx-text-fill: red; -fx-font-size: 14");
-            searchResult_vBox.getChildren().add(hyperlink);
+        for (int i = 0; i < 5; i++) {
+            Label label = new Label("result test");
+            label.setStyle("-fx-padding: 0 10 0 10; -fx-text-fill: #f36666; -fx-font-size: 14");
+            searchResult_vBox.getChildren().add(label);
         }
     }
 
     @FXML
-    public void searchResult_action() {
+    public void searchResult_action() throws IOException {
+        searchResult_vBox.setVisible(false);
         postInHome_vBox.getChildren().clear();
-        //TODO add related channels
-        for (int i = 0; i < 3; i++) {
+        Label label = new Label("Search result:");
+        label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 20; -fx-font-weight: bold;");
+        postInHome_vBox.getChildren().add(label);
+
+        request.search(Search_textField.getText());
+        JSONObject response = read();
+        JSONArray videoResult = response.getJSONArray("videoResult");
+        JSONArray channelResult = response.getJSONArray("channelResult");
+        JSONObject topChannel = channelResult.getJSONObject(0);
+
+        ArrayList<JSONObject> videoList = new ArrayList<>();
+        ArrayList<VideoInfo> videoInfoList = new ArrayList<>();
+        for (int i = 0; i < videoResult.length(); i++) {
+            videoList.add(videoResult.getJSONObject(i));
+            int video_id = videoList.get(i).getInt("id");
+            request.video(video_id);
+            JSONObject response2 = read();
+            videoInfoList.add(new VideoInfo(video_id, response2));
+        }
+        if (topChannel.getInt("distance") < 2) {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearch.fxml")));
+            GridPane pane = fxmlLoader.load();
+            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+
+            ChannelSearchController channelSearchController = fxmlLoader.getController();
+            request.channel(topChannel.getString("channel_username"));
+
+            channelSearchController.define(read());
+            channelSearchController.setup();
+            postInHome_vBox.getChildren().add(pane);
+
+        }
+
+
+        HBox hBox0 = new HBox();
+        hBox0.setSpacing(10);
+        for (int j = 0; j < 4; j++) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearch.fxml")));
-                GridPane pane = fxmlLoader.load();
-                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+                int pointer = j;
+                request.ChannelVideoList(topChannel.getString("channel_username"));
+                response = read();
+                JSONArray video_idList = response.getJSONArray("videoIdList");
+                ArrayList<VideoInfo> videoInfoList1 = new ArrayList<>();
+                for (int k = 0; k < video_idList.length(); k++) {
+                    int video_id = video_idList.getInt(k);
+                    request.video(video_id);
+                    JSONObject response2 = read();
+                    videoInfoList1.add(new VideoInfo(video_id, response2));
+                }
 
-//                pane.setId(String.valueOf(pointer));
 
-                ChannelSearchController channelSearchController = fxmlLoader.getController();
-                channelSearchController.define();
-                channelSearchController.setup();
-                postInHome_vBox.getChildren().add(pane);
+                VideoInfo video = videoInfoList1.get(pointer);
+                request.imageFile(video.id);
+                byte[] imageBytes = readFile();
+
+
+                File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (j) + ".jpg");
+
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(imageBytes);
+
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+                AnchorPane pane = fxmlLoader.load();
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+                pane.setId(String.valueOf(pointer));
+
+                PostInHomeController postInHomeController = fxmlLoader.getController();
+                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+                postInHomeController.setup();
+                postInHomeController.showOther(false);
+
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+                ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+
+
+                hBox0.getChildren().add(pane);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        //TODO add related videos
-        for (int i = 0; i < 3; i++) {
+        postInHome_vBox.getChildren().add(hBox0);
+
+
+        for (int i = 1; i < 3; i++) {
             HBox hBox = new HBox();
             hBox.setSpacing(10);
             for (int j = 0; j < 4; j++) {
                 try {
+                    int pointer = i * 4 + j;
+
+                    VideoInfo video = videoInfoList.get(pointer);
+                    request.imageFile(video.id);
+                    byte[] imageBytes = readFile();
+
+
+                    File file = new File("src/main/resources/CACHE/imageCache" + "/img" + (pointer) + ".jpg");
+
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(imageBytes);
+
+
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = fxmlLoader.load();
                     pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
 
-//                pane.setId(String.valueOf(pointer));
+                    pane.setId(String.valueOf(pointer));
 
                     PostInHomeController postInHomeController = fxmlLoader.getController();
-//                postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
-//                postInHomeController.setup();
+                    postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+                    postInHomeController.setup();
 
                     ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
                     ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
@@ -433,7 +549,123 @@ public class HomeController implements Initializable {
         }
     }
 
-    //________________________________________PRIVET______________________________________________
+    @FXML
+    public void subscriptions_action() {
+        postInHome_vBox.getChildren().clear();
+        Label label = new Label("ُSubscriptions:");
+        label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
+        postInHome_vBox.getChildren().add(label);
+        try {
+            //TODO show the subscribed channels
+
+            postInHome_vBox.getChildren().clear();
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearch.fxml")));
+            GridPane pane = fxmlLoader.load();
+            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+
+            ChannelSearchController channelSearchController = fxmlLoader.getController();
+
+
+            channelSearchController.define(read());
+            channelSearchController.setup();
+            postInHome_vBox.getChildren().add(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void history_action() {
+        postInHome_vBox.getChildren().clear();
+        Label label = new Label("History:");
+        label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
+        postInHome_vBox.getChildren().add(label);
+
+        try {
+            //TODO show history
+
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+            AnchorPane pane = fxmlLoader.load();
+            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+//        pane.setId(String.valueOf(pointer));
+
+            PostInHomeController postInHomeController = fxmlLoader.getController();
+//        postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+            postInHomeController.setup();
+            postInHomeController.showOther(false);
+            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+            ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void watchLater_action() {
+
+        postInHome_vBox.getChildren().clear();
+        Label label = new Label("Your watch later list:");
+        label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
+        postInHome_vBox.getChildren().add(label);
+
+        try {
+            //TODO show watch later
+
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+            AnchorPane pane = fxmlLoader.load();
+            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+//        pane.setId(String.valueOf(pointer));
+
+            PostInHomeController postInHomeController = fxmlLoader.getController();
+//        postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+            postInHomeController.setup();
+            postInHomeController.showOther(false);
+            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+            ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void likedVideos_action() {
+
+        postInHome_vBox.getChildren().clear();
+        Label label = new Label("Your watch later list:");
+        label.setStyle("-fx-text-fill: #d50101; -fx-font-size: 24; -fx-font-weight: bold;");
+        postInHome_vBox.getChildren().add(label);
+        try {
+            //TODO liked videos
+
+
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
+            AnchorPane pane = fxmlLoader.load();
+            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+
+//        pane.setId(String.valueOf(pointer));
+
+            PostInHomeController postInHomeController = fxmlLoader.getController();
+//        postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
+            postInHomeController.setup();
+            postInHomeController.showOther(false);
+            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitWidthProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+            ((ImageView) ((AnchorPane) ((VBox) pane.getChildren().get(0)).getChildren().get(0)).getChildren().get(0)).fitHeightProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+            ((Line) ((VBox) pane.getChildren().get(0)).getChildren().get(1)).endXProperty().bind(post_scrollPane.widthProperty().divide(4).subtract(30));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void settings_action() {
+
+    }
+
+    //****************************************** PRIVET *********************************************
     @FXML
     public void moveRight_action() {
         double value = tags_scrollPane.getHvalue();

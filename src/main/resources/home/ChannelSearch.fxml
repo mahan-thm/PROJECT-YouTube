@@ -28,14 +28,14 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="channelUserSub_label" text="\@ChannelUsername • 25k subscribers" />
+            <Label fx:id="channelUserSub_label" text="\\@ChannelUsername • 25k subscribers" />
             <Label fx:id="channelInfo_label" text="channel info" wrapText="true" />
          </children>
          <padding>
             <Insets top="10.0" />
          </padding>
       </VBox>
-      <Button mnemonicParsing="false" onAction="#subscribe_acrion" text="subscribe" GridPane.columnIndex="2">
+      <Button fx:id="subscribe_button" mnemonicParsing="false" onAction="#subscribe_action" text="subscribe" GridPane.columnIndex="2">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

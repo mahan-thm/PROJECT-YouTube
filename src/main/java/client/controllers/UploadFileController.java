@@ -27,6 +27,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,6 +46,7 @@ public class UploadFileController implements Initializable {
     private String filePath;
     private File fileToUpload ;
     private boolean childAbuse;
+    public static String chosenPlaylist;
     @FXML
     private AnchorPane uploadVideo_anchorPain;
     @FXML
@@ -106,9 +108,12 @@ public class UploadFileController implements Initializable {
         }
 
         //_________________________________________
-        //TODO
-        //here you should set the name of play lists to this combo box
-//        selectPlaylist_comboBox.setButtonCell();
+        request.getPlaylistList(userAccount.channel_username);
+        JSONObject response = read();
+        JSONArray list = response.getJSONArray("playlistList");
+        for (int i = 0; i < list.length(); i++) {
+            selectPlaylist_comboBox.getItems().add(list.getString(i));
+        }
     }
 
     @FXML
@@ -251,7 +256,6 @@ public class UploadFileController implements Initializable {
     @FXML
     public void upload_action(ActionEvent actionEvent) {
         boolean okayToUpload = true;
-        //TODO
 
         String videoTitle = videoTitle_textField.getText();
         if (videoTitle == null) {
@@ -289,7 +293,7 @@ public class UploadFileController implements Initializable {
             for (String hashtag : hashtags) {
                 tags.put(hashtag);
             }
-            request.addVideo(userAccount.channel_username,videoTitle,videoDescription,tags,fileToUpload);
+            request.addVideo(userAccount.channel_username,videoTitle,videoDescription,tags,fileToUpload,chosenPlaylist);
 
 
             //________________________________
@@ -314,6 +318,7 @@ public class UploadFileController implements Initializable {
 
             scaleTransition.play();
             fadeTransition.play();
+
         }
 
 
@@ -351,6 +356,20 @@ public class UploadFileController implements Initializable {
         fadeTransition2.play();
         translateTransition1.play();
         translateTransition2.play();
+    }
+
+    @FXML
+    public void newPlaylist_action() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/NewPlaylist.fxml")));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/NewPlaylistStyle.css")).toExternalForm();
+        scene.getStylesheets().add(css);
+        scene.setFill(Color.TRANSPARENT);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("New playlist");
+        stage.setScene(scene);
+        stage.show();
     }
 
 

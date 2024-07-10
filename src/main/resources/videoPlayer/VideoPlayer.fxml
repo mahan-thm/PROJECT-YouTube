@@ -22,6 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -66,9 +67,9 @@
                                           <Button fx:id="mute_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#muteUnmute_action" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="2" />
                                           <Button fx:id="playAndPause_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#playPauseVide_action" prefHeight="15.0" prefWidth="15.0" />
                                           <Label fx:id="duration_label" alignment="CENTER" text="00:00 / 00:00" textAlignment="CENTER" textFill="#f2f2f2" GridPane.columnIndex="4" />
-                                          <Button fx:id="fullScream_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#fullScreen_action" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="7" />
                                           <Slider fx:id="volume_slider" GridPane.columnIndex="3" />
                                           <Button fx:id="speed_button" maxHeight="18.0" maxWidth="18.0" minHeight="18.0" minWidth="18.0" mnemonicParsing="false" onAction="#speed_action" prefHeight="18.0" prefWidth="18.0" GridPane.columnIndex="6" />
+                                          <Button fx:id="fullScream_button" maxHeight="15.0" maxWidth="15.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#fullScreen_action" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="7" />
                                        </children>
                                        <VBox.margin>
                                           <Insets left="10.0" right="10.0" />
@@ -134,13 +135,6 @@
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin></Button>
-                              <Button fx:id="other_button" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="..." GridPane.columnIndex="6">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets left="10.0" />
-                                 </GridPane.margin></Button>
                               <Label fx:id="channelName_label" maxWidth="1.7976931348623157E308" text="Channel name" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="25.0" left="10.0" />
@@ -159,6 +153,42 @@
                                     <Insets right="34.0" />
                                  </GridPane.margin>
                               </Line>
+                              <Pane fx:id="other_pane" prefHeight="14.0" prefWidth="40.0" visible="false" GridPane.columnIndex="6">
+                                 <children>
+                                    <CubicCurve controlX1="340.8000183105469" controlX2="345.6000061035156" controlY1="257.5999450683594" controlY2="122.13330841064453" disable="true" endX="289.73333740234375" endY="106.86661529541016" fill="#e4e4e4" layoutX="-307.0" layoutY="-144.0" startX="289.73333740234375" startY="-4.066703796386719" stroke="BLACK" strokeWidth="0.2" />
+                                    <VBox fx:id="other_vBox" layoutX="-137.0" layoutY="-163.0" prefWidth="120.0" spacing="10.0">
+                                       <children>
+                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#download_action" text="  Download">
+                                             <graphic>
+                                                <Button fx:id="downloadIcon_button" maxHeight="16.0" maxWidth="12.0" minHeight="16.0" minWidth="12.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="12.0" text="Button" />
+                                             </graphic>
+                                          </Button>
+                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clip_action" text="  Clip">
+                                             <graphic>
+                                                <Button fx:id="clipIcon_button" maxHeight="16.0" maxWidth="10.0" minHeight="16.0" minWidth="10.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="10.0" text="clipIcon_button" />
+                                             </graphic>
+                                          </Button>
+                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save_action" text="  Save">
+                                             <graphic>
+                                                <Button fx:id="saveIcon_button" maxHeight="16.0" maxWidth="12.0" minHeight="16.0" minWidth="12.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="12.0" text="Button" />
+                                             </graphic>
+                                          </Button>
+                                          <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#report_action" text="  Report">
+                                             <graphic>
+                                                <Button fx:id="reportIcon_button" maxHeight="16.0" maxWidth="12.0" minHeight="16.0" minWidth="12.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="12.0" text="Button" />
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </Pane>
+                              <Button fx:id="other_button" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#other_action" prefHeight="35.0" prefWidth="35.0" text="..." GridPane.columnIndex="6">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin></Button>
                            </children>
                         </GridPane>
                         <Hyperlink text="Hyperlink">
@@ -193,10 +223,11 @@
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox fx:id="recommendVideo_vBox" prefWidth="350.0" spacing="10.0" HBox.hgrow="NEVER">
+                  <VBox fx:id="recommendVideo_vBox" prefHeight="452.0" prefWidth="298.0" spacing="10.0" HBox.hgrow="NEVER">
                      <HBox.margin>
                         <Insets right="20.0" top="20.0" />
-                     </HBox.margin></VBox>
+                     </HBox.margin>
+                  </VBox>
                </children>
             </HBox>
          </content>

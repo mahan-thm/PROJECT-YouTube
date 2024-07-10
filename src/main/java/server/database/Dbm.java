@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import server.models.TagScore;
 import server.models.tag;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.*;
 import java.sql.*;
@@ -610,7 +611,7 @@ public class Dbm {
 
 
 
-    public static int addVideo(int channelId, String title , String videoDescription,String duration , String creationDate , JSONArray tags) {
+    public static int addVideo(int channelId, String title , String videoDescription, String duration , JSONArray tags) {
 
         open();
         String maxId = "SELECT MAX(id) AS maxId FROM videos";
@@ -618,12 +619,13 @@ public class Dbm {
         try {
             ResultSet rs = stat.executeQuery(maxId);
             // bug probablity
+            rs.next();
             lastId =rs.getInt("maxId") ;
             lastId++;
 
             String query =
-                    "INSERT INTO TABLE videos (id , title, video_description ,creation_date, duration) VALUES ("
-                            + lastId +",'"+ title + "','" + videoDescription +"','" + creationDate + "','" + duration + "')";
+                    "INSERT INTO videos (id , title, video_description ,creation_date,duration) VALUES ("
+                            + lastId +",'"+ title + "','" + videoDescription +"','" + LocalDateTime.now() + "',"+0+ ")";
             int res = stat.executeUpdate(query);
             close();
             return lastId;
@@ -949,7 +951,6 @@ public class Dbm {
     }
 
     public static List<Integer> getVideoCommentList(Integer videoId) {
-        // todo mmd hosain age catch kard , NULL return kone?
         open();
         List <Integer> videoCommentList = new ArrayList<>();
         String query = "SELECT id FROM comments WHERE video_id = " + videoId;
@@ -1251,4 +1252,97 @@ public class Dbm {
 
     }
 
+    public static int addPlaylist(String title, String description, String channelUsername) {
+        open();
+        try {
+
+
+            int channel_id = Dbm.getChannel_id(channelUsername);
+            open();
+            String query =
+                    "INSERT INTO playlists (channel_id , title, playlist_description , creation_date) VALUES ("
+                             + channel_id +",'"+ title + "','" + description +"','" + LocalDateTime.now() + "')";
+
+            int res = stat.executeUpdate(query);
+            return Dbm.getPlaylistId(title);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+
+            close();
+
+        }
+        return 2;
+    }
+
+    public static JSONArray getPlaylistList(int channelId) {
+        open();
+        JSONArray result = new JSONArray();
+        String query = "SELECT title FROM playlists WHERE channel_id = " + channelId;
+        try {
+            ResultSet rs = stat.executeQuery(query);
+
+            while (rs.next()){
+                result .put(rs.getString("title"));
+            }
+            return result;
+        }catch (SQLException e){
+            e.printStackTrace();
+            close();
+        }
+        return null;
+
+    }
+
+    public static void addVideotoPlaylist(int videoId, String playlist) {
+        open();
+        try {
+            String query =
+                    "INSERT INTO tag (video_id , playlist_id) VALUES ("
+                            + videoId +","+ Dbm.getPlaylistId(playlist) + " )";
+
+            int res = stat.executeUpdate(query);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+    }
+
+    private static int getPlaylistId(String playlist) {
+        open();
+        String query = "SELECT * FROM playlists " +
+                "WHERE title = '" + playlist + "'";
+        int id = 0;
+        try {
+            ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            id = rs.getInt("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return id;
+    }
+
+    public static void addVideotoChannel(int videoId, int channelId) {
+        open();
+        try {
+            String query =
+                    "INSERT INTO uploaded_videos (video_id , channel_id) VALUES ("
+                            + videoId +","+ channelId + " )";
+
+            int res = stat.executeUpdate(query);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+    }
 }
