@@ -25,7 +25,7 @@
 
 <AnchorPane fx:id="uploadVideo_anchorPain" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.UploadFileController">
    <children>
-      <Pane fx:id="details_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <Pane fx:id="details_pane" prefHeight="200.0" prefWidth="200.0">
          <children>
             <Label fx:id="videoTitle_label" layoutX="26.0" layoutY="18.0" text="Video">
                <font>
@@ -119,7 +119,7 @@
                         <HBox prefHeight="44.0" prefWidth="467.0" spacing="30.0">
                            <children>
                               <ComboBox fx:id="selectPlaylist_comboBox" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" prefHeight="40.0" prefWidth="200.0" promptText="Select" />
-                              <Button fx:id="newPlaylist_button" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="+">
+                              <Button fx:id="newPlaylist_button" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#newPlaylist_action" prefHeight="40.0" prefWidth="40.0" text="+">
                                  <font>
                                     <Font name="Tahoma Bold" size="13.0" />
                                  </font>
@@ -483,7 +483,7 @@
             <Label fx:id="status_label" alignment="CENTER" layoutX="503.0" layoutY="371.0" prefWidth="231.0" textAlignment="CENTER" textFill="#d40000" />
          </children>
       </Pane>
-      <Pane fx:id="selectFile_pane" prefHeight="214.0" prefWidth="257.0">
+      <Pane fx:id="selectFile_pane" prefHeight="214.0" prefWidth="257.0" visible="false">
          <children>
             <Label layoutX="26.0" layoutY="18.0" text="Upload Video" textFill="MAROON">
                <font>

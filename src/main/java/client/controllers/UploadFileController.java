@@ -27,6 +27,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -351,6 +352,20 @@ public class UploadFileController implements Initializable {
         fadeTransition2.play();
         translateTransition1.play();
         translateTransition2.play();
+    }
+
+    @FXML
+    public void newPlaylist_action() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/NewPlaylist.fxml")));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/NewPlaylistStyle.css")).toExternalForm();
+        scene.getStylesheets().add(css);
+        scene.setFill(Color.TRANSPARENT);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("New playlist");
+        stage.setScene(scene);
+        stage.show();
     }
 
 
