@@ -140,21 +140,23 @@ public class VideoPlayerController {
     @FXML
     private Circle videoProf_circle;
     @FXML
-    public Button next_button;
+    private Button next_button;
     @FXML
-    public Button fullScream_button;
+    private Button fullScream_button;
     @FXML
-    public Slider volume_slider;
+    private Slider volume_slider;
     @FXML
-    public Button speed_button;
+    private Button speed_button;
     @FXML
-    public Label video_lable;
+    private Label video_lable;
     @FXML
-    public Button subscribe_button;
+    private Button subscribe_button;
     @FXML
-    public Button like_button;
+    private Button like_button;
     @FXML
-    public Button dislike_button;
+    private Button dislike_button;
+    @FXML
+    private Pane other_pane;
 
 
     public void setup() throws IOException {
@@ -441,7 +443,9 @@ public class VideoPlayerController {
             e.printStackTrace();
         }
     }
-
+    //__________________________________________________________________________________________________________
+    //________________________________________________PRIVET____________________________________________________
+    //__________________________________________________________________________________________________________
     @FXML
     public void on_like(ActionEvent actionEvent) {
         if (!is_liked) {
@@ -528,9 +532,7 @@ public class VideoPlayerController {
             }
         }
     }
-    //__________________________________________________________________________________________________________
-    //________________________________________________PRIVET____________________________________________________
-    //__________________________________________________________________________________________________________
+
 
     private Timeline delayTimeline = new Timeline(
             new KeyFrame(Duration.seconds(3), event ->
@@ -617,6 +619,12 @@ public class VideoPlayerController {
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
+    }
+    @FXML
+    public void other_action(){
+        boolean status = other_pane.isVisible();
+        other_pane.setVisible(!status);
+        other_pane.setDisable(status);
     }
 
 }
