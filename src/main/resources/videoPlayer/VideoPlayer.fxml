@@ -24,6 +24,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.VideoPlayerController">
@@ -330,93 +331,6 @@
                   </Pane>
                </children>
             </GridPane>
-            <GridPane fx:id="tags_gridPane">
-               <VBox.margin>
-                  <Insets left="50.0" />
-               </VBox.margin>
-               <columnConstraints>
-                  <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0" prefWidth="44.0" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="817.6" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="49.39996337890625" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ScrollPane fx:id="tags_scrollPane" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-                     <content>
-                        <HBox fx:id="tags_hBox" alignment="CENTER" prefHeight="40.0" spacing="10.0" />
-                     </content>
-                  </ScrollPane>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0">
-                     <fill>
-                        <LinearGradient endX="1.0" endY="1.0" startY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="0.006729475100942127">
-                                 <color>
-                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="0.41722745625841184">
-                                 <color>
-                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.9300000071525574" green="0.9300000071525574" blue="0.9300000071525574" opacity="0.0" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </fill>
-                  </Rectangle>
-                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#moveLeft_action" prefHeight="40.0" prefWidth="40.0" text="&lt;">
-                     <font>
-                        <Font name="sofi" size="19.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Button>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" GridPane.columnIndex="2">
-                     <fill>
-                        <LinearGradient endX="1.0" endY="1.0" startY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="0.41722745625841184">
-                                 <color>
-                                    <Color red="0.929411768913269" green="0.9058823585510254" blue="0.9058823585510254" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.9300000071525574" green="0.9300000071525574" blue="0.9300000071525574" opacity="0.0" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </fill>
-                  </Rectangle>
-                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="26.0" mnemonicParsing="false" onAction="#moveRight_action" prefHeight="40.0" prefWidth="40.0" text="&gt;" textAlignment="CENTER" GridPane.columnIndex="2">
-                     <font>
-                        <Font name="sofi" size="19.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets right="5.0" />
-                     </GridPane.margin>
-                  </Button>
-               </children>
-            </GridPane>
          </children>
       </VBox>
    </top>
@@ -652,12 +566,12 @@
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Settings">
                            <graphic>
-                              <Button fx:id="settingsIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                              <Button fx:id="settingsIcon_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                            </graphic>
                         </Button>
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Help">
                            <graphic>
-                              <Button fx:id="helpIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                              <Button fx:id="helpIcon_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                            </graphic>
                         </Button>
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Send feedback">
