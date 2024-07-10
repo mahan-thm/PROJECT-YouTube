@@ -27,7 +27,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.VideoPlayerController">
+<BorderPane fx:id="videoPlayer_boarderPane" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.VideoPlayerController">
    <center>
       <ScrollPane fx:id="videoPlayer_scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="480.0" minWidth="905.0" prefHeight="480.0" prefWidth="905.0">
          <content>
@@ -553,7 +553,7 @@
                            </font>
                         </Button>
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Appearance: What?       &gt;">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#theme_action" prefHeight="40.0" prefWidth="180.0" text=" Appearance: What?       &gt;">
                            <graphic>
                               <Button fx:id="appearanceIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                            </graphic>

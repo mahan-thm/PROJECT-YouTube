@@ -118,11 +118,15 @@ public class PostInHomeController {
 
             VideoPlayerController videoPlayerController = fxmlLoader.getController();
 
-            videoPlayerController.define(video_id);
+            videoPlayerController.define(video_id, video);
             videoPlayerController.setup();
 
             Scene scene = new Scene(borderPane);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoPlayerStyle.css")).toExternalForm());
+            if(Objects.equals(HomeController.theme, "light")) {
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoPlayerStyle.css")).toExternalForm());
+            }else {
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoPlayerStyle_dark.css")).toExternalForm());
+            }
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -190,8 +194,12 @@ public class PostInHomeController {
 
             channelController.setup();
             Scene scene = new Scene(borderPane);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../channel/ChannelStyle.css")).toExternalForm());
-            stage.setScene(scene);
+            if(HomeController.theme == "light") {
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../channel/ChannelStyle.css")).toExternalForm());
+            }else{
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../channel/ChannelStyle_dark.css")).toExternalForm());
+            }
+                stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

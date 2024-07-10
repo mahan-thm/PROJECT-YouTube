@@ -42,12 +42,16 @@ public class VideoPlayerController {
     private File file;
     private VideoInfo videoInfo;
 
-    private int commentNumber ;
+    private int commentNumber;
     private boolean is_subscribed;
     private boolean is_liked;
     private boolean is_disliked;
+    private int video_id;
+    private VideoInfo video;
 
-    public void define(int video_id) { //like a constructor
+    public void define(int video_id, VideoInfo video) { //like a constructor
+        this.video_id = video_id;
+        this.video = video;
         request.videoFile(video_id);
         byte[] videoBytes = readFile();
 
@@ -71,14 +75,15 @@ public class VideoPlayerController {
         JSONObject response = read();
 
         channelName_label.setText(response.getString("channelTitle"));
-        totalSubscribers_label.setText(response.getInt("totalSubscribers") +" subscribers");
+        totalSubscribers_label.setText(response.getInt("totalSubscribers") + " subscribers");
         video_lable.setText(videoInfo.getTitle());
         videoDiscription_label.setText(videoInfo.getTitle_body());
         is_subscribed = response.getBoolean("is_subscribed");
-        if (is_subscribed){
+        if (is_subscribed) {
             subscribe_button.setText("subscribed");
         }
     }
+
     @FXML
     private Label videoDiscription_label;
     @FXML
@@ -426,7 +431,13 @@ public class VideoPlayerController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/UploadFile.fxml")));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
-        String css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle.css")).toExternalForm();
+        String css = null;
+        if (Objects.equals(HomeController.theme, "light")) {
+            css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle.css")).toExternalForm();
+        } else {
+            css = Objects.requireNonNull(this.getClass().getResource("../../creat/UploadFileStyle_dark.css")).toExternalForm();
+
+        }
         scene.getStylesheets().add(css);
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -439,36 +450,61 @@ public class VideoPlayerController {
 
     @FXML
     public void refresh_action(ActionEvent actionEvent) {
+        //        String anchorPaneID = ((AnchorPane)actionEvent.getSource()).getId();
+        request.add_WatchedVideo(video.id);
+        read();
+        try {
+            mediaPlayer.stop();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../videoPlayer/videoPlayer.fxml")));
+            BorderPane borderPane = fxmlLoader.load();
+
+            VideoPlayerController videoPlayerController = fxmlLoader.getController();
+
+            videoPlayerController.define(video_id, video);
+            videoPlayerController.setup();
+
+            Scene scene = new Scene(borderPane);
+            if (Objects.equals(HomeController.theme, "light")) {
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoPlayerStyle.css")).toExternalForm());
+            } else {
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../videoPlayer/VideoPlayerStyle_dark.css")).toExternalForm());
+            }
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void home_action(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
+            if (Objects.equals(HomeController.theme, "light")) {
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
+            } else {
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle_dark.css")).toExternalForm());
+            }
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void home_action(ActionEvent actionEvent){
-        try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../home/Home.fxml")));
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/HomeStyle.css")).toExternalForm());
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     @FXML
     public void myChannel_action(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../creat/MyChannel.fxml")));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../creat/MyChannelStyle.css")).toExternalForm());
+            if (Objects.equals(HomeController.theme, "light")) {
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../creat/MyChannelStyle.css")).toExternalForm());
+            } else {
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../creat/MyChannelStyle_dark.css")).toExternalForm());
+            }
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -540,8 +576,12 @@ public class VideoPlayerController {
         if (topChannel.getInt("distance") < 2) {
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearch.fxml")));
             GridPane pane = fxmlLoader.load();
-            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+            if (Objects.equals(HomeController.theme, "light")) {
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+            } else {
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle_dark.css")).toExternalForm());
 
+            }
             ChannelSearchController channelSearchController = fxmlLoader.getController();
             request.channel(topChannel.getString("channel_username"));
 
@@ -582,8 +622,12 @@ public class VideoPlayerController {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                 AnchorPane pane = fxmlLoader.load();
-                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                if (Objects.equals(HomeController.theme, "light")) {
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                } else {
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle_dark.css")).toExternalForm());
 
+                }
                 pane.setId(String.valueOf(pointer));
 
                 PostInHomeController postInHomeController = fxmlLoader.getController();
@@ -625,8 +669,12 @@ public class VideoPlayerController {
 
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                     AnchorPane pane = fxmlLoader.load();
-                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                    if (Objects.equals(HomeController.theme, "light")) {
+                        pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                    } else {
+                        pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle_dark.css")).toExternalForm());
 
+                    }
                     pane.setId(String.valueOf(pointer));
 
                     PostInHomeController postInHomeController = fxmlLoader.getController();
@@ -660,8 +708,12 @@ public class VideoPlayerController {
             postInHome_vBox.getChildren().clear();
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearch.fxml")));
             GridPane pane = fxmlLoader.load();
-            pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+            if (HomeController.theme == "light") {
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle.css")).toExternalForm());
+            } else {
+                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/ChannelSearchStyle_dark.css")).toExternalForm());
 
+            }
             ChannelSearchController channelSearchController = fxmlLoader.getController();
 
 
@@ -706,9 +758,13 @@ public class VideoPlayerController {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                 AnchorPane pane = fxmlLoader.load();
-                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                if (Objects.equals(HomeController.theme, "light")) {
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                } else {
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle_dark.css")).toExternalForm());
 
-//
+                }
+
 
                 PostInHomeController postInHomeController = fxmlLoader.getController();
                 postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
@@ -759,9 +815,12 @@ public class VideoPlayerController {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                 AnchorPane pane = fxmlLoader.load();
-                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                if (Objects.equals(HomeController.theme, "light")) {
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                } else {
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle_dark.css")).toExternalForm());
 
-//
+                }
 
                 PostInHomeController postInHomeController = fxmlLoader.getController();
                 postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
@@ -812,9 +871,12 @@ public class VideoPlayerController {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("../../home/PostInHome.fxml")));
                 AnchorPane pane = fxmlLoader.load();
-                pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                if (Objects.equals(HomeController.theme, "light")) {
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle.css")).toExternalForm());
+                } else {
+                    pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("../../home/PostInHomeStyle_dark.css")).toExternalForm());
 
-//
+                }
 
                 PostInHomeController postInHomeController = fxmlLoader.getController();
                 postInHomeController.define(imageBytes, video.id, video.getTitle(), video.getChannel_name(), video.getTotal_view(), video.getCreation_time(), video);
@@ -835,7 +897,18 @@ public class VideoPlayerController {
     public void settings_action() {
 
     }
-    //__________________________________________________________________________________________________________
+
+    @FXML
+    public void theme_action() {
+        if (Objects.equals(HomeController.theme, "light")) {
+            HomeController.theme = "dark";
+        } else {
+            HomeController.theme = "light";
+        }
+        closeBars();
+    }
+
+    //_______________________________________________________________________________________
     //________________________________________________PRIVET____________________________________________________
     //__________________________________________________________________________________________________________
     @FXML
@@ -845,30 +918,26 @@ public class VideoPlayerController {
             JSONObject response = read();
 
 
-            if (response.getString("responseType").equals("/likeVideo_accepted"))
-            {
+            if (response.getString("responseType").equals("/likeVideo_accepted")) {
                 System.out.println("/likeVideo_accepted");
                 //todo show video is liked
                 is_liked = true;
-            }
-            else{
+            } else {
                 System.out.println(response.getString("responseType"));
             }
-        }
-        else {
+        } else {
             request.remove_likedVideo(videoInfo.id);
             JSONObject response = read();
-            if (response.getString("responseType").equals("/remove_likedVideo_rejected"))
-            {
+            if (response.getString("responseType").equals("/remove_likedVideo_rejected")) {
                 System.out.println("/remove_likedVideo");
                 //todo show video is not liked
                 is_liked = false;
-            }
-            else {
+            } else {
                 System.out.println(response.getString("responseType"));
             }
         }
     }
+
     @FXML
     public void on_dislike(ActionEvent actionEvent) {
         if (!is_disliked) {
@@ -876,30 +945,26 @@ public class VideoPlayerController {
             JSONObject response = read();
 
 
-            if (response.getString("responseType").equals("/dislikeVideo_accepted"))
-            {
+            if (response.getString("responseType").equals("/dislikeVideo_accepted")) {
                 System.out.println("/dislikeVideo_accepted");
                 //todo show video is disliked
                 is_disliked = true;
-            }
-            else{
+            } else {
                 System.out.println(response.getString("responseType"));
             }
-        }
-        else {
+        } else {
             request.remove_dislikedVideo(videoInfo.id);
             JSONObject response = read();
-            if (response.getString("responseType").equals("/remove_dislikedVideo_rejected"))
-            {
+            if (response.getString("responseType").equals("/remove_dislikedVideo_rejected")) {
                 System.out.println("/remove_dislikedVideo");
                 //todo show video is not disliked
                 is_disliked = false;
-            }
-            else {
+            } else {
                 System.out.println(response.getString("responseType"));
             }
         }
     }
+
     @FXML
     public void on_subscribe(ActionEvent actionEvent) {
 
@@ -912,8 +977,7 @@ public class VideoPlayerController {
                 subscribe_button.setText("subscribed");
                 is_subscribed = true;
             }
-        }
-        else {
+        } else {
             request.unsubscribeChannel(videoInfo.channel_username);
             JSONObject response = read();
             if (response.getString("responseType").equals("/unsubscribeChannel_accepted")) ;
@@ -1012,35 +1076,39 @@ public class VideoPlayerController {
         stage.setFullScreen(true);
         stage.show();
     }
+
     @FXML
-    public void other_action(){
+    public void other_action() {
         boolean status = other_pane.isVisible();
         other_pane.setVisible(!status);
         other_pane.setDisable(status);
     }
 
     @FXML
-    public void download_action(){
+    public void download_action() {
         //TODO
 
         other_action();
     }
+
     @FXML
-    public void clip_action(){
+    public void clip_action() {
         //TODO
 
         other_action();
 
     }
+
     @FXML
-    public void save_action(){
+    public void save_action() {
         request.add_WatchLaterVideo(videoInfo.id);
         read();
         other_action();
 
     }
+
     @FXML
-    public void report_action(){
+    public void report_action() {
         //TODO
 
         other_action();
