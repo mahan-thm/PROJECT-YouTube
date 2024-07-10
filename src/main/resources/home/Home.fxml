@@ -84,9 +84,12 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                      <children>
                         <Circle fx:id="accountProfHome_circle" fill="#ff1f1f" layoutX="162.0" layoutY="26.0" onMouseClicked="#account_action" radius="21.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Button alignment="CENTER" layoutX="89.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                        <Button alignment="CENTER" layoutX="89.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#notification_action" prefHeight="40.0" prefWidth="40.0">
                            <graphic>
-                              <Button fx:id="notification_button" maxHeight="22.0" maxWidth="16.0" minHeight="22.0" minWidth="16.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="16.0" />
+                              <Button fx:id="notification_button" alignment="TOP_LEFT" maxHeight="22.0" maxWidth="16.0" minHeight="22.0" minWidth="16.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="16.0">
+                                 <graphic>
+                                    <Circle fx:id="notification_circle" fill="RED" radius="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
+                                 </graphic></Button>
                            </graphic>
                         </Button>
                         <Button alignment="CENTER" layoutX="43.0" layoutY="5.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#create_action" prefHeight="40.0" prefWidth="40.0">
@@ -229,7 +232,7 @@
          <children>
             <VBox fx:id="toolBar_vBox" prefHeight="224.0" prefWidth="48.0" spacing="40.0">
                <children>
-                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#home_action" prefHeight="40.0" prefWidth="40.0">
                      <graphic>
                         <Button fx:id="homeTollBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                      </graphic>
@@ -239,12 +242,12 @@
                         <Button fx:id="shortsToolBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#subscriptions_action" prefHeight="40.0" prefWidth="40.0">
                      <graphic>
                         <Button fx:id="subscriptionsToolBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                  <Button alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#myChannel_action" prefHeight="40.0" prefWidth="40.0">
                      <graphic>
                         <Button fx:id="youToolBar_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                      </graphic>
@@ -281,7 +284,7 @@
                                     </Button>
                                  </children>
                               </Group>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Home">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#home_action" prefHeight="40.0" prefWidth="220.0" text="   Home">
                                  <graphic>
                                     <Button fx:id="homeTollBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -291,12 +294,12 @@
                                     <Button fx:id="shortsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Subscribtions">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#subscriptions_action" prefHeight="40.0" prefWidth="220.0" text="   Subscriptions">
                                  <graphic>
                                     <Button fx:id="subscriptionsToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   You">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#myChannel_action" prefHeight="40.0" prefWidth="220.0" text="   You">
                                  <graphic>
                                     <Button fx:id="youToolBar_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -306,12 +309,12 @@
                                     <Insets left="10.0" />
                                  </VBox.margin>
                               </Line>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Your channel">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#myChannel_action" prefHeight="40.0" prefWidth="220.0" text="   Your channel">
                                  <graphic>
                                     <Button fx:id="yourChannelIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   History">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#history_action" prefHeight="40.0" prefWidth="220.0" text="   History">
                                  <graphic>
                                     <Button fx:id="historyIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -321,12 +324,12 @@
                                     <Button fx:id="playlistIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Watch later">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#watchLater_action" prefHeight="40.0" prefWidth="220.0" text="   Watch later">
                                  <graphic>
                                     <Button fx:id="watchLaterIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
                               </Button>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Liked videos">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#likedVideos_action" prefHeight="40.0" prefWidth="220.0" text="   Liked videos">
                                  <graphic>
                                     <Button fx:id="likedVideosIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -359,7 +362,7 @@
                                     <Insets left="10.0" />
                                  </VBox.margin>
                               </Line>
-                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="   Settings">
+                              <Button alignment="BASELINE_LEFT" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#settings_action" prefHeight="40.0" prefWidth="220.0" text="   Settings">
                                  <graphic>
                                     <Button fx:id="settingsIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" />
                                  </graphic>
@@ -472,6 +475,27 @@
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
                      </children>
                   </VBox>
+               </children>
+            </Pane>
+            <Pane fx:id="notification_pane" prefHeight="61.0" prefWidth="44.0" visible="false">
+               <children>
+                  <ScrollPane fx:id="notification_scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="-348.0" layoutY="-53.0" prefHeight="268.0" prefWidth="200.0">
+                     <content>
+                        <VBox fx:id="notification_vBox" spacing="5.0">
+                           <children>
+                              <Label text="Notificatins:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <CubicCurve controlX1="223.99993896484375" controlX2="197.60003662109375" controlY1="-169.0" controlY2="98.20000457763672" disable="true" endX="134.39996337890625" endY="35.00000762939453" fill="#e4e4e4" layoutX="-283.0" layoutY="-73.0" startX="134.39996337890625" startY="266.9999694824219" stroke="BLACK" strokeWidth="0.0" />
                </children>
             </Pane>
             <Pane fx:id="creat_pane" prefHeight="61.0" prefWidth="44.0" visible="false">

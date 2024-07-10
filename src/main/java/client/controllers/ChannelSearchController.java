@@ -18,18 +18,20 @@ import static client.models.Main.*;
 public class ChannelSearchController {
     private String channel_username;
     private boolean is_subscribed;
+
     public void define(JSONObject response) {
         this.channel_username = response.getString("channel_username");
 //        request.channelProfileImg(channel_username);
         channelName_label.setText(response.getString("channelTitle"));
-        channelUserSub_label.setText("@"+channel_username+" • "+response.getInt("totalSubscribers")+" subscribers");
+        channelUserSub_label.setText("@" + channel_username + " • " + response.getInt("totalSubscribers") + " subscribers");
         channelInfo_label.setText(response.getString("channelDescription"));
         is_subscribed = response.getBoolean("is_subscribed");
 
-        if (is_subscribed){
+        if (is_subscribed) {
             subscribe_button.setText("subscribed");
         }
     }
+
     @FXML
     public Button subscribe_button;
     @FXML
@@ -60,7 +62,7 @@ public class ChannelSearchController {
     }
 
     @FXML
-    public void subscribe_acrion(){
+    public void subscribe_action() {
 
         if (!is_subscribed) {
             request.subscribeChannel(channel_username);
@@ -71,8 +73,7 @@ public class ChannelSearchController {
                 subscribe_button.setText("subscribed");
                 is_subscribed = true;
             }
-        }
-        else {
+        } else {
             request.unsubscribeChannel(channel_username);
             JSONObject response = read();
             if (response.getString("responseType").equals("/unsubscribeChannel_accepted")) ;
