@@ -459,12 +459,12 @@
                         <Line endX="90.69285583496094" startX="-100.0" stroke="#a4a4a4" strokeWidth="0.5" />
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Settings">
                            <graphic>
-                              <Button fx:id="settingsIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                              <Button fx:id="settingsIcon_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                            </graphic>
                         </Button>
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text=" Help">
                            <graphic>
-                              <Button fx:id="helpIcon_button" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
+                              <Button fx:id="helpIcon_button1" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="Button" />
                            </graphic>
                         </Button>
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Send feedback">
