@@ -155,7 +155,7 @@
                         <HBox fx:id="tags_hBox" alignment="CENTER" prefHeight="40.0" spacing="10.0" />
                      </content>
                   </ScrollPane>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0">
+                  <Rectangle fx:id="fade1_rectangle" arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0" startY="1.0">
                            <stops>
@@ -191,7 +191,7 @@
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" GridPane.columnIndex="2">
+                  <Rectangle fx:id="fade2_rectangle" arcHeight="5.0" arcWidth="5.0" height="40.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" GridPane.columnIndex="2">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0" startY="1.0">
                            <stops>
